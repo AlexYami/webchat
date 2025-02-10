@@ -1,17 +1,20 @@
+# Адрес сайта
+https://phenomenal-lokum-bddded.netlify.app/
+
 # Страницы
 
-- [Login](/login)
-- [Sign in](/signin)
-- [Choose Chat](/chooseChat)
-- [Chat](/chat)
-- [Search](/search)
-- [Add user](/addUser)
-- [Add user modal](/addUserModal)
-- [Profile](/profile)
-- [Change Profile](/changeProfile)
-- [Change Password](/changePassword)
-- [404](/page404)
-- [500](/page500)
+- Login
+- Sign in
+- Choose Chat
+- Chat
+- Search
+- Add user
+- Add user modal
+- Profile
+- Change Profile
+- Change Password
+- 404
+- 500
 
 # Запуск
 
