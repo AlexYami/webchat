@@ -1,0 +1,12 @@
+{
+  "devDependencies": {
+    "sass": "^1.83.4",
+    "vite": "^6.0.11"
+  },
+  "scripts": {
+    "dev": "npx vite --port 3000"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.8"
+  }
+}

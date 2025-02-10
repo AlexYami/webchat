@@ -1,0 +1,87 @@
+@use "../../../scss/utils.scss";
+
+$profile-name-mt: 30px;
+$profile-name-mb: 40px;
+
+$go-back-layout-mb: 30px;
+$go-back-layout-item-p: 18px 0;
+
+$go-back-layout-item-key-fw: 500;
+
+.profile__layout-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid utils.$gray-lighter;
+  padding: $go-back-layout-item-p;
+}
+
+.profile__layout-item-key {
+  font-weight: $go-back-layout-item-key-fw;
+}
+
+.profile__layout-item-value {
+  color: utils.$gray;
+}
+
+.profile__buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.profile__avatar {
+  display: flex;
+  justify-content: center;
+
+  label {
+    cursor: pointer;
+  }
+
+  input {
+    display: none;
+  }
+
+  img {
+    border-radius: utils.$radius-round;
+  }
+}
+
+.profile__name {
+  display: flex;
+  font-weight: bold;
+  justify-content: center;
+  font-size: utils.$font-xxl;
+  margin-top: $profile-name-mt;
+  margin-bottom: $profile-name-mb;
+}
+
+.profile__layout {
+  margin-bottom: $go-back-layout-mb;
+}
+
+.profile__layout-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid utils.$gray-lighter;
+  padding: $go-back-layout-item-p;
+}
+
+.profile__layout-item-key {
+  font-weight: $go-back-layout-item-key-fw;
+}
+
+.profile__layout-item-value {
+  > input {
+    border: 0;
+    outline: 0;
+    color: utils.$gray;
+  }
+}
+
+.profile__buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}

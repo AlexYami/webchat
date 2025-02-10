@@ -1,0 +1,13 @@
+<div class="layout">
+    <aside class="layout__sidebar">
+        <a class="profile-link" href="#">Профиль</a>
+        <div class="searchbox">
+            <input type="search" value="{{searchText}}">
+            <img src="/images/search.svg" alt="Поиск"/>
+        </div>
+        {{> ContactList contacts=contacts }}
+    </aside>
+    <div class="layout__content">
+        {{> @partial-block }}
+    </div>
+</div>

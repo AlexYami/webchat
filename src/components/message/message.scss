@@ -1,0 +1,55 @@
+@use "../../../scss/utils.scss";
+
+$message-p: 12px;
+$message-mb: 16px;
+$message-minw: 100px;
+
+$message-info-mt: 6px;
+$message-message-status-mr: 4px;
+
+.message {
+  padding: $message-p;
+  align-self: start;
+  font-size: utils.$font-medium;
+  max-width: 50%;
+  min-width: $message-minw;
+  box-sizing: border-box;
+  border-radius: utils.$radius-medium;
+  border-top-left-radius: 0;
+  margin-bottom: $message-mb;
+  background-color: utils.$gray-lightest;
+
+  &--my {
+    background-color: utils.$blue-lightest;
+    align-self: end;
+    border-top-left-radius: utils.$radius-medium;
+    border-bottom-right-radius: 0;
+  }
+
+  &--read {
+    .message__date {
+      color: utils.$blue;
+    }
+  }
+
+  &__info {
+    display: flex;
+    justify-content: end;
+    margin-top: $message-info-mt;
+    text-align: right;
+    font-size: utils.$font-small;
+    color: utils.$gray;
+  }
+
+  &__status {
+    display: flex;
+    align-items: center;
+    margin-right: $message-message-status-mr;
+  }
+}
+
+@media (max-width: 1024px) {
+  .message {
+    max-width: 100%;
+  }
+}

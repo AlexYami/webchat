@@ -1,0 +1,30 @@
+@use "../../../scss/utils.scss";
+
+$input-border-b: 1px solid utils.$blue;
+$input-p: 6px 0;
+
+.input {
+  label {
+    display: block;
+    font-size: utils.$font-smaller;
+    color: utils.$gray;
+  }
+
+  input {
+    border: 0;
+    border-bottom: $input-border-b;
+    color: utils.$gray-darker;
+    outline: none;
+    width: 100%;
+    padding: $input-p;
+
+    &:focus {
+      border-bottom-color: utils.$blue-dark;
+    }
+  }
+
+  &__error-message {
+    font-size: utils.$font-smaller;
+    color: utils.$red;
+  }
+}

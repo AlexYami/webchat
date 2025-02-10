@@ -1,0 +1,38 @@
+@use "../../../scss/utils.scss";
+
+$go-back-width: 64px;
+$go-back-btn-size: 40px;
+$go-back-btn-ml: 12px;
+
+$go-back-layout-mw-default: 512px;
+$go-back-layout-mw-small: 320px;
+
+.go-back {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  width: $go-back-width;
+  background-color: utils.$gray-lightest;
+  border-right: 1px solid utils.$gray-lighter;
+
+  button {
+    margin-left: $go-back-btn-ml;
+    width: $go-back-btn-size;
+    height: $go-back-btn-size;
+    border-radius: utils.$radius-round;
+    padding: 0;
+  }
+}
+
+.go-back-layout {
+  max-width: $go-back-layout-mw-default;
+  margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+  .go-back-layout {
+    max-width: $go-back-layout-mw-small;
+  }
+}
