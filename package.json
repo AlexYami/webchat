@@ -1,12 +1,11 @@
 {
   "devDependencies": {
     "sass": "^1.83.4",
-    "serve": "^14.2.4",
     "vite": "^6.0.11"
   },
   "scripts": {
     "dev": "npx vite --port 3000",
-    "start": "npx vite build && npx serve dist"
+    "start": "npx vite build && vite preview --port 3000"
   },
   "dependencies": {
     "handlebars": "^4.7.8"
