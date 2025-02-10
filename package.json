@@ -4,7 +4,8 @@
     "vite": "^6.0.11"
   },
   "scripts": {
-    "dev": "npx vite --port 3000"
+    "dev": "npx vite --port 3000",
+    "start": "npx vite build"
   },
   "dependencies": {
     "handlebars": "^4.7.8"

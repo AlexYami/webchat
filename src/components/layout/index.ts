@@ -1,3 +1,3 @@
-import "./Layout.scss";
+import "./layout.scss";
 
-export { default as Layout } from "./Layout.hbs?raw";
+export { default as Layout } from "./layout.hbs?raw";
