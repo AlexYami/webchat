@@ -1,0 +1,49 @@
+@use "../../../scss/utils";
+
+$form-w: 340px;
+$form-minh: 450px;
+
+$form-title-pb: 40px;
+$form-input-container-mb: 16px;
+
+$form-padding: 36px;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: $form-w;
+  min-height: $form-minh;
+  background-color: utils.$white;
+  margin: 0 auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: utils.$shadow;
+  border-radius: utils.$radius-medium;
+  padding: $form-padding;
+  box-sizing: border-box;
+
+  &__title {
+    font-size: utils.$font-xxl;
+    text-align: center;
+    padding-bottom: $form-title-pb;
+  }
+
+  &__input-container {
+    margin-bottom: $form-input-container-mb;
+  }
+
+  &__inputs {
+    margin-bottom: $form-input-container-mb;
+  }
+
+  &__buttons {
+    flex-grow: 1;
+    align-content: end;
+
+    & > button {
+      width: 100%;
+    }
+  }
+}

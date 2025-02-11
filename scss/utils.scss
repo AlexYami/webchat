@@ -1,0 +1,39 @@
+@use "sass:color";
+
+$blue: #3369f3;
+$blue-dark: color.adjust($blue, $lightness: -10%);
+$blue-darker: color.adjust($blue, $lightness: -20%);
+$blue-lightest: color.adjust($blue, $lightness: 35%);
+$blue-lighter: color.adjust($blue, $lightness: 20%);
+$blue-light: color.adjust($blue, $lightness: 10%);
+
+$red: #ff2f2f;
+$red-dark: color.adjust($red, $lightness: -10%);
+$red-darker: color.adjust($red, $lightness: -20%);
+$red-lightest: color.adjust($red, $lightness: 35%);
+$red-lighter: color.adjust($red, $lightness: 20%);
+$red-light: color.adjust($red, $lightness: 10%);
+
+$gray: #ababab;
+$gray-lightest: #f5f5f5;
+$gray-lighter: #eaeaea;
+$gray-light: #bdbcbc;
+$gray-dark: #989898;
+$gray-darker: #8a8a8a;
+
+$black: #1e1e1e;
+$white: #ffffff;
+$transparent: transparent;
+
+$shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.3);
+
+$font-smaller: 10px;
+$font-small: 12px;
+$font-medium: 14px;
+$font-large: 16px;
+$font-xl: 18px;
+$font-xxl: 20px;
+
+$radius-small: 6px;
+$radius-medium: 12px;
+$radius-round: 9999px;

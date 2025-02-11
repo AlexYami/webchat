@@ -1,0 +1,16 @@
+{
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "sass": "^1.83.4",
+    "vite": "^6.0.11"
+  },
+  "scripts": {
+    "dev": "npx vite --port 3000",
+    "start": "npx vite build && npx vite preview --port 3000"
+  },
+  "dependencies": {
+    "handlebars": "^4.7.8"
+  }
+}

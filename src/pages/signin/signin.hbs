@@ -1,0 +1,29 @@
+{{#> Form title="Регистрация" }}
+  <div class="form__inputs">
+            <div class="form__input-container">
+                {{> Input label="Почта" name="email" placeholder="Введите почту" }}
+            </div>
+            <div class="form__input-container">
+                {{> Input label="Логин" name="login" placeholder="Введите логин" }}
+            </div>
+            <div class="form__input-container">
+                    {{> Input label="Имя" name="first_name" placeholder="Иван" }}
+            </div>
+            <div class="form__input-container">
+                    {{> Input label="Фамилия" name="second_name" placeholder="Иванов" }}
+            </div>
+            <div class="form__input-container">
+                    {{> Input label="Телефон" name="phone" placeholder="+7 (123) 456-78-90" }}
+            </div>
+            <div class="form__input-container">
+                    {{> Input type="password" label="Пароль" name="password" placeholder="Введите пароль" }}
+            </div>
+            <div class="form__input-container">
+                    {{> Input label="Пароль (еще раз)" name="password2" placeholder="Введите пароль еще раз" errorMessage="Пароли не совпадают" }}
+            </div>
+        </div>
+        <div class="form__buttons">
+            <button class="button button--primary">Зарегестрироваться</button>
+            <button class="button button--link">Войти</button>
+        </div>
+{{/Form}}

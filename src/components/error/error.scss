@@ -1,0 +1,24 @@
+@use "../../../scss/utils.scss";
+
+.error-page {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &>* {
+        max-width: 250px;
+    }
+
+    .error-page__title {
+        font-size: utils.$font-xxl;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .error-page__text {
+        margin-bottom: 10px;
+    }
+}
