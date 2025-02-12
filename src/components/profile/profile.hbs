@@ -1,0 +1,26 @@
+<div class="profile">
+    <form>
+        <div class="profile__avatar">
+            <label for="upload-avatar">
+                <img src="{{image}}" alt="Загрузите аватар"/>
+            </label>
+            <input type="file" id="upload-avatar" name="avatar"/>
+        </div>
+        <h1 class="profile__name">
+            {{name}}
+        </h1>
+        <div class="profile__layout">
+            {{#each items}}
+                <div class="profile__layout-item">
+                    <div class="profile__layout-item-key">{{label}}</div>
+                    <div class="profile__layout-item-value">
+                        <input type={{type}} value={{value}} name={{name}} />
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+        <div class="profile__buttons">
+            {{> @partial-block }}
+        </div>
+    </form>
+</div>

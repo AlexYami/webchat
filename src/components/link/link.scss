@@ -1,0 +1,26 @@
+@use "../../../scss/utils.scss";
+
+.link {
+  cursor: pointer;
+  color: utils.$blue;
+
+  &:hover {
+    color: utils.$blue-dark;
+  }
+
+  &:active {
+    color: utils.$blue-darker;
+  }
+
+  &--danger {
+    color: utils.$red;
+
+    &:hover {
+      color: utils.$red-dark;
+    }
+
+    &:active {
+      color: utils.$red-darker;
+    }
+  }
+}

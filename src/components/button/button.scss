@@ -1,0 +1,51 @@
+@use "../../../scss/utils.scss";
+
+$button-p: 12px 20px;
+
+.button {
+  border: 0;
+  cursor: pointer;
+  padding: $button-p;
+  border-radius: utils.$radius-medium;
+  font-size: utils.$font-medium;
+  color: utils.$blue;
+  background-color: utils.$transparent;
+
+  &:hover {
+    color: utils.$blue-dark;
+  }
+
+  &:active {
+    color: utils.$blue-darker;
+  }
+
+  &--primary {
+    color: utils.$white;
+    background-color: utils.$blue;
+
+    &:hover {
+      color: utils.$white;
+      background-color: utils.$blue-dark;
+    }
+
+    &:active {
+      color: utils.$white;
+      background-color: utils.$blue-darker;
+    }
+  }
+
+  &--danger {
+    color: utils.$white;
+    background-color: utils.$red;
+
+    &:hover {
+      color: utils.$white;
+      background-color: utils.$red-dark;
+    }
+
+    &:active {
+      color: utils.$white;
+      background-color: utils.$red-darker;
+    }
+  }
+}

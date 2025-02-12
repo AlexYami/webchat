@@ -1,0 +1,15 @@
+{{#> Layout }}
+    {{> MessageBox messages=messages }}
+    {{#if showAddUserModal}}
+        {{#> Modal title="Добавить пользователя" }}
+            <div class="form__inputs">
+                <div class="form__input-container">
+                    {{> Input label="Логин" placeholder="Введите логин" }}
+                </div>
+                <div class="form__buttons">
+                    {{> Button text="Добавить" type="primary" }}
+                </div>
+            </div>
+        {{/Modal}}
+    {{/if}}
+{{/Layout}}
