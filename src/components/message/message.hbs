@@ -1,17 +1,16 @@
-
-    <div class='message {{#if my}}message--my{{/if}} {{#if read}}message--read{{/if}}'>
-      {{#if text}}
+<div class="message {{#if my}}message--my{{/if}} {{#if read}}message--read{{/if}}">
+    {{#if text}}
         {{text}}
-      {{/if}}
-      {{#if attachment}}
-        <img src='{{attachment}}' />
-      {{/if}}
-      <div class='message__info'>
+    {{/if}}
+    {{#if attachment}}
+        <img src="{{attachment}}" alt="Прикрепленное изображение"/>
+    {{/if}}
+    <div class="message__info">
         {{#if read}}
-        <div class='message__status'>
-          <img src="/images/messageRead.svg" alt="Сообщение прочитано"/>
-        </div>
+            <div class="message__status">
+                <img src="/images/messageRead.svg" alt="Сообщение прочитано"/>
+            </div>
         {{/if}}
-        <div class='message__date'>{{date}}</div>
+        <div class="message__date">{{date}}</div>
     </div>
-    </div>
+</div>

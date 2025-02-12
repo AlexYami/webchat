@@ -3,6 +3,8 @@
 $profile-name-mt: 30px;
 $profile-name-mb: 40px;
 
+$profile-avatar-image-size: 130px;
+
 $go-back-layout-mb: 30px;
 $go-back-layout-item-p: 18px 0;
 
@@ -44,6 +46,8 @@ $go-back-layout-item-key-fw: 500;
 
   img {
     border-radius: utils.$radius-round;
+    width: $profile-avatar-image-size;
+    height: $profile-avatar-image-size;
   }
 }
 
@@ -73,7 +77,7 @@ $go-back-layout-item-key-fw: 500;
 }
 
 .profile__layout-item-value {
-  > input {
+  >input {
     border: 0;
     outline: 0;
     color: utils.$gray;

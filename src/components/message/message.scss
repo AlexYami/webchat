@@ -5,7 +5,10 @@ $message-mb: 16px;
 $message-minw: 100px;
 
 $message-info-mt: 6px;
-$message-message-status-mr: 4px;
+$message-status-mr: 4px;
+
+$message-status-icon-width: 10px;
+$message-status-icon-height: 5px;
 
 .message {
   padding: $message-p;
@@ -44,7 +47,13 @@ $message-message-status-mr: 4px;
   &__status {
     display: flex;
     align-items: center;
-    margin-right: $message-message-status-mr;
+    margin-right: $message-status-mr;
+
+    &>img {
+      width: $message-status-icon-width;
+      height: $message-status-icon-height;
+
+    }
   }
 }
 

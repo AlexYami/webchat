@@ -1,15 +1,15 @@
 <li class="contact">
-  <div class="contact__avatar">
-    <img src="https://placehold.co/47x47/orange/white" />
-  </div>
-  <div class="contact__info">
-    <span class="contact__title">{{name}}</span>
-    <span class="contact__preview">{{preview}}</span>
-  </div>
-  <div class="contact__date">
-    <span>{{lastMessageDate}}</span>
-    {{#if notifiesNumber}}
-      <div class="contact__notifies">{{notifiesNumber}}</div>
-    {{/if}}
-  </div>
+    <div class="contact__avatar">
+        <img src="https://placehold.co/47x47/orange/white" alt="Аватар"/>
+    </div>
+    <div class="contact__info">
+        <span class="contact__title">{{name}}</span>
+        <span class="contact__preview">{{preview}}</span>
+    </div>
+    <div class="contact__date">
+        <span>{{lastMessageDate}}</span>
+        {{#if notifiesNumber}}
+            <div class="contact__notifies">{{notifiesNumber}}</div>
+        {{/if}}
+    </div>
 </li>

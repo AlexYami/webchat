@@ -8,6 +8,8 @@ $message-box-title-pb: 12px;
 $message-box-title-name-p: 12px 0;
 $message-box-title-name-pl: 12px;
 
+$message-box-title-avatar-size: 36px;
+
 $message-box-messages-pr: 16px;
 
 $message-box-date-separator-p: 20px;
@@ -55,8 +57,10 @@ $message-box-send-message-button-size: 40px;
   }
 
   &__title-avatar {
-    & > img {
+    &>img {
       border-radius: utils.$radius-round;
+      width: $message-box-title-avatar-size;
+      height: $message-box-title-avatar-size;
     }
   }
 
@@ -83,7 +87,7 @@ $message-box-send-message-button-size: 40px;
     padding-right: $message-box-send-messages-p;
     padding-top: $message-box-send-messages-p;
 
-    & > input {
+    &>input {
       flex-grow: 1;
       padding: $message-box-send-message-input-p;
       font-size: utils.$font-small;
@@ -94,7 +98,7 @@ $message-box-send-message-button-size: 40px;
       border-radius: utils.$radius-medium;
     }
 
-    & > button {
+    &>button {
       margin-left: $message-box-send-message-button-ml;
       width: $message-box-send-message-button-size;
       height: $message-box-send-message-button-size;

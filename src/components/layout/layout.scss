@@ -7,6 +7,8 @@ $searchbox-p: 12px 0;
 $searchbox-input-p: 6px;
 $searchbox-input-h: 32px;
 
+$searchbox-icon-size: 32px;
+
 $profile-link-p: 12px 0;
 
 .layout {
@@ -33,7 +35,7 @@ $profile-link-p: 12px 0;
     padding: $searchbox-p;
     display: flex;
 
-    & > input {
+    &>input {
       width: 100%;
       text-align: center;
       border: 0;
@@ -46,7 +48,9 @@ $profile-link-p: 12px 0;
       border-bottom-left-radius: utils.$radius-small;
     }
 
-    & > img {
+    &>img {
+      width: $searchbox-icon-size;
+      height: $searchbox-icon-size;
       background-color: utils.$gray-lighter;
       border-top-right-radius: utils.$radius-small;
       border-bottom-right-radius: utils.$radius-small;

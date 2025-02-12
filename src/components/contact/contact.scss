@@ -7,6 +7,8 @@ $contact-info-p: 0 12px;
 $contact-title-fw: 500;
 $contact-title-mb: 6px;
 
+$contact-avatar-size: 47px;
+
 $contact-preview-h: 36px;
 
 $contact-date-fs: utils.$font-small;
@@ -37,8 +39,10 @@ $contact-notifies-animation: pulse 1.5s infinite;
   }
 
   &__avatar {
-    > img {
+    >img {
       border-radius: utils.$radius-round;
+      width: $contact-avatar-size;
+      height: $contact-avatar-size;
     }
   }
 
@@ -78,7 +82,7 @@ $contact-notifies-animation: pulse 1.5s infinite;
     display: flex;
     flex-direction: column;
 
-    & > span {
+    &>span {
       text-align: center;
       flex-grow: 1;
     }

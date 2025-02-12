@@ -1,23 +1,23 @@
-<div class='message-box__title'>
-  <div class='message-box__title-avatar'>
-    <img src='https://placehold.co/36x36/orange/white' />
-  </div>
-  <h1 class='message-box__title-name'>
-    {{title}}
-  </h1>
-  <div class='message-box__menu {{# if showAddUserPopup}}message-box__menu--active{{/if}}'>
-    <img src="/images/burgerMenu.svg" alt="Меню"/>
-    {{# if showAddUserPopup}}
-      {{#> Popup }}
-        <div class="message-box__command-popup">
-          {{#> ImageButton text="Добавить пользователя" }}
-            <img src="/images/addUser.svg" alt="Добавить пользователя"/>
-          {{/ImageButton}}
-          {{#> ImageButton text="Удалить пользователя" }}
-            <img src="/images/deleteUser.svg" alt="Удалить пользователя"/>
-          {{/ImageButton}}
-        </div>
-      {{/Popup}}
-    {{/if}}
-  </div>
+<div class="message-box__title">
+    <div class="message-box__title-avatar">
+        <img src="https://placehold.co/36x36/orange/white" alt="Аватар"/>
+    </div>
+    <h1 class="message-box__title-name">
+        {{title}}
+    </h1>
+    <div class="message-box__menu {{# if showAddUserPopup}}message-box__menu--active{{/if}}">
+        <img src="/images/burgerMenu.svg" alt="Меню"/>
+        {{# if showAddUserPopup}}
+            {{#> Popup }}
+                <div class="message-box__command-popup">
+                    {{#> ImageButton text="Добавить пользователя" }}
+                        <img src="/images/addUser.svg" alt="Добавить пользователя"/>
+                    {{/ImageButton}}
+                    {{#> ImageButton text="Удалить пользователя" }}
+                        <img src="/images/deleteUser.svg" alt="Удалить пользователя"/>
+                    {{/ImageButton}}
+                </div>
+            {{/Popup}}
+        {{/if}}
+    </div>
 </div>
