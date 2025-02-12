@@ -8,7 +8,8 @@
   },
   "scripts": {
     "dev": "npx vite --port 3000",
-    "start": "npx vite build && npx vite preview --port 3000"
+    "start": "npx vite build && npx vite preview --port 3000",
+    "deploy": "npx vite build"
   },
   "dependencies": {
     "handlebars": "^4.7.8"
