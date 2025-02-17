@@ -31,6 +31,7 @@ module.exports = [
             "@typescript-eslint/prefer-readonly-parameter-types": "off",
             "@typescript-eslint/strict-boolean-expressions": "off",
             "@typescript-eslint/no-non-null-assertion": "off",
+            "@typescript-eslint/no-unsafe-function-type": "off",
         },
     },
     eslintPluginPrettierRecommended,

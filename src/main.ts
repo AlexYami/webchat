@@ -140,7 +140,7 @@ Object.entries(Components).forEach((component: Component) => {
     Handlebars.registerPartial(name, template);
 });
 
-function navigate(page: string): undefined {
+function navigate(page: string): void {
     const [source, context] = pages[page];
     const container = document.getElementById("app")!;
 

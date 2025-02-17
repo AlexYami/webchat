@@ -20,6 +20,6 @@
         "lib": ["es2022", "dom", "dom.iterable"]
     },
     // Include the necessary files for your project
-    "include": ["**/*.ts", "**/*.tsx"],
+    "include": ["**/*.ts", "**/*.tsx", "tests/eventBus.test.ts"],
     "exclude": ["node_modules"]
 }
