@@ -1,9 +1,11 @@
 import "../scss/styles.scss";
 
-import Handlebars from "handlebars";
+import Handlebars, { type Template } from "handlebars";
 import * as Components from "./components";
 import * as Pages from "./pages";
 import range from "./utils/range";
+
+type Component = [string, Template];
 
 const contacts = range(10).map((i) => {
     return {
@@ -46,11 +48,11 @@ const searchText = "Контакт #4";
 const profileOpts = {
     ...profileBaseOpts,
     items: [
-        {label: "Почта", value: "pochta@yandex.ru", name: "email", type: "email"},
-        {label: "Логин", value: "ivanivanov", name: "login", type: "text"},
-        {label: "Имя", value: "Иван", name: "first_name", type: "text"},
-        {label: "Фамилия", value: "Иванов", name: "second_name", type: "text"},
-        {label: "Имя в чате", value: "Иван", name: "display_name", type: "text"},
+        { label: "Почта", value: "pochta@yandex.ru", name: "email", type: "email" },
+        { label: "Логин", value: "ivanivanov", name: "login", type: "text" },
+        { label: "Имя", value: "Иван", name: "first_name", type: "text" },
+        { label: "Фамилия", value: "Иванов", name: "second_name", type: "text" },
+        { label: "Имя в чате", value: "Иван", name: "display_name", type: "text" },
         {
             label: "Телефон",
             value: "+7(909)967-30-30",
@@ -84,7 +86,7 @@ const changePasswordOpts = {
     ],
 };
 
-const pages = {
+const pages: Record<string, unknown[]> = {
     login: [Pages.LoginPage],
     signin: [Pages.SigninPage],
     chooseChat: [
@@ -132,11 +134,13 @@ const pages = {
     nav: [Pages.NavigatePage],
 };
 
-Object.entries(Components).forEach(([name, template]) => {
+Object.entries(Components).forEach((component: Component) => {
+    const [name, template] = component;
+
     Handlebars.registerPartial(name, template);
 });
 
-function navigate(page: string) {
+function navigate(page: string): undefined {
     const [source, context] = pages[page];
     const container = document.getElementById("app")!;
 
@@ -144,10 +148,12 @@ function navigate(page: string) {
     container.innerHTML = temlpatingFunction(context);
 }
 
-document.addEventListener("DOMContentLoaded", () => navigate("nav"));
+document.addEventListener("DOMContentLoaded", () => {
+    navigate("nav");
+});
 
 document.addEventListener("click", (e: MouseEvent) => {
-    const {target} = e;
+    const { target } = e;
 
     if (target instanceof HTMLElement) {
         const page = target.getAttribute("page");
