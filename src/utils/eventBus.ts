@@ -15,6 +15,8 @@ export class EventBus {
 
     public off(event: string): void {
         this.guard(event);
+
+        this.handlers[event] = [];
     }
 
     public emit(event: string, ...args: unknown[]): void {
