@@ -32,6 +32,8 @@ module.exports = [
             "@typescript-eslint/strict-boolean-expressions": "off",
             "@typescript-eslint/no-non-null-assertion": "off",
             "@typescript-eslint/no-unsafe-function-type": "off",
+            "@typescript-eslint/class-methods-use-this": "off",
+            "@typescript-eslint/no-empty-function": "off"
         },
     },
     eslintPluginPrettierRecommended,
