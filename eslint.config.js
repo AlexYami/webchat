@@ -33,7 +33,9 @@ module.exports = [
             "@typescript-eslint/no-non-null-assertion": "off",
             "@typescript-eslint/no-unsafe-function-type": "off",
             "@typescript-eslint/class-methods-use-this": "off",
-            "@typescript-eslint/no-empty-function": "off"
+            "@typescript-eslint/no-empty-function": "off",
+            "@typescript-eslint/no-unsafe-type-assertion": "off",
+            "@typescript-eslint/no-this-alias": "off",
         },
     },
     eslintPluginPrettierRecommended,

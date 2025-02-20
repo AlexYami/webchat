@@ -1,3 +1,4 @@
+import { BaseComponentRootIsEmptyError } from "../../utils/errors";
 import { EventBus } from "../../utils/eventBus";
 
 const EVENTS = {
@@ -12,7 +13,7 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
 
     private _root: TRootElement | null = null;
     private readonly eventBus: EventBus;
-    private props: TProps;
+    private readonly props: TProps;
     private updateTimeout: number | null = null;
 
     protected constructor(tagName: string, props: TProps) {
@@ -20,22 +21,19 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
         this.eventBus = new EventBus();
 
         this.registerEvents(this.eventBus);
-        this.props = this.createProxy(props) as TProps;
+        this.props = this.createProxy(props);
 
         this.eventBus.emit(EVENTS.INIT);
     }
 
-    private createProxy(target: TProps): TProps {
+    private createProxy(props: TProps): TProps {
         const that = this;
 
         const handler = {
-            get(target: TProps, prop: keyof TProps) {
-                console.log(`Accessing property: ${String(prop)}`);
-
+            get(target: TProps, prop: keyof TProps): TProps[keyof TProps] {
                 return target[prop];
             },
-            set(target: TProps, prop: keyof TProps, value: any) {
-                console.log(`Setting property: ${String(prop)} to ${value}`);
+            set(target: TProps, prop: keyof TProps, value: TProps[keyof TProps]): boolean {
                 target[prop] = value;
 
                 that.eventBus.emit(EVENTS.COMPONENT_DID_UPDATE, { ...target });
@@ -44,17 +42,17 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
             },
         };
 
-        return new Proxy(target as object, handler as ProxyHandler<object>) as TProps;
+        return new Proxy(props, handler as ProxyHandler<object>) as TProps;
     }
 
-    public setProps(props: Partial<TProps>) {
+    public setProps(props: Partial<TProps | null>): void {
         if (!props) return;
 
         Object.assign(this.props, props);
     }
 
     protected get root(): TRootElement {
-        if (!this._root) throw new Error();
+        if (!this._root) throw new BaseComponentRootIsEmptyError();
 
         return this._root;
     }

@@ -1,6 +1,8 @@
-import { TestBaseComponent, TestProps } from "./mocks/testBaseComponents";
+import type { TestProps } from "./mocks/testBaseComponents";
+import { TestBaseComponent } from "./mocks/testBaseComponents";
 
 // NOTE: need cast to any to avoid TypeScript protection:
+/* eslint-disable-next-line */
 const TestBaseComponentPrototype = TestBaseComponent.prototype as any;
 
 const props: TestProps = {
@@ -16,7 +18,7 @@ describe("Base component", () => {
         const handleComponentDidMountSpy = jest.spyOn(TestBaseComponentPrototype, "handleComponentDidMount");
         const handleRenderSpy = jest.spyOn(TestBaseComponentPrototype, "handleRender");
 
-        const baseComponent = new TestBaseComponent("test", props);
+        new TestBaseComponent("test", props);
         expect(handleInitSpy).toHaveBeenCalledTimes(1);
         expect(handleComponentDidMountSpy).toHaveBeenCalledTimes(1);
         expect(handleRenderSpy).toHaveBeenCalledTimes(1);
