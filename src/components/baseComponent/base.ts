@@ -11,9 +11,10 @@ const EVENTS = {
 export abstract class BaseComponent<TRootElement, TProps extends object> {
     public readonly tagName: string;
 
+    protected readonly props: TProps;
+
     private _root: TRootElement | null = null;
     private readonly eventBus: EventBus;
-    private readonly props: TProps;
     private updateTimeout: number | null = null;
 
     protected constructor(tagName: string, props: TProps) {
@@ -80,6 +81,7 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
         this.eventBus.emit(EVENTS.COMPONENT_DID_MOUNT);
     }
 
+    // NOTE: prevent multiple calls to ComponentDidMount
     protected handleComponentDidUpdate(): void {
         if (!this.updateTimeout) {
             this.updateTimeout = setTimeout(() => {

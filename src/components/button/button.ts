@@ -2,6 +2,7 @@
 //     private readonly props: TProps;
 
 import { BaseWebComponent } from "../baseComponent/web";
+import ButtonTemplate from "./button.hbs?raw";
 
 //     public constructor(props: TProps) {
 //         this.props = props;
@@ -34,6 +35,10 @@ interface ButtonProps {
 
 export class Button extends BaseWebComponent<ButtonProps> {
     public constructor(props: ButtonProps) {
-        super("tag", props);
+        super("button", props);
+    }
+
+    protected override render(): string {
+        return ButtonTemplate as string;
     }
 }

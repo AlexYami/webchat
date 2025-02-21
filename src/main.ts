@@ -2,6 +2,7 @@ import "../scss/styles.scss";
 
 import Handlebars, { type Template } from "handlebars";
 import * as Components from "./components";
+import { Button } from "./components/button/button";
 import * as Pages from "./pages";
 import range from "./utils/range";
 
@@ -164,4 +165,6 @@ document.addEventListener("click", (e: MouseEvent) => {
             e.stopImmediatePropagation();
         }
     }
+
+    new Button({ text: "hello" });
 });
