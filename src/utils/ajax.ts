@@ -44,7 +44,7 @@ export async function httpRequest({ method, url, data, headers }: HttpRequestOpt
     });
 }
 
-export async function httpGet(url: string, headers: HttpHeaders): Promise<string> {
+export async function httpGet(url: string, headers?: HttpHeaders): Promise<string> {
     return httpRequest({
         method: RequestMethod.GET,
         url,
