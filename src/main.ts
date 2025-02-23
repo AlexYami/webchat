@@ -5,6 +5,7 @@ import * as Components from "./components";
 import { Button } from "./components/button/button";
 import * as Pages from "./pages";
 import range from "./utils/range";
+import { renderDOM } from "./utils/dom";
 
 type Component = [string, Template];
 
@@ -143,6 +144,13 @@ Object.entries(Components).forEach((component: Component) => {
 
 function navigate(page: string): void {
     const [source, context] = pages[page];
+
+    if (typeof source === "function") {
+        renderDOM(new source({}));
+
+        return;
+    }
+
     const container = document.getElementById("app")!;
 
     const temlpatingFunction = Handlebars.compile(source);

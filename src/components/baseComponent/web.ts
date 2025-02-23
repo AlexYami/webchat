@@ -2,7 +2,7 @@ import Handlebars from "handlebars";
 import { createElement } from "../../utils/dom";
 import BaseComponent from "./base";
 
-export class BaseWebComponent<TProps extends object> extends BaseComponent<HTMLElement, TProps> {
+export abstract class BaseWebComponent<TProps extends object> extends BaseComponent<HTMLElement, TProps> {
     public constructor(tagName: string, props: TProps) {
         super(tagName, props);
     }
@@ -25,8 +25,6 @@ export class BaseWebComponent<TProps extends object> extends BaseComponent<HTMLE
     protected override handleRender(): void {
         this.removeListeners();
 
-        debugger;
-
         const compiledTemplate = this.compile();
 
         // if (this.root.children.length === 0) {
@@ -40,7 +38,7 @@ export class BaseWebComponent<TProps extends object> extends BaseComponent<HTMLE
 
         this.root.append(...compiledTemplate.content.childNodes);
 
-        document.body.appendChild(this.root);
+        // document.body.appendChild(this.root);
 
         this.addListeners();
     }
@@ -48,13 +46,21 @@ export class BaseWebComponent<TProps extends object> extends BaseComponent<HTMLE
     private removeListeners(): void {}
     private addListeners(): void {}
 
-    private compile(): HTMLTemplateElement {
+    protected compile(): HTMLTemplateElement {
         const template = Handlebars.compile(this.render());
 
         const tmpEl = document.createElement("div");
 
-        tmpEl.innerHTML = template(this.props);
+        tmpEl.innerHTML = template(this.prepareTemplateProps({ ...this.props }));
 
         return tmpEl.children[0] as HTMLTemplateElement;
+    }
+
+    protected prepareTemplateProps(props: object): object {
+        return props;
+    }
+
+    public getContent(): HTMLElement {
+        return this.root;
     }
 }

@@ -31,6 +31,7 @@ import ButtonTemplate from "./button.hbs?raw";
 
 interface ButtonProps {
     text: string;
+    type?: string;
 }
 
 export class Button extends BaseWebComponent<ButtonProps> {

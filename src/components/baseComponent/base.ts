@@ -10,16 +10,19 @@ const EVENTS = {
 
 export abstract class BaseComponent<TRootElement, TProps extends object> {
     public readonly tagName: string;
+    public readonly id = crypto.randomUUID();
 
     protected readonly props: TProps;
 
     private _root: TRootElement | null = null;
     private readonly eventBus: EventBus;
-    private updateTimeout: number | null = null;
+    private readonly updateTimeout: number | null = null;
+    private propsUpdateCounter: number;
 
     protected constructor(tagName: string, props: TProps) {
         this.tagName = tagName;
         this.eventBus = new EventBus();
+        this.propsUpdateCounter = 0;
 
         this.registerEvents(this.eventBus);
         this.props = this.createProxy(props);
@@ -48,6 +51,8 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
 
     public setProps(props: Partial<TProps | null>): void {
         if (!props) return;
+
+        this.propsUpdateCounter = Object.keys(props).length;
 
         Object.assign(this.props, props);
     }
@@ -83,13 +88,15 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
 
     // NOTE: prevent multiple calls to ComponentDidMount
     protected handleComponentDidUpdate(): void {
-        if (!this.updateTimeout) {
-            this.updateTimeout = setTimeout(() => {
-                this.eventBus.emit(EVENTS.COMPONENT_DID_MOUNT);
+        // if (!this.updateTimeout) {
+        //     this.updateTimeout = setTimeout(() => {
 
-                this.updateTimeout = null;
-            }) as unknown as number;
-        }
+        if (this.propsUpdateCounter === 0) this.eventBus.emit(EVENTS.COMPONENT_DID_MOUNT);
+        else this.propsUpdateCounter--;
+
+        //         this.updateTimeout = null;
+        //     }) as unknown as number;
+        // }
     }
 
     protected handleComponentDidMount(): void {
