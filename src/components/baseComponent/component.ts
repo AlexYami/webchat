@@ -1,25 +1,27 @@
-import { BaseWebComponent } from "./web";
+import { BaseWebComponent, type BaseProps } from "./web";
 
-export abstract class WebComponent<TProps extends object> extends BaseWebComponent<TProps> {
-    private children: Record<string, BaseWebComponent<object>> | undefined;
+export abstract class WebComponent<TProps extends BaseProps> extends BaseWebComponent<TProps> {
+    private readonly children: Record<string, BaseWebComponent<object>> | undefined;
 
     public constructor(tagName: string, props: TProps) {
         super(tagName, props);
     }
 
-    private getChildren(): Record<string, BaseWebComponent<object>> {
-        if (!this.children) this.children = this.getChildComponents();
+    // private getChildren(): Record<string, BaseWebComponent<object>> {
+    //     if (!this.children) this.children = this.getChildComponents();
 
-        return this.children;
-    }
+    //     return this.children;
+    // }
 
     protected override prepareTemplateProps(props: object): object {
         debugger;
 
         const result: Record<string, unknown> = { ...props };
 
-        for (const [key, component] of Object.entries(this.getChildren())) {
-            result[key] = `<div data-id="${component.id}">keks</div>`;
+        if (this.props.children) {
+            for (const [key, component] of Object.entries(this.props.children)) {
+                result[key] = `<div data-id="${component.id}">keks</div>`;
+            }
         }
 
         return result;
@@ -31,16 +33,18 @@ export abstract class WebComponent<TProps extends object> extends BaseWebCompone
 
         debugger;
 
-        for (const component of Object.values(this.getChildren())) {
-            const dummy = el.content.querySelector(`[data-id="${component.id}"]`);
+        if (this.props.children) {
+            for (const component of Object.values(this.props.children)) {
+                const dummy = el.content.querySelector(`[data-id="${component.id}"]`);
 
-            dummy?.replaceWith(component.getContent());
+                dummy?.replaceWith(component.getContent());
+            }
         }
 
         return el;
     }
 
-    protected abstract getChildComponents(): Record<string, BaseWebComponent<object>>;
+    // protected abstract getChildComponents(): Record<string, BaseWebComponent<object>>;
 
     // getChildrenAndProps(propsWithChilren: TProps) {
     //     const children = {};
