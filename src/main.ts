@@ -4,6 +4,7 @@ import Handlebars, { type Template } from "handlebars";
 import * as Components from "./components";
 import { Button } from "./components/button/button";
 import * as Pages from "./pages";
+import { renderDOM } from "./utils/dom";
 import range from "./utils/range";
 
 type Component = [string, Template];
@@ -143,6 +144,14 @@ Object.entries(Components).forEach((component: Component) => {
 
 function navigate(page: string): void {
     const [source, context] = pages[page];
+
+    debugger;
+
+    if (typeof source === "function") {
+        renderDOM(new source({}));
+        return;
+    }
+
     const container = document.getElementById("app")!;
 
     const temlpatingFunction = Handlebars.compile(source);

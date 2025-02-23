@@ -1,14 +1,14 @@
-{{#> Form title="Вход" }}
-    <div class="form__inputs">
-        <div class="form__input-container">
-            {{> Input label="Логин" name="login" placeholder="Введите логин" errorMessage="Неверный логин" }}
-        </div>
-        <div class="form__input-container">
-            {{> Input label="Пароль" name="password" placeholder="Введите пароль" type="password" }}
-        </div>
+{{#> Form23 title="Вход" }}
+<div class="form__inputs">
+    <div class="form__input-container">
+        {{> FormInput45 label="Логин" name="login" placeholder="Введите логин" errorMessage="Неверный логин" }}
     </div>
-    <div class="form__buttons">
-        {{> Button text="Авторизоваться" type="primary" }}
-        {{> Button text="Нет аккаунта?" type="link" }}
+    <div class="form__input-container">
+        {{> FormInput label="Пароль" name="password" placeholder="Введите пароль" type="password" }}
     </div>
+</div>
+<div class="form__buttons">
+    {{> Button text="Авторизоваться" type="primary" }}
+    {{> Button text="Нет аккаунта?" type="link" }}
+</div>
 {{/Form}}

@@ -1,3 +1,4 @@
 import "./form.scss";
 
-export { default as Form } from "./form.hbs?raw";
+export { Form } from "./form";
+export type { FormProps } from "./form";

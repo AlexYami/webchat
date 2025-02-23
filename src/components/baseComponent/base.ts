@@ -46,7 +46,7 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
         return new Proxy(props, handler as ProxyHandler<object>) as TProps;
     }
 
-    public setProps(props: Partial<TProps | null>): void {
+    protected setProps(props: Partial<TProps | null>): void {
         if (!props) return;
 
         Object.assign(this.props, props);

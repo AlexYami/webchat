@@ -1,4 +1,5 @@
-<form class="form">
+<template class="form">
+    <div class="input {{#if errorMessage}}input--invalid{{/if}}"></div>
     <h2 class="form__title">{{ title }}</h2>
     {{> @partial-block }}
-</form>
+    </form>

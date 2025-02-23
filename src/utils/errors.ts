@@ -14,6 +14,12 @@ export class BaseComponentRootIsEmptyError extends Error {
     }
 }
 
+export class CreateComponentContructorNotFoundError extends Error {
+    public constructor(componentName: string) {
+        super(`CreateComponent. Contructor '${componentName}' is not found`);
+    }
+}
+
 export class HttpError extends Error {
     public code: number;
     public statusText: string;
