@@ -1,17 +1,22 @@
 import { WebComponent } from "../baseComponent/component";
 import type { BaseProps } from "../baseComponent/web";
+import { Message, type MessageProps } from "../message/message";
 import MessageBoxTemplate from "./messageBox.hbs?raw";
 
 interface MessageBoxProps extends BaseProps {
-    messages: undefined;
+    messages: MessageProps[];
 }
 
 export class MessageBox extends WebComponent<MessageBoxProps> {
     public constructor(props: MessageBoxProps) {
-        super("div", props);
+        super("div", {
+            ...props,
+            children: {
+                Messages: props.messages.map((m) => new Message(m)),
+            },
+        });
     }
     protected override render(): string {
-        debugger;
         return MessageBoxTemplate as string;
     }
 }
