@@ -1,26 +1,12 @@
-import { GoBackLayout, Link, Profile } from "../../components";
+import { Button, GoBackLayout, Profile } from "../../components";
 import { WebComponent } from "../../components/baseComponent/component";
-import ProfilePageTemplate from "./profile.hbs?raw";
+import ProfilePageTemplate from "./changeProfile.hbs?raw";
 
 const profileTemplate = `
-    <div class="profile__layout-item">
-        <div class="profile__layout-item-key">
-            {{{ LinkChangeData }}}
-        </div>
-    </div>
-    <div class="profile__layout-item">
-        <div class="profile__layout-item-key">
-            {{{ LinkChangePassword }}}
-        </div>
-    </div>
-    <div class="profile__layout-item">
-        <div class="profile__layout-item-key">
-            {{{ LinkLogout }}}
-        </div>
-    </div>
+    {{{ ButtonSave }}}
 `;
 
-export class ProfilePage extends WebComponent<object> {
+export class ChangeProfilePage extends WebComponent<object> {
     public constructor() {
         super("div", {
             children: {
@@ -45,9 +31,7 @@ export class ProfilePage extends WebComponent<object> {
                                 },
                             ],
                             children: {
-                                LinkChangeData: new Link({ text: "Изменить данные" }),
-                                LinkChangePassword: new Link({ text: "Изменить пароль" }),
-                                LinkLogout: new Link({ text: "Выйти", type: "danger" }),
+                                ButtonSave: new Button({ text: "Сохранить", type: "primary" }),
                             },
                         }),
                     },

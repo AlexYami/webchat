@@ -10,13 +10,8 @@
             {{name}}
         </h1>
         <div class="profile__layout">
-            {{#each items}}
-            <div class="profile__layout-item">
-                <div class="profile__layout-item-key">{{label}}</div>
-                <div class="profile__layout-item-value">
-                    <input type={{type}} value={{value}} name={{name}} />
-                </div>
-            </div>
+            {{#each LayoutItems}}
+            {{{ this }}}
             {{/each}}
         </div>
         <div class="profile__buttons">

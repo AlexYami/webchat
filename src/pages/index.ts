@@ -1,6 +1,6 @@
 export { AddUserPage } from "./addUser";
 export { AddUserModalPage } from "./addUserModal";
-export { ChangePasswordPage } from "./changePassword";
+export { ChangePasswordPage } from "./changePassword/changePassword";
 export { ChangeProfilePage } from "./changeProfile";
 export { ChatPage } from "./chat";
 export { ChooseChatPage } from "./chooseChat";

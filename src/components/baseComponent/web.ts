@@ -3,7 +3,7 @@ import { createElement } from "../../utils/dom";
 import BaseComponent from "./base";
 
 export interface BaseProps {
-    children?: Record<string, BaseWebComponent<object>>;
+    children?: Record<string, BaseWebComponent<object> | BaseWebComponent<object>[]>;
 }
 
 export abstract class BaseWebComponent<TProps extends BaseProps> extends BaseComponent<HTMLElement, TProps> {

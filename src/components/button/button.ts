@@ -1,7 +1,7 @@
 // class BaseComponent1<TProps extends object> {
 //     private readonly props: TProps;
 
-import { BaseWebComponent } from "../baseComponent/web";
+import { BaseWebComponent, type BaseProps } from "../baseComponent/web";
 import ButtonTemplate from "./button.hbs?raw";
 
 //     public constructor(props: TProps) {
@@ -29,7 +29,7 @@ import ButtonTemplate from "./button.hbs?raw";
 //     }
 // }
 
-interface ButtonProps {
+interface ButtonProps extends BaseProps {
     text: string;
     type?: string;
 }
