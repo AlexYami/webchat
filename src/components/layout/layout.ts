@@ -7,6 +7,7 @@ import LayoutTemplate from "./layout.hbs?raw";
 interface LayoutProps extends BaseProps {
     partial: string;
     searchText: string;
+    showAddUserModal: boolean;
 }
 
 export class Layout extends WebComponent<LayoutProps> {
