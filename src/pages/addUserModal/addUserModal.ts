@@ -4,7 +4,6 @@ import { WebComponent } from "../../components/baseComponent/component";
 interface AddUserModalPageProps extends BaseProps {}
 
 import type { BaseProps } from "../../components/baseComponent/web";
-import { Partial } from "../../components/partial";
 import AddUserModalPageTemplate from "./addUserModal.hbs?raw";
 
 const layoutTemplate = `
@@ -67,12 +66,29 @@ export class AddUserModalPage extends WebComponent<AddUserModalPageProps> {
     public constructor() {
         super("div", {
             children: {
-                Partial: new Partial({
-                    partial: "{{text}}",
-                    text: "cookooe",
-                }),
                 Layout: new Layout({
-                    partial: layoutTemplate,
+                    Partial: {
+                        template: layoutTemplate,
+                        showAddUserModal: true,
+                        text: "Hello, world!",
+                        children: {
+                            MessageBox: new MessageBox({
+                                messages,
+                            }),
+                            AddUserModal: new Modal({
+                                partial: modalTemplate,
+                                title: "Добавить пользователя",
+                                children: {
+                                    InputEnterLogin: new Input({
+                                        label: "Логин",
+                                        name: "login",
+                                        placeholder: "Введите логин",
+                                    }),
+                                    ButtonAddUser: new Button({ text: "Добавить", type: "primary" }),
+                                },
+                            }),
+                        },
+                    },
                     showAddUserModal: true,
                     searchText: "",
                     children: {

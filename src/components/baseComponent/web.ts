@@ -1,10 +1,13 @@
 import Handlebars from "handlebars";
 import { createElement } from "../../utils/dom";
+import type { PartialProps } from "../partial/partial";
 import BaseComponent from "./base";
 
 export interface BaseProps {
     children?: Record<string, BaseWebComponent<object> | BaseWebComponent<object>[]>;
 }
+
+
 
 export abstract class BaseWebComponent<TProps extends BaseProps> extends BaseComponent<HTMLElement, TProps> {
     public constructor(tagName: string, props: TProps) {
