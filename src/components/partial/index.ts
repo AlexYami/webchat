@@ -1,0 +1,1 @@
+export { Partial } from "./partial";
