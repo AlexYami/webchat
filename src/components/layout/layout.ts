@@ -16,15 +16,17 @@ export class Layout extends WebComponent<LayoutProps> {
             children: {
                 ...props.children,
                 ContactList: new ContactList({
-                    items: range(10).map((i) => {
-                        return {
-                            name: `Контакт #${i}`,
-                            image: "https://placehold.co/47x47/orange/white",
-                            preview: `Так увлёкся работой по курсу, что совсем забыл его анонсировать`,
-                            lastMessageDate: "Пт",
-                            notifiesNumber: i % 3,
-                        };
-                    }),
+                    items: range(10)
+                        .map((i) => {
+                            return {
+                                name: `Контакт #${i}`,
+                                image: "https://placehold.co/47x47/orange/white",
+                                preview: `Так увлёкся работой по курсу, что совсем забыл его анонсировать`,
+                                lastMessageDate: "Пт",
+                                notifiesNumber: i % 3,
+                            };
+                        })
+                        .filter((i) => i.name.includes(props.searchText)),
                 }),
             },
         });

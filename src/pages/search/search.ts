@@ -1,12 +1,11 @@
 import { Layout, MessageBox } from "../../components";
 import { WebComponent } from "../../components/baseComponent/component";
 import type { BaseProps } from "../../components/baseComponent/web";
-
-import ChatPageTemplate from "./chat.hbs?raw";
+import SearchPageTemplate from "./search.hbs?raw";
 
 const layoutTemplate = `{{{ MessageBox }}}`;
 
-interface ChatPageProps extends BaseProps {}
+interface SearchPageProps extends BaseProps {}
 
 const messages = [
     {
@@ -30,13 +29,13 @@ const messages = [
     },
 ];
 
-export class ChatPage extends WebComponent<ChatPageProps> {
+export class SearchPage extends WebComponent<SearchPageProps> {
     public constructor() {
         super("div", {
             children: {
                 Layout: new Layout({
                     partial: layoutTemplate,
-                    searchText: "",
+                    searchText: "Контакт #4",
                     children: {
                         MessageBox: new MessageBox({
                             messages,
@@ -48,6 +47,6 @@ export class ChatPage extends WebComponent<ChatPageProps> {
     }
 
     protected override render(): string {
-        return ChatPageTemplate as string;
+        return SearchPageTemplate as string;
     }
 }
