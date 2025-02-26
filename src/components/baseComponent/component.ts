@@ -1,8 +1,7 @@
-import { BaseWebComponent, type BaseProps } from "./web";
+import type { ComponentContainerProps } from "../partial/partial";
+import { BaseWebComponent } from "./web";
 
-export abstract class WebComponent<TProps extends BaseProps> extends BaseWebComponent<TProps> {
-    // private readonly children: Record<string, BaseWebComponent<object>> | undefined;
-
+export abstract class WebComponent<TProps extends ComponentContainerProps> extends BaseWebComponent<TProps> {
     public constructor(tagName: string, props: TProps) {
         super(tagName, props);
     }

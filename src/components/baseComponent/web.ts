@@ -1,13 +1,11 @@
 import Handlebars from "handlebars";
 import { createElement } from "../../utils/dom";
-import type { PartialProps } from "../partial/partial";
 import BaseComponent from "./base";
 
 export interface BaseProps {
     children?: Record<string, BaseWebComponent<object> | BaseWebComponent<object>[]>;
+    events?: Record<string, EventListener>;
 }
-
-
 
 export abstract class BaseWebComponent<TProps extends BaseProps> extends BaseComponent<HTMLElement, TProps> {
     public constructor(tagName: string, props: TProps) {
@@ -40,10 +38,18 @@ export abstract class BaseWebComponent<TProps extends BaseProps> extends BaseCom
         //     this.root.replaceChildren(block);
         // }
 
+        this.root.className = "";
         this.root.classList.add(...compiledTemplate.classList);
+
+        const attributes = [...compiledTemplate.attributes];
+
+        for (const attr of attributes) {
+            this.root.setAttribute(attr.name, attr.value);
+        }
+
         // this.root.replaceChildren(...compiledTemplate.children);
 
-        this.root.append(...compiledTemplate.content.childNodes);
+        this.root.replaceChildren(...compiledTemplate.content.childNodes);
 
         // document.body.appendChild(this.root);
 
@@ -51,7 +57,13 @@ export abstract class BaseWebComponent<TProps extends BaseProps> extends BaseCom
     }
 
     private removeListeners(): void {}
-    private addListeners(): void {}
+    private addListeners(): void {
+        if (this.props.events) {
+            for (const [eventName, handler] of Object.entries(this.props.events)) {
+                this.root.addEventListener(eventName, handler.bind(this));
+            }
+        }
+    }
 
     protected compile(): HTMLTemplateElement {
         const template = Handlebars.compile(this.render());

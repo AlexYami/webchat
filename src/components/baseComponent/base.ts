@@ -91,8 +91,9 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
         // if (!this.updateTimeout) {
         //     this.updateTimeout = setTimeout(() => {
 
+        this.propsUpdateCounter--;
+
         if (this.propsUpdateCounter === 0) this.eventBus.emit(EVENTS.COMPONENT_DID_MOUNT);
-        else this.propsUpdateCounter--;
 
         //         this.updateTimeout = null;
         //     }) as unknown as number;
