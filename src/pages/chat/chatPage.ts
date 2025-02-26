@@ -35,13 +35,15 @@ export class ChatPage extends WebComponent<ChatPageProps> {
         super("div", {
             children: {
                 Layout: new Layout({
-                    partial: layoutTemplate,
-                    searchText: "",
-                    children: {
-                        MessageBox: new MessageBox({
-                            messages,
-                        }),
+                    Partial: {
+                        template: layoutTemplate,
+                        children: {
+                            MessageBox: new MessageBox({
+                                messages,
+                            }),
+                        },
                     },
+                    searchText: "",
                 }),
             },
         });

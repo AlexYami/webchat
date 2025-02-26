@@ -89,7 +89,6 @@ export class AddUserModalPage extends WebComponent<AddUserModalPageProps> {
                             }),
                         },
                     },
-                    showAddUserModal: true,
                     searchText: "",
                     children: {
                         MessageBox: new MessageBox({

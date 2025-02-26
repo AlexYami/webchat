@@ -1,12 +1,11 @@
 import range from "../../utils/range";
 import { WebComponent } from "../baseComponent/component";
 import { ContactList } from "../contactList";
-import { Partial, type ComponentContainerProps, type PartialProps } from "../partial/partial";
+import { Partial, type ComponentContainerProps } from "../partial/partial";
 import LayoutTemplate from "./layout.hbs?raw";
 
 interface LayoutProps extends ComponentContainerProps {
     searchText: string;
-    showAddUserModal: boolean;
 }
 
 export class Layout extends WebComponent<LayoutProps> {
@@ -33,6 +32,6 @@ export class Layout extends WebComponent<LayoutProps> {
         });
     }
     protected override render(): string {
-        return (LayoutTemplate as string).replace("{{{ partial }}}", this.props.partial);
+        return LayoutTemplate as string;
     }
 }

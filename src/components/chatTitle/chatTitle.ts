@@ -36,10 +36,12 @@ export class ChatTitle extends WebComponent<ChatTitleProps> {
             ...props,
             children: {
                 Popup: new Popup({
-                    partial: popupTemplate,
-                    children: {
-                        AddUser: new ImageButton({ partial: addUserPartial, text: "Добавить пользователя" }),
-                        DeleteUser: new ImageButton({ partial: deleteUserPartial, text: "Удалить пользователя" }),
+                    Partial: {
+                        template: popupTemplate,
+                        children: {
+                            AddUser: new ImageButton({ partial: addUserPartial, text: "Добавить пользователя" }),
+                            DeleteUser: new ImageButton({ partial: deleteUserPartial, text: "Удалить пользователя" }),
+                        },
                     },
                 }),
             },

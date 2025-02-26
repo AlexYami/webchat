@@ -18,7 +18,9 @@ export class ChooseChatPage extends WebComponent<ChooseChatPageProps> {
         super("div", {
             children: {
                 Layout: new Layout({
-                    partial: layoutTemplate,
+                    Partial: {
+                        template: layoutTemplate,
+                    },
                     searchText: "",
                 }),
             },

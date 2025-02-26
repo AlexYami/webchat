@@ -34,13 +34,15 @@ export class SearchPage extends WebComponent<SearchPageProps> {
         super("div", {
             children: {
                 Layout: new Layout({
-                    partial: layoutTemplate,
-                    searchText: "Контакт #4",
-                    children: {
-                        MessageBox: new MessageBox({
-                            messages,
-                        }),
+                    Partial: {
+                        template: layoutTemplate,
+                        children: {
+                            MessageBox: new MessageBox({
+                                messages,
+                            }),
+                        },
                     },
+                    searchText: "Контакт #4",
                 }),
             },
         });

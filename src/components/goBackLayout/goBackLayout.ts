@@ -1,17 +1,21 @@
 import { WebComponent } from "../baseComponent/component";
-import type { BaseProps } from "../baseComponent/web";
+import { Partial, type ComponentContainerProps } from "../partial/partial";
 import GoBackLayoutTemplate from "./goBackLayout.hbs?raw";
 
-interface GoBackLayoutProps extends BaseProps {
-    partial: string;
-}
+interface GoBackLayoutProps extends ComponentContainerProps {}
 
 export class GoBackLayout extends WebComponent<GoBackLayoutProps> {
-    public constructor(props: GoBackLayoutProps = { partial: "" }) {
-        super("div", props);
+    public constructor(props: GoBackLayoutProps) {
+        super("div", {
+            ...props,
+            children: {
+                ...props.children,
+                Partial: new Partial(props.Partial),
+            },
+        });
     }
 
     protected override render(): string {
-        return (GoBackLayoutTemplate as string).replace("{{{ partial }}}", this.props.partial);
+        return GoBackLayoutTemplate as string;
     }
 }

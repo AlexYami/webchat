@@ -35,14 +35,16 @@ export class AddUserPage extends WebComponent<AddUserPageProps> {
         super("div", {
             children: {
                 Layout: new Layout({
-                    partial: layoutTemplate,
-                    searchText: "",
-                    children: {
-                        MessageBox: new MessageBox({
-                            showAddUserPopup: true,
-                            messages,
-                        }),
+                    Partial: {
+                        template: layoutTemplate,
+                        children: {
+                            MessageBox: new MessageBox({
+                                showAddUserPopup: true,
+                                messages,
+                            }),
+                        },
                     },
+                    searchText: "",
                 }),
             },
         });
