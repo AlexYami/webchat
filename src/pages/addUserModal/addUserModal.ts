@@ -76,15 +76,17 @@ export class AddUserModalPage extends WebComponent<AddUserModalPageProps> {
                                 messages,
                             }),
                             AddUserModal: new Modal({
-                                partial: modalTemplate,
                                 title: "Добавить пользователя",
-                                children: {
-                                    InputEnterLogin: new Input({
-                                        label: "Логин",
-                                        name: "login",
-                                        placeholder: "Введите логин",
-                                    }),
-                                    ButtonAddUser: new Button({ text: "Добавить", type: "primary" }),
+                                Partial: {
+                                    template: modalTemplate,
+                                    children: {
+                                        InputEnterLogin: new Input({
+                                            label: "Логин",
+                                            name: "login",
+                                            placeholder: "Введите логин",
+                                        }),
+                                        ButtonAddUser: new Button({ text: "Добавить", type: "primary" }),
+                                    },
                                 },
                             }),
                         },
@@ -95,16 +97,18 @@ export class AddUserModalPage extends WebComponent<AddUserModalPageProps> {
                             messages,
                         }),
                         AddUserModal: new Modal({
-                            partial: modalTemplate,
-                            title: "Добавить пользователя",
-                            children: {
-                                InputEnterLogin: new Input({
-                                    label: "Логин",
-                                    name: "login",
-                                    placeholder: "Введите логин",
-                                }),
-                                ButtonAddUser: new Button({ text: "Добавить", type: "primary" }),
+                            Partial: {
+                                template: modalTemplate,
+                                children: {
+                                    InputEnterLogin: new Input({
+                                        label: "Логин",
+                                        name: "login",
+                                        placeholder: "Введите логин",
+                                    }),
+                                    ButtonAddUser: new Button({ text: "Добавить", type: "primary" }),
+                                },
                             },
+                            title: "Добавить пользователя",
                         }),
                     },
                 }),

@@ -1,19 +1,27 @@
 import { WebComponent } from "../baseComponent/component";
-import type { BaseProps } from "../baseComponent/web";
+import { Form } from "../form";
+import type { ComponentContainerProps } from "../partial/partial";
 
 import ModalTemplate from "./modal.hbs?raw";
 
-interface ModalProps extends BaseProps {
-    partial: string;
+interface ModalProps extends ComponentContainerProps {
     title: string;
 }
 
 export class Modal extends WebComponent<ModalProps> {
     public constructor(props: ModalProps) {
-        super("div", props);
+        super("div", {
+            ...props,
+            children: {
+                ...props.children,
+                Form: new Form({
+                    title: props.title,
+                    Partial: props.Partial,
+                }),
+            },
+        });
     }
     protected override render(): string {
-        return (ModalTemplate as string).replace("{{{ partial }}}", this.props.partial);
+        return ModalTemplate as string;
     }
 }
-
