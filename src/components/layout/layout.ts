@@ -1,6 +1,7 @@
 import range from "../../utils/range";
 import { WebComponent } from "../baseComponent/component";
 import { ContactList } from "../contactList";
+import { SearchBox } from "../messageBox/sendMessage";
 import { Partial, type ComponentContainerProps } from "../partial/partial";
 import LayoutTemplate from "./layout.hbs?raw";
 
@@ -14,6 +15,9 @@ export class Layout extends WebComponent<LayoutProps> {
             ...props,
             children: {
                 ...props.children,
+                SearchBox: new SearchBox({
+                    
+                }),
                 ContactList: new ContactList({
                     items: range(10)
                         .map((i) => {

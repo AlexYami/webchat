@@ -95,3 +95,9 @@ export class InputSendMessage extends Input {
         return `<template class="message-box__send-message-input {{#unless isValid}}message-box__send-message-input--invalid{{/unless}}">{{{Input}}}</template>`;
     }
 }
+
+export class InputSearch extends Input {
+    protected override render(): string {
+        return `<template class="searchbox-input">{{{Input}}}</template>`;
+    }
+}
