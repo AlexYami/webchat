@@ -50,7 +50,8 @@ export class Form extends WebComponent<FormProps> {
         let res = true;
 
         for (const input of this.inputs) {
-            res &&= input.validate();
+            const isValid = input.validate();
+            res &&= isValid;
         }
 
         return res;
