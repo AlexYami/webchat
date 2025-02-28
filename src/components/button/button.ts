@@ -29,7 +29,7 @@ import ButtonTemplate from "./button.hbs?raw";
 //     }
 // }
 
-type ButtonRole = "primary" | "link";
+type ButtonRole = "primary" | "link" | "danger";
 type ButtonType = "button" | "submit";
 
 interface ButtonProps extends BaseProps {

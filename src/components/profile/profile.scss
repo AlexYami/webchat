@@ -29,7 +29,8 @@ $go-back-layout-item-key-fw: 500;
 .profile__buttons {
   display: flex;
   flex-direction: column;
-  align-items: start;
+  // align-items: start;
+
 }
 
 .profile__avatar {
@@ -74,6 +75,11 @@ $go-back-layout-item-key-fw: 500;
 
 .profile__layout-item-key {
   font-weight: $go-back-layout-item-key-fw;
+
+  &--invalid {
+    color: utils.$red;
+    border-bottom: 2px dotted utils.$red;
+  }
 }
 
 .profile__layout-item-value {
@@ -82,10 +88,4 @@ $go-back-layout-item-key-fw: 500;
     outline: 0;
     color: utils.$gray;
   }
-}
-
-.profile__buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: start;
 }

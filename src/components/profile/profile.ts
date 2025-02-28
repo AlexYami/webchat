@@ -1,30 +1,23 @@
-import { WebComponent } from "../baseComponent/component";
-import { Partial, type ComponentContainerProps } from "../partial/partial";
-import { ProfileLayoutItem, type ProfileLayoutItemProps } from "../profileLayoutItem/profileLayoutItem";
+import { Form } from "../form";
+import type { FormProps } from "../form/form";
+import type { InputProfile } from "../input";
 
 import ProfileTemplate from "./profile.hbs?raw";
 
-interface ProfileProps extends ComponentContainerProps {
-    name: string;
+interface ProfileProps extends FormProps {
+    title: string;
     image: string;
-    items: ProfileLayoutItemProps[];
 }
 
-export class Profile extends WebComponent<ProfileProps> {
-    public constructor(props: ProfileProps) {
-        super("div", {
-            ...props,
-            children: {
-                ...props.children,
-                Partial: new Partial(props.Partial),
-                LayoutItems: props.items.map((item) => {
-                    return new ProfileLayoutItem(item);
-                }),
-            },
-        });
+export class Profile extends Form {
+    public constructor(props: ProfileProps, inputs: InputProfile[]) {
+        // super({ ...props, children: { ...props.children, Inputs: inputs } } as FormProps, inputs);
+           super({ ...props, children: { ...props.children, Inputs: inputs } } as FormProps, inputs);
     }
 
     protected override render(): string {
+        debugger;
+
         return ProfileTemplate as string;
     }
 }

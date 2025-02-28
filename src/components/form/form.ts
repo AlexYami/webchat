@@ -4,7 +4,7 @@ import { Partial, type ComponentContainerProps } from "../partial/partial";
 
 import FormTemplate from "./form.hbs?raw";
 
-interface FormProps extends ComponentContainerProps {
+export interface FormProps extends ComponentContainerProps {
     title: string;
 }
 
@@ -20,6 +20,8 @@ export class Form extends WebComponent<FormProps> {
             },
             events: {
                 submit: function (this: Form, evt) {
+                    debugger;
+
                     evt.preventDefault();
 
                     const data = this.getValues();

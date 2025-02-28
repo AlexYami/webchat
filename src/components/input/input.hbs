@@ -1,6 +1,4 @@
-<template class="input {{#if isValid}}input--invalid{{/if}}">
-    {{!isValid}}
-    {{!isValid}}
+<template class="input {{#unless isValid}}input--invalid{{/unless}}">
     <label>{{label}}</label>
     {{{ Input }}}
     {{#unless isValid}}

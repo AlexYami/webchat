@@ -1,21 +1,19 @@
 <template class="profile">
-    <form>
-        <div class="profile__avatar">
-            <label for="upload-avatar">
-                <img src="{{image}}" alt="Загрузите аватар" />
-            </label>
-            <input type="file" id="upload-avatar" name="avatar" />
-        </div>
-        <h1 class="profile__name">
-            {{name}}
-        </h1>
-        <div class="profile__layout">
-            {{#each LayoutItems}}
-            {{{ this }}}
-            {{/each}}
-        </div>
-        <div class="profile__buttons">
-            {{{ Partial }}}
-        </div>
-    </form>
+    <div class="profile__avatar">
+        <label for="upload-avatar">
+            <img src="{{image}}" alt="Загрузите аватар" />
+        </label>
+        <input type="file" id="upload-avatar" name="avatar" />
+    </div>
+    <h1 class="profile__name">
+        {{title}}
+    </h1>
+    <div class="profile__layout">
+        {{#each Inputs}}
+        {{{ this }}}
+        {{/each}}
+    </div>
+
+    {{{ Partial }}}
+
 </template>

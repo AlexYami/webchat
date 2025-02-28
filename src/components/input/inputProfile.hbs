@@ -1,0 +1,8 @@
+<template class="profile__layout-item">
+    <div title="{{ errorMessage }}"
+        class="profile__layout-item-key  {{#unless isValid}}profile__layout-item-key--invalid{{/unless}}">{{label}}
+    </div>
+    <div class="profile__layout-item-value">
+        {{{Input}}}
+    </div>
+</template>
