@@ -6,40 +6,9 @@ import type { BaseWebComponent } from "./components/baseComponent/web";
 import { Button } from "./components/button/button";
 import * as Pages from "./pages";
 import { renderDOM } from "./utils/dom";
-import range from "./utils/range";
+import { contacts, messages } from "./mockData";
 
 type Component = [string, Template];
-
-const contacts = range(10).map((i) => {
-    return {
-        name: `Контакт #${i}`,
-        preview: `Так увлёкся работой по курсу, что совсем забыл его анонсировать`,
-        lastMessageDate: "Пт",
-        notifiesNumber: i % 3,
-    };
-});
-
-const messages = [
-    {
-        text: "Привет! Смотри, тут всплыл интересный кусок лунной космической истории — НАСА в какой-то момент попросила Хассельблад адаптировать модель SWC для полетов на Луну. Сейчас мы все знаем что астронавты летали с моделью 500 EL — и к слову говоря, все тушки этих камер все еще находятся на поверхности Луны, так как астронавты с собой забрали только кассеты с пленкой. Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
-        date: "11:56",
-    },
-    {
-        attachment: "https://placehold.co/316x211/orange/white",
-        date: "11:57",
-    },
-    {
-        my: true,
-        read: true,
-        text: "Круто!",
-        date: "11:57",
-    },
-    {
-        my: true,
-        text: "Я добавлю этот блок, чтобы проверить как работает скролл в этом чате. Так как астронавты с собой забрали только кассеты с пленкой. Хассельблад в итоге адаптировал SWC для космоса, но что-то пошло не так и на ракету они так никогда и не попали. Всего их было произведено 25 штук, одну из них недавно продали на аукционе за 45000 евро.",
-        date: "11:59",
-    },
-];
 
 const profileBaseOpts = {
     image: "https://placehold.co/130x130/orange/white",

@@ -5,7 +5,7 @@ import type { ContactProps } from "../contact/contact";
 import ContactListTemplate from "./contactList.hbs?raw";
 
 interface ContactListProps extends BaseProps {
-    items: ContactProps[];
+    contacts: ContactProps[];
 }
 
 export class ContactList extends WebComponent<ContactListProps> {
@@ -14,7 +14,7 @@ export class ContactList extends WebComponent<ContactListProps> {
             ...props,
             children: {
                 ...props.children,
-                Contacts: props.items.map((item) => {
+                Contacts: props.contacts.map((item) => {
                     return new Contact(item);
                 }),
             },

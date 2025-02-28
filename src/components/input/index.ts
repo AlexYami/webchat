@@ -52,10 +52,6 @@ export class Input extends WebComponent<InputProps> {
         return InputTemplate as string;
     }
 
-    // private get inputField(): InputField {
-    //     return this.props.children?.Input as InputField;
-    // }
-
     public IsValid(): boolean {
         return !!this.props.isValid;
     }

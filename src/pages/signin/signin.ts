@@ -92,7 +92,7 @@ export class SigninPage extends BaseAuthForm {
         );
     }
 
-    protected override renderFormContent(): string {
+    protected override renderContent(): string {
         return SignInPageTemplate as string;
     }
 }

@@ -6,7 +6,7 @@ export interface FormProps extends BaseProps {
     title: string;
 }
 
-export abstract class Form extends WebComponent<FormProps> {
+export abstract class BaseForm extends WebComponent<FormProps> {
     private readonly inputs: Input[];
 
     public constructor(props: FormProps, inputs: Input[]) {
@@ -16,7 +16,7 @@ export abstract class Form extends WebComponent<FormProps> {
                 ...props.children,
             },
             events: {
-                submit: function (this: Form, evt) {
+                submit: function (this: BaseForm, evt) {
                     evt.preventDefault();
 
                     const data = this.getValues();
@@ -63,15 +63,4 @@ export abstract class Form extends WebComponent<FormProps> {
 
         return res;
     }
-
-    protected override render(): string {
-        return `<template class="${this.getFormClassName()}">
-                    ${this.renderFormTitle()}
-                    ${this.renderFormContent()}
-                </template>`;
-    }
-
-    protected abstract getFormClassName(): string;
-    protected abstract renderFormTitle(): string;
-    protected abstract renderFormContent(): string;
 }

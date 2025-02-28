@@ -1,4 +1,4 @@
-import { Button, Form as BaseForm, Input } from "../../components";
+import { Form as BaseForm, Button, Input } from "../../components";
 import { LOGIN_REGEX, PASSWORD_REGEX } from "../../utils/validations";
 import LoginFormTemplate from "./form.hbs?raw";
 
@@ -34,12 +34,21 @@ const ButtonNoAccount = new Button({
 });
 
 export abstract class BaseAuthForm extends BaseForm {
-    protected override renderFormTitle(): string {
+    protected override render(): string {
+        return `<template class="${this.getClassName()}">
+            ${this.renderTitle()}
+            ${this.renderContent()}
+        </template>`;
+    }
+
+    protected override renderTitle(): string {
         return `<h2 class="form__title">{{ title }}</h2>`;
     }
-    protected override getFormClassName(): string {
+    protected override getClassName(): string {
         return `form`;
     }
+
+    protected abstract renderContent(): string;
 }
 
 export class LoginPage extends BaseAuthForm {
@@ -58,7 +67,7 @@ export class LoginPage extends BaseAuthForm {
         );
     }
 
-    protected override renderFormContent(): string {
+    protected override renderContent(): string {
         return LoginFormTemplate as string;
     }
 }

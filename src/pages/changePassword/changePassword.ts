@@ -1,12 +1,7 @@
-import { Button, GoBackLayout, Profile } from "../../components";
-import { WebComponent } from "../../components/baseComponent/component";
+import { Button } from "../../components";
 import { InputProfile } from "../../components/input";
+import { BaseProfile } from "../../components/profile/profile";
 import { PASSWORD_REGEX } from "../../utils/validations";
-import ChangePasswordPageTemplate from "./changePassword.hbs?raw";
-
-const profileTemplate = `
-    {{{ ButtonSave }}}
-`;
 
 const InputOldPassword = new InputProfile({
     label: "Старый пароль",
@@ -38,37 +33,23 @@ const InputNewPassword2 = new InputProfile({
     validationRegex: PASSWORD_REGEX,
 });
 
-const inputs: InputProfile[] = [InputOldPassword, InputNewPassword, InputNewPassword2];
+const inputs = [InputOldPassword, InputNewPassword, InputNewPassword2];
 
-export class ChangePasswordPage extends WebComponent<object> {
+export class ChangePasswordPage extends BaseProfile {
     public constructor() {
-        super("div", {
-            children: {
-                GoBackLayout: new GoBackLayout({
-                    Partial: {
-                        template: "{{{ Profile }}}",
-                        children: {
-                            Profile: new Profile(
-                                {
-                                    Partial: {
-                                        template: profileTemplate,
-                                        children: {
-                                            ButtonSave: new Button({ text: "Сохранить", role: "primary" }),
-                                        },
-                                    },
-                                    image: "https://placehold.co/130x130/orange/white",
-                                    title: "Иван",
-                                },
-                                inputs
-                            ),
-                        },
-                    },
-                }),
+        super(
+            {
+                image: "https://placehold.co/130x130/orange/white",
+                title: "Иван",
+                children: {
+                    ButtonSave: new Button({ text: "Сохранить", role: "primary" }),
+                },
             },
-        });
+            inputs
+        );
     }
 
-    protected override render(): string {
-        return ChangePasswordPageTemplate as string;
+    protected override renderContent(): string {
+        return `{{{ ButtonSave }}}`;
     }
 }

@@ -1,9 +1,11 @@
 import { BaseLayout } from "../../components/layout/layout";
+import { contacts } from "../../mockData";
 
 export class ChooseChatPage extends BaseLayout {
     public constructor() {
         super({
             searchText: "",
+            contacts,
         });
     }
 

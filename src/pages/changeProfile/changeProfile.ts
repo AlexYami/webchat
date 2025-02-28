@@ -1,14 +1,7 @@
-import { Button, GoBackLayout, Profile } from "../../components";
-import { WebComponent } from "../../components/baseComponent/component";
+import { Button } from "../../components";
 import { InputProfile } from "../../components/input";
+import { BaseProfile } from "../../components/profile/profile";
 import { EMAIL_REGEX, LOGIN_REGEX, PHONE_REGEX } from "../../utils/validations";
-import ProfilePageTemplate from "./changeProfile.hbs?raw";
-
-const profileTemplate = `
-    {{{ ButtonSave }}}
-`;
-
-debugger;
 
 const InputEmail = new InputProfile({
     label: "Почта",
@@ -65,35 +58,21 @@ const InputPhone = new InputProfile({
 
 const inputs = [InputEmail, InputLogin, InputName, InputSecondName, InputDisplayName, InputPhone];
 
-export class ChangeProfilePage extends WebComponent<object> {
+export class ChangeProfilePage extends BaseProfile {
     public constructor() {
-        super("div", {
-            children: {
-                GoBackLayout: new GoBackLayout({
-                    Partial: {
-                        template: "{{{ Profile }}}",
-                        children: {
-                            Profile: new Profile(
-                                {
-                                    Partial: {
-                                        template: profileTemplate,
-                                        children: {
-                                            ButtonSave: new Button({ text: "Сохранить", role: "primary" }),
-                                        },
-                                    },
-                                    image: "https://placehold.co/130x130/orange/white",
-                                    title: "Иван",
-                                },
-                                inputs
-                            ),
-                        },
-                    },
-                }),
+        super(
+            {
+                image: "https://placehold.co/130x130/orange/white",
+                title: "Иван",
+                children: {
+                    ButtonSave: new Button({ text: "Сохранить", role: "primary" }),
+                },
             },
-        });
+            inputs
+        );
     }
 
-    protected override render(): string {
-        return ProfilePageTemplate as string;
+    protected override renderContent(): string {
+        return `{{{ ButtonSave }}}`;
     }
 }

@@ -20,9 +20,6 @@ export class SendMessage extends Form {
                     ...props.children,
                     InputSend,
                 },
-                Partial: {
-                    template: "",
-                },
             },
             [InputSend]
         );
@@ -36,7 +33,7 @@ export class SendMessage extends Form {
     }
 }
 
-const Search = new InputSearch({
+const inputSearch = new InputSearch({
     label: "",
     name: "search",
     placeholder: "",
@@ -44,29 +41,30 @@ const Search = new InputSearch({
     type: "search",
 });
 
+interface SearchBoxProps extends FormProps {
+    searchText: string;
+}
+
 export class SearchBox extends Form {
-    public constructor(props: FormProps) {
+    public constructor(props: SearchBoxProps) {
         super(
             {
                 ...props,
                 children: {
                     ...props.children,
-                    Search: Search,
-                },
-                Partial: {
-                    template: "",
+                    inputSearch,
                 },
             },
-            [Search]
+            [inputSearch]
         );
     }
 
     protected override render(): string {
-        debugger;
-
-        return `<template class="searchbox">
-                {{{ Search }}}
+        return `
+            <template>
+                {{{ inputSearch }}}
                 <img src="/images/search.svg" alt="Поиск" />
-            </template>`;
+            </template>
+        `;
     }
 }
