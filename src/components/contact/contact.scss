@@ -30,13 +30,7 @@ $contact-notifies-animation: pulse 1.5s infinite;
   padding-left: $contact-pl;
   border-bottom: 1px solid utils.$gray-lighter;
 
-  &:hover {
-    background-color: utils.$blue-lightest;
 
-    .contact__preview::after {
-      background-image: linear-gradient(transparent, utils.$blue-lightest);
-    }
-  }
 
   &__avatar {
     >img {
@@ -77,6 +71,14 @@ $contact-notifies-animation: pulse 1.5s infinite;
     }
   }
 
+  &:hover {
+    background-color: utils.$blue-lightest;
+
+    .contact__preview::after {
+      background-image: linear-gradient(transparent, utils.$blue-lightest);
+    }
+  }
+
   &__date {
     font-size: utils.$font-small;
     display: flex;
@@ -92,7 +94,6 @@ $contact-notifies-animation: pulse 1.5s infinite;
     border-radius: utils.$radius-round;
     background-color: utils.$blue;
     color: utils.$white;
-
     width: $contact-notifies-size;
     height: $contact-notifies-size;
     font-size: utils.$font-small;
@@ -111,10 +112,10 @@ $contact-notifies-animation: pulse 1.5s infinite;
   }
 
   50% {
-    box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 6px rgba(255 0 0 / 0%);
   }
 
   100% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    box-shadow: 0 0 0 0 rgba(255 0 0 / 0%);
   }
 }

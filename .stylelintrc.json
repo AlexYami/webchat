@@ -1,0 +1,11 @@
+{
+    "extends": [
+        "stylelint-config-standard"
+    ],
+    "rules": {
+        "at-rule-no-unknown": null,
+        "selector-class-pattern": null,
+        "declaration-block-no-redundant-longhand-properties": null,
+        "media-feature-range-notation": null
+    }
+}

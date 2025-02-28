@@ -20,8 +20,6 @@ export class Form extends WebComponent<FormProps> {
             },
             events: {
                 submit: function (this: Form, evt) {
-                    debugger;
-
                     evt.preventDefault();
 
                     const data = this.getValues();
