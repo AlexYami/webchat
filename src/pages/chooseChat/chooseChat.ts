@@ -1,31 +1,15 @@
-import { Layout } from "../../components";
-import { WebComponent } from "../../components/baseComponent/component";
-import type { BaseProps } from "../../components/baseComponent/web";
+import { BaseLayout } from "../../components/layout/layout";
 
-import ChooseChatPageTemplate from "./chooseChat.hbs?raw";
-
-const layoutTemplate = `
-    <div class="message-box message-box--empty">
-        <span>Выберите чат чтобы отправить сообщение</span>
-    </div>`;
-
-interface ChooseChatPageProps extends BaseProps {}
-
-export class ChooseChatPage extends WebComponent<ChooseChatPageProps> {
+export class ChooseChatPage extends BaseLayout {
     public constructor() {
-        super("div", {
-            children: {
-                Layout: new Layout({
-                    Partial: {
-                        template: layoutTemplate,
-                    },
-                    searchText: "",
-                }),
-            },
+        super({
+            searchText: "",
         });
     }
 
-    protected override render(): string {
-        return ChooseChatPageTemplate as string;
+    protected override renderLayoutContent(): string {
+        return `<div class="message-box message-box--empty">
+                    <span>Выберите чат чтобы отправить сообщение</span>
+                </div>`;
     }
 }

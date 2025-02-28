@@ -1,12 +1,12 @@
 import "./input.scss";
 
 import { WebComponent } from "../baseComponent/component";
+import type { BaseProps } from "../baseComponent/web";
 import { InputField } from "../inputField";
-import type { ComponentContainerProps } from "../partial/partial";
 import InputTemplate from "./input.hbs?raw";
 import InputProfileTemplate from "./inputProfile.hbs?raw";
 
-export interface InputProps extends ComponentContainerProps {
+export interface InputProps extends BaseProps {
     errorMessage?: string;
     label: string;
     name: string;

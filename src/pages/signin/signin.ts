@@ -1,10 +1,8 @@
-import { Form, Input } from "../../components";
-import { WebComponent } from "../../components/baseComponent/component";
+import { Input } from "../../components";
 import { Button } from "../../components/button/button";
-import type { PartialProps } from "../../components/partial/partial";
 import { EMAIL_REGEX, LOGIN_REGEX, PASSWORD_REGEX, PHONE_REGEX } from "../../utils/validations";
-import FormTemplate from "./form.hbs?raw";
-import SignInPageTemplate from "./signin.hbs?raw";
+import { BaseAuthForm } from "../login/login";
+import { default as SignInPageTemplate } from "./form.hbs?raw";
 
 const InputEmail = new Input({
     label: "Почта",
@@ -21,25 +19,32 @@ const InputLogin = new Input({
     placeholder: "Введите логин",
     validationRegex: LOGIN_REGEX,
     errorMessage: "Неправильный логин",
+    value: "",
 });
 
 const InputFirstName = new Input({
     label: "Имя",
     name: "first_name",
     placeholder: "Иван",
+    value: "",
 });
+
 const InputSecondName = new Input({
     label: "Фамилия",
     name: "second_name",
     placeholder: "Иванов",
+    value: "",
 });
+
 const InputPhone = new Input({
     label: "Телефон",
     name: "phone",
     placeholder: "+7 (123) 456-78-90",
     validationRegex: PHONE_REGEX,
     errorMessage: "Неправильный телефон",
+    value: "",
 });
+
 const InputPassword = new Input({
     label: "Пароль",
     name: "password",
@@ -47,7 +52,9 @@ const InputPassword = new Input({
     type: "password",
     validationRegex: PASSWORD_REGEX,
     errorMessage: "Введите более сложный пароль",
+    value: "",
 });
+
 const InputPassword2 = new Input({
     label: "Пароль (еще раз)",
     name: "password2",
@@ -55,11 +62,14 @@ const InputPassword2 = new Input({
     type: "password2",
     validationRegex: PASSWORD_REGEX,
     errorMessage: "Введите более сложный пароль",
+    value: "",
 });
+
 const ButtonSignup = new Button({
     text: "Зарегестрироваться",
     role: "primary",
 });
+
 const ButtonLogin = new Button({
     text: "Войти",
     role: "link",
@@ -67,31 +77,22 @@ const ButtonLogin = new Button({
 
 const inputs = { InputEmail, InputLogin, InputFirstName, InputSecondName, InputPhone, InputPassword, InputPassword2 };
 
-const Partial: PartialProps = {
-    template: FormTemplate as string,
-    children: {
-        ...inputs,
-        ButtonSignup,
-        ButtonLogin,
-    },
-};
-
-export class SigninPage extends WebComponent<object> {
+export class SigninPage extends BaseAuthForm {
     public constructor() {
-        super("div", {
-            children: {
-                Form: new Form(
-                    {
-                        title: "Регистрация",
-                        Partial,
-                    },
-                    Object.values(inputs)
-                ),
+        super(
+            {
+                title: "Вход",
+                children: {
+                    ...inputs,
+                    ButtonSignup,
+                    ButtonLogin,
+                },
             },
-        });
+            Object.values(inputs)
+        );
     }
 
-    protected override render(): string {
+    protected override renderFormContent(): string {
         return SignInPageTemplate as string;
     }
 }

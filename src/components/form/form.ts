@@ -1,14 +1,12 @@
 import { WebComponent } from "../baseComponent/component";
+import type { BaseProps } from "../baseComponent/web";
 import type { Input } from "../input";
-import { Partial, type ComponentContainerProps } from "../partial/partial";
 
-import FormTemplate from "./form.hbs?raw";
-
-export interface FormProps extends ComponentContainerProps {
+export interface FormProps extends BaseProps {
     title: string;
 }
 
-export class Form extends WebComponent<FormProps> {
+export abstract class Form extends WebComponent<FormProps> {
     private readonly inputs: Input[];
 
     public constructor(props: FormProps, inputs: Input[]) {
@@ -16,7 +14,6 @@ export class Form extends WebComponent<FormProps> {
             ...props,
             children: {
                 ...props.children,
-                Partial: new Partial(props.Partial),
             },
             events: {
                 submit: function (this: Form, evt) {
@@ -68,6 +65,13 @@ export class Form extends WebComponent<FormProps> {
     }
 
     protected override render(): string {
-        return FormTemplate as string;
+        return `<template class="${this.getFormClassName()}">
+                    ${this.renderFormTitle()}
+                    ${this.renderFormContent()}
+                </template>`;
     }
+
+    protected abstract getFormClassName(): string;
+    protected abstract renderFormTitle(): string;
+    protected abstract renderFormContent(): string;
 }

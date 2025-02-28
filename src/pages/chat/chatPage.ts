@@ -1,12 +1,5 @@
-import { Layout, MessageBox } from "../../components";
-import { WebComponent } from "../../components/baseComponent/component";
-import type { BaseProps } from "../../components/baseComponent/web";
-
-import ChatPageTemplate from "./chat.hbs?raw";
-
-const layoutTemplate = `{{{ MessageBox }}}`;
-
-interface ChatPageProps extends BaseProps {}
+import { MessageBox } from "../../components";
+import { BaseLayout } from "../../components/layout/layout";
 
 const messages = [
     {
@@ -30,26 +23,21 @@ const messages = [
     },
 ];
 
-export class ChatPage extends WebComponent<ChatPageProps> {
+const messageBox = new MessageBox({
+    messages,
+});
+
+export class ChatPage extends BaseLayout {
     public constructor() {
-        super("div", {
+        super({
+            searchText: "",
             children: {
-                Layout: new Layout({
-                    Partial: {
-                        template: layoutTemplate,
-                        children: {
-                            MessageBox: new MessageBox({
-                                messages,
-                            }),
-                        },
-                    },
-                    searchText: "",
-                }),
+                messageBox,
             },
         });
     }
 
-    protected override render(): string {
-        return ChatPageTemplate as string;
+    protected override renderLayoutContent(): string {
+        return "{{{ messageBox }}}";
     }
 }

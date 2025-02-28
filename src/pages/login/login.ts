@@ -1,8 +1,6 @@
-import { Button, Form, Input } from "../../components";
-import { WebComponent } from "../../components/baseComponent/component";
+import { Button, Form as BaseForm, Input } from "../../components";
 import { LOGIN_REGEX, PASSWORD_REGEX } from "../../utils/validations";
-import FormTemplate from "./form.hbs?raw";
-import LoginPageTemplate from "./login.hbs?raw";
+import LoginFormTemplate from "./form.hbs?raw";
 
 const InputLogin = new Input({
     label: "Логин",
@@ -35,30 +33,32 @@ const ButtonNoAccount = new Button({
     type: "button",
 });
 
-export class LoginPage extends WebComponent<object> {
+export abstract class BaseAuthForm extends BaseForm {
+    protected override renderFormTitle(): string {
+        return `<h2 class="form__title">{{ title }}</h2>`;
+    }
+    protected override getFormClassName(): string {
+        return `form`;
+    }
+}
+
+export class LoginPage extends BaseAuthForm {
     public constructor() {
-        super("div", {
-            children: {
-                Form: new Form(
-                    {
-                        title: "Вход",
-                        Partial: {
-                            template: FormTemplate as string,
-                            children: {
-                                InputLogin,
-                                InputPassword,
-                                ButtonAuth,
-                                ButtonNoAccount,
-                            },
-                        },
-                    },
-                    [InputLogin, InputPassword]
-                ),
+        super(
+            {
+                title: "Вход",
+                children: {
+                    InputLogin,
+                    InputPassword,
+                    ButtonAuth,
+                    ButtonNoAccount,
+                },
             },
-        });
+            [InputLogin, InputPassword]
+        );
     }
 
-    protected override render(): string {
-        return LoginPageTemplate as string;
+    protected override renderFormContent(): string {
+        return LoginFormTemplate as string;
     }
 }

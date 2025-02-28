@@ -1,11 +1,10 @@
 import range from "../../utils/range";
 import { WebComponent } from "../baseComponent/component";
+import type { BaseProps } from "../baseComponent/web";
 import { ContactList } from "../contactList";
 import { SearchBox } from "../messageBox/sendMessage";
-import { Partial, type ComponentContainerProps } from "../partial/partial";
-import LayoutTemplate from "./layout.hbs?raw";
 
-interface LayoutProps extends ComponentContainerProps {
+interface LayoutProps extends BaseProps {
     searchText: string;
 }
 
@@ -23,7 +22,7 @@ const ContactListComponent = new ContactList({
     items: messages,
 });
 
-export class Layout extends WebComponent<LayoutProps> {
+export abstract class BaseLayout extends WebComponent<LayoutProps> {
     public constructor(props: LayoutProps) {
         super("div", {
             ...props,
@@ -43,11 +42,23 @@ export class Layout extends WebComponent<LayoutProps> {
                 //         })
                 //         .filter((i) => i.name.includes(props.searchText)),
                 // }),
-                Partial: new Partial(props.Partial),
             },
         });
     }
     protected override render(): string {
-        return LayoutTemplate as string;
+        return `
+            <template class="layout">
+                <aside class="layout__sidebar">
+                    <a class="profile-link" href="#">Профиль</a>
+                    {{{ SearchBox }}}
+                    {{{ ContactList }}}
+                </aside>
+                <div class="layout__content">
+                    ${this.renderLayoutContent()}
+                </div>
+            </template>
+        `;
     }
+
+    protected abstract renderLayoutContent(): string;
 }
