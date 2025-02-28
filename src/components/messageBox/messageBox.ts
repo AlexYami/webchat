@@ -3,6 +3,7 @@ import type { BaseProps } from "../baseComponent/web";
 import { ChatTitle } from "../chatTitle";
 import { Message, type MessageProps } from "../message/message";
 import MessageBoxTemplate from "./messageBox.hbs?raw";
+import { SendMessage } from "./sendMessage";
 
 interface MessageBoxProps extends BaseProps {
     messages: MessageProps[];
@@ -16,6 +17,10 @@ export class MessageBox extends WebComponent<MessageBoxProps> {
             children: {
                 Messages: props.messages.map((m) => new Message(m)),
                 ChatTitle: new ChatTitle({ showAddUserPopup: !!props.showAddUserPopup, title: "Вадим" }),
+                FormSend: new SendMessage({
+                    title: "test",
+                    Partial: { template: "" },
+                }),
             },
         });
     }

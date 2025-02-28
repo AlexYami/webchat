@@ -89,3 +89,9 @@ export class InputProfile extends Input {
         return InputProfileTemplate as string;
     }
 }
+
+export class InputSendMessage extends Input {
+    protected override render(): string {
+        return `<template class="message-box__send-message-input {{#unless isValid}}message-box__send-message-input--invalid{{/unless}}">{{{Input}}}</template>`;
+    }
+}
