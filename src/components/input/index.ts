@@ -30,8 +30,7 @@ export class Input extends WebComponent<InputProps> {
                 Input: new InputField({
                     ...props,
                     events: {
-                        change: (e: Event): void => {
-                            debugger;
+                        blur: (e: Event): void => {
                             const inputEl = e.target as HTMLInputElement;
 
                             const value = inputEl.value || "";
