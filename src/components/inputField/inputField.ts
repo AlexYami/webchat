@@ -33,7 +33,7 @@ export class InputField extends BaseWebComponent<InputFieldProps> {
     //     return true;
     // }
 
-    public getValue(): string {
-        return "test";
-    }
+    // public getValue(): string {
+    //     return "test";
+    // }
 }

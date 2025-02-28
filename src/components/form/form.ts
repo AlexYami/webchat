@@ -20,12 +20,23 @@ export class Form extends WebComponent<FormProps> {
             },
             events: {
                 submit: function (this: Form, evt) {
-                    debugger;
+                    evt.preventDefault();
 
-                    if (!this.validate()) {
-                        evt.preventDefault();
-                        alert(JSON.stringify(this.getValues()));
+                    const data = this.getValues();
+
+                    if (this.validate()) {
+                        console.log(
+                            "%cForm was successfuly posted to the server.",
+                            "color: black; font-size: 16px; background-color: lightgreen; padding: 5px;"
+                        );
+                    } else {
+                        console.log(
+                            "%cForm was not posted to the server due to validation errors.",
+                            "color: white; font-size: 16px; background-color: darkred; padding: 5px;"
+                        );
                     }
+
+                    console.table(data);
                 },
             },
         });

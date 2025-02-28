@@ -59,8 +59,9 @@ export class Input extends WebComponent<InputProps> {
         return !!this.props.isValid;
     }
 
-    public validate(value: string): boolean {
-        debugger;
+    public validate(value?: string): boolean {
+        value ??= this.props.value;
+
         const regex = this.props.validationRegex;
 
         if (regex) return regex.test(value);
@@ -68,15 +69,7 @@ export class Input extends WebComponent<InputProps> {
         return true;
     }
 
-    // public validate(): boolean {
-    //     const isValid = this.inputField.validate();
-
-    //     this.setProps({ isValid });
-
-    //     return isValid;
-    // }
-
     public getKeyValue(): [string, string] {
-        return [this.props.name, this.inputField.getValue()];
+        return [this.props.name, this.props.value];
     }
 }
