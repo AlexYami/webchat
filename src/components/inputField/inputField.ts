@@ -13,38 +13,25 @@ interface InputFieldProps extends BaseProps {
     value: string;
     placeholder: string;
     isValid?: boolean;
+    // validationRegex?: RegExp;
 }
 
 export class InputField extends BaseWebComponent<InputFieldProps> {
     public constructor(props: InputFieldProps) {
         super("input", {
             ...props,
-            // events: {
-            //     change: (evt) => {
-            //         this.onChange(evt);
-            //     },
-            // },
         });
-    }
-
-    private onChange(evt: Event): void {
-        const target = evt.target as HTMLInputElement;
-
-        // this.validate()
-
-        // this.setProps({
-        //     value: target.value,
-        //     isValid: true,
-        // });
     }
 
     protected override render(): string {
         return InputFieldTemplate as string;
     }
 
-    public validate(): boolean {
-        return false;
-    }
+    // public validate(): boolean {
+    //     const regex = this.props.validationRegex;
+    //     if (regex) return regex.test(this.props.value);
+    //     return true;
+    // }
 
     public getValue(): string {
         return "test";

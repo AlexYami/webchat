@@ -18,7 +18,7 @@ export class ChangePasswordPage extends WebComponent<object> {
                                 Partial: {
                                     template: profileTemplate,
                                     children: {
-                                        ButtonSave: new Button({ text: "Сохранить", type: "primary" }),
+                                        ButtonSave: new Button({ text: "Сохранить", role: "primary" }),
                                     },
                                 },
                                 image: "https://placehold.co/130x130/orange/white",

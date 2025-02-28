@@ -29,9 +29,13 @@ import ButtonTemplate from "./button.hbs?raw";
 //     }
 // }
 
+type ButtonRole = "primary" | "link";
+type ButtonType = "button" | "submit";
+
 interface ButtonProps extends BaseProps {
     text: string;
-    type?: string;
+    role?: ButtonRole;
+    type?: ButtonType;
 }
 
 export class Button extends BaseWebComponent<ButtonProps> {
