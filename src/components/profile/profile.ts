@@ -12,7 +12,7 @@ interface ProfileProps extends FormProps {
 export class Profile extends Form {
     public constructor(props: ProfileProps, inputs: InputProfile[]) {
         // super({ ...props, children: { ...props.children, Inputs: inputs } } as FormProps, inputs);
-           super({ ...props, children: { ...props.children, Inputs: inputs } } as FormProps, inputs);
+        super({ ...props, children: { ...props.children, Inputs: inputs } } as FormProps, inputs);
     }
 
     protected override render(): string {

@@ -2,10 +2,11 @@ import "../scss/styles.scss";
 
 import Handlebars, { type Template } from "handlebars";
 import * as Components from "./components";
+import type { BaseWebComponent } from "./components/baseComponent/web";
 import { Button } from "./components/button/button";
 import * as Pages from "./pages";
-import range from "./utils/range";
 import { renderDOM } from "./utils/dom";
+import range from "./utils/range";
 
 type Component = [string, Template];
 
@@ -143,10 +144,16 @@ Object.entries(Components).forEach((component: Component) => {
 });
 
 function navigate(page: string): void {
-    const [source, context] = pages[page];
+    // const [source, context] = pages[page];
+
+    const pageInfo = pages[page] as [unknown, unknown];
+
+    const [source, context] = pageInfo;
+
+    const ctor = source as ObjectConstructor;
 
     if (typeof source === "function") {
-        renderDOM(new source({}));
+        renderDOM(new ctor({}) as BaseWebComponent<object>);
 
         return;
     }

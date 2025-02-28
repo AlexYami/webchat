@@ -37,6 +37,7 @@ module.exports = [
             "@typescript-eslint/no-unsafe-type-assertion": "off",
             "@typescript-eslint/no-this-alias": "off",
             "typescript-eslint/consistent-type-imports": "off",
+            "@typescript-eslint/no-empty-object-type": "off",
         },
     },
     eslintPluginPrettierRecommended,

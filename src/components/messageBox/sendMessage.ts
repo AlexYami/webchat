@@ -1,14 +1,7 @@
 import { MESSAGE_REGEX } from "../../utils/validations";
-import type { BaseProps } from "../baseComponent/web";
 import { Form } from "../form";
 import type { FormProps } from "../form/form";
 import { InputSearch, InputSendMessage } from "../input";
-import type { MessageProps } from "../message/message";
-
-interface MessageBoxProps extends BaseProps {
-    messages: MessageProps[];
-    showAddUserPopup?: boolean;
-}
 
 const InputSend = new InputSendMessage({
     label: "",

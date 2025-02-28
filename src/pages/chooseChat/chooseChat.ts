@@ -11,8 +11,6 @@ const layoutTemplate = `
 
 interface ChooseChatPageProps extends BaseProps {}
 
-const messages = [];
-
 export class ChooseChatPage extends WebComponent<ChooseChatPageProps> {
     public constructor() {
         super("div", {
