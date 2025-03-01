@@ -4,7 +4,6 @@ import { WebComponent } from "../baseComponent/component";
 import type { BaseProps } from "../baseComponent/web";
 import { InputField } from "../inputField";
 import InputTemplate from "./input.hbs?raw";
-import InputProfileTemplate from "./inputProfile.hbs?raw";
 
 export interface InputProps extends BaseProps {
     errorMessage?: string;
@@ -18,7 +17,6 @@ export interface InputProps extends BaseProps {
 }
 
 export class Input extends WebComponent<InputProps> {
-    // private isValid: boolean;
     public constructor(props: InputProps) {
         super("div", {
             ...props,
@@ -44,12 +42,10 @@ export class Input extends WebComponent<InputProps> {
                 }),
             },
         });
-
-        // this.isValid = false;
     }
 
     protected override render(): string {
-        return InputTemplate as string;
+        return InputTemplate;
     }
 
     public IsValid(): boolean {
@@ -57,8 +53,6 @@ export class Input extends WebComponent<InputProps> {
     }
 
     public validate(value?: string, silent: boolean = false): boolean {
-        debugger;
-
         value ??= this.props.value;
 
         const regex = this.props.validationRegex;
@@ -81,7 +75,16 @@ export class Input extends WebComponent<InputProps> {
 
 export class InputProfile extends Input {
     protected override render(): string {
-        return InputProfileTemplate as string;
+        return `
+        <template class="profile__layout-item">
+            <div title="{{ errorMessage }}"
+                class="profile__layout-item-key  {{#unless isValid}}profile__layout-item-key--invalid{{/unless}}">{{label}}
+            </div>
+            <div class="profile__layout-item-value">
+                {{{Input}}}
+            </div>
+        </template>
+        `;
     }
 }
 

@@ -33,8 +33,6 @@ const InputNewPassword2 = new InputProfile({
     validationRegex: PASSWORD_REGEX,
 });
 
-const inputs = [InputOldPassword, InputNewPassword, InputNewPassword2];
-
 export class ChangePasswordPage extends BaseProfile {
     public constructor() {
         super({

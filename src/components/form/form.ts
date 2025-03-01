@@ -2,45 +2,39 @@ import { WebComponent } from "../baseComponent/component";
 import type { BaseProps } from "../baseComponent/web";
 import { Input } from "../input";
 
-export interface FormProps extends BaseProps {
-    title: string;
-}
-
-export abstract class BaseForm extends WebComponent<FormProps> {
-    private readonly inputs: Input[];
-
-    public constructor(props: FormProps, inputs: Input[]) {
+export abstract class BaseForm<TProps extends BaseProps> extends WebComponent<TProps> {
+    protected constructor(props: TProps) {
         super("form", {
             ...props,
             children: {
                 ...props.children,
             },
             events: {
-                submit: function (this: BaseForm, evt) {
-                    evt.preventDefault();
-
-                    debugger;
-
-                    const data = this.getValues();
-
-                    if (this.validate()) {
-                        console.log(
-                            "%cForm was successfuly posted to the server.",
-                            "color: black; font-size: 16px; background-color: lightgreen; padding: 5px;"
-                        );
-                    } else {
-                        console.log(
-                            "%cForm was not posted to the server due to validation errors.",
-                            "color: white; font-size: 16px; background-color: darkred; padding: 5px;"
-                        );
-                    }
-
-                    console.table(data);
+                submit: function (this: BaseForm<TProps>, evt) {
+                    this.onFormSubmit(evt);
                 },
             },
         });
+    }
 
-        // this.inputs = inputs;
+    protected onFormSubmit(evt: Event): void {
+        evt.preventDefault();
+
+        const data = this.getValues();
+
+        if (this.validate()) {
+            console.log(
+                "%cForm was successfuly posted to the server.",
+                "color: black; font-size: 16px; background-color: lightgreen; padding: 5px;"
+            );
+        } else {
+            console.log(
+                "%cForm was not posted to the server due to validation errors.",
+                "color: white; font-size: 16px; background-color: darkred; padding: 5px;"
+            );
+        }
+
+        console.table(data);
     }
 
     protected getInputs(): Input[] {

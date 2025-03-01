@@ -1,9 +1,9 @@
 import { BaseAuthForm } from "../../pages/login/login";
 import { LOGIN_REGEX } from "../../utils/validations";
 import { WebComponent } from "../baseComponent/component";
+import type { BaseProps } from "../baseComponent/web";
 import { Button } from "../button";
 import { Input } from "../input";
-import type { ComponentContainerProps } from "../partial/partial";
 
 const InputLogin = new Input({
     label: "Логин",
@@ -21,16 +21,13 @@ const ButtonAddUser = new Button({
 
 export class AddUserForm extends BaseAuthForm {
     public constructor() {
-        super(
-            {
-                title: "Добавить пользователя",
-                children: {
-                    InputLogin,
-                    ButtonAddUser,
-                },
+        super({
+            title: "Добавить пользователя",
+            children: {
+                InputLogin,
+                ButtonAddUser,
             },
-            [InputLogin]
-        );
+        });
     }
 
     protected override renderContent(): string {
@@ -46,9 +43,7 @@ export class AddUserForm extends BaseAuthForm {
     }
 }
 
-interface ModalProps extends ComponentContainerProps {
-    // title: string;
-}
+interface ModalProps extends BaseProps {}
 
 export abstract class BaseModal extends WebComponent<ModalProps> {
     public constructor(props: ModalProps) {
@@ -70,13 +65,14 @@ export abstract class BaseModal extends WebComponent<ModalProps> {
 }
 
 export class AddUserModalForm extends BaseModal {
-    constructor() {
+    public constructor() {
         super({
             children: {
                 AddUserForm: new AddUserForm(),
             },
         });
     }
+
     protected override renderContent(): string {
         return `{{{ AddUserForm }}}`;
     }

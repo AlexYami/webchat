@@ -2,7 +2,7 @@ import { WebComponent } from "../baseComponent/component";
 import type { BaseProps } from "../baseComponent/web";
 import type { ContactProps } from "../contact/contact";
 import { ContactList } from "../contactList";
-import { SearchBox } from "../messageBox/sendMessage";
+import { SearchBox } from "../searchbox";
 
 interface LayoutProps extends BaseProps {
     searchText: string;
@@ -20,6 +20,7 @@ export abstract class BaseLayout extends WebComponent<LayoutProps> {
             },
         });
     }
+
     protected override render(): string {
         return `
             <template class="layout">

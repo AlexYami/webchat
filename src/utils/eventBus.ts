@@ -22,7 +22,7 @@ export class EventBus {
     public emit(event: string, ...args: unknown[]): void {
         this.guard(event);
 
-        for (const handler of this.handlers[event]) {
+        for (const handler of this.handlers[event]!) {
             handler.call(null, ...args);
         }
     }

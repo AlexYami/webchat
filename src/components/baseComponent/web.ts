@@ -12,31 +12,14 @@ export abstract class BaseWebComponent<TProps extends BaseProps> extends BaseCom
         super(tagName, props);
     }
 
-    protected override applyRender(root: HTMLElement, rendered: string): void {
-        this.root.innerHTML = rendered;
-    }
-
     protected override createRootElement(tagName: string): HTMLElement {
         return createElement(tagName);
     }
-    // protected override render(): string {
-    //     this.removeListeners();
-
-    //     this.addListeners();
-
-    //     return this.tagName;
-    // }
 
     protected override handleRender(): void {
         this.removeListeners();
 
         const compiledTemplate = this.compile();
-
-        // if (this.root.children.length === 0) {
-        //     this.root.appendChild(block);
-        // } else {
-        //     this.root.replaceChildren(block);
-        // }
 
         this.root.className = "";
         this.root.classList.add(...compiledTemplate.classList);
@@ -47,11 +30,7 @@ export abstract class BaseWebComponent<TProps extends BaseProps> extends BaseCom
             this.root.setAttribute(attr.name, attr.value);
         }
 
-        // this.root.replaceChildren(...compiledTemplate.children);
-
         this.root.replaceChildren(...compiledTemplate.content.childNodes);
-
-        // document.body.appendChild(this.root);
 
         this.addListeners();
     }

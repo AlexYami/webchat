@@ -1,3 +1,3 @@
 import "./popup.scss";
 
-export { Popup } from "./popup";
+export { BasePopup } from "./popup";

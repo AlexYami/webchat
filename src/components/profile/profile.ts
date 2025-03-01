@@ -1,13 +1,14 @@
-import { BaseForm, type FormProps } from "../form/form";
+import type { BaseProps } from "../baseComponent/web";
+import { BaseForm } from "../form/form";
 
-interface ProfileProps extends FormProps {
+interface ProfileProps extends BaseProps {
     title: string;
     image: string;
 }
 
-export abstract class BaseProfile extends BaseForm {
+export abstract class BaseProfile extends BaseForm<ProfileProps> {
     public constructor(props: ProfileProps) {
-        super({ ...props, children: { ...props.children } } as FormProps);
+        super({ ...props, children: { ...props.children } });
     }
 
     protected override render(): string {

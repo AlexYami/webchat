@@ -86,18 +86,10 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
         this.eventBus.emit(EVENTS.COMPONENT_DID_MOUNT);
     }
 
-    // NOTE: prevent multiple calls to ComponentDidMount
     protected handleComponentDidUpdate(): void {
-        // if (!this.updateTimeout) {
-        //     this.updateTimeout = setTimeout(() => {
-
         this.propsUpdateCounter--;
 
         if (this.propsUpdateCounter === 0) this.eventBus.emit(EVENTS.COMPONENT_DID_MOUNT);
-
-        //         this.updateTimeout = null;
-        //     }) as unknown as number;
-        // }
     }
 
     protected handleComponentDidMount(): void {
@@ -105,12 +97,8 @@ export abstract class BaseComponent<TRootElement, TProps extends object> {
     }
 
     protected handleRender(): void {
-        const rendered = this.render();
-
-        this.applyRender(this.root, rendered);
+        this.render();
     }
-
-    protected abstract applyRender(root: TRootElement, rendered: string): void;
 
     protected createResources(): void {
         this._root = this.createRootElement(this.tagName);

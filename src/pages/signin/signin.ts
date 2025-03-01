@@ -1,6 +1,6 @@
 import { Input } from "../../components";
 import { Button } from "../../components/button/button";
-import { EMAIL_REGEX, LOGIN_REGEX, PASSWORD_REGEX, PHONE_REGEX } from "../../utils/validations";
+import { EMAIL_REGEX, LOGIN_REGEX, NAME_REGEX, PASSWORD_REGEX, PHONE_REGEX } from "../../utils/validations";
 import { BaseAuthForm } from "../login/login";
 import { default as SignInPageTemplate } from "./form.hbs?raw";
 
@@ -27,6 +27,8 @@ const InputFirstName = new Input({
     name: "first_name",
     placeholder: "Иван",
     value: "",
+    errorMessage: "Неправильное имя",
+    validationRegex: NAME_REGEX,
 });
 
 const InputSecondName = new Input({
@@ -34,6 +36,8 @@ const InputSecondName = new Input({
     name: "second_name",
     placeholder: "Иванов",
     value: "",
+    errorMessage: "Неправильная фамилия",
+    validationRegex: NAME_REGEX,
 });
 
 const InputPhone = new Input({
@@ -79,20 +83,17 @@ const inputs = { InputEmail, InputLogin, InputFirstName, InputSecondName, InputP
 
 export class SigninPage extends BaseAuthForm {
     public constructor() {
-        super(
-            {
-                title: "Вход",
-                children: {
-                    ...inputs,
-                    ButtonSignup,
-                    ButtonLogin,
-                },
+        super({
+            title: "Вход",
+            children: {
+                ...inputs,
+                ButtonSignup,
+                ButtonLogin,
             },
-            Object.values(inputs)
-        );
+        });
     }
 
     protected override renderContent(): string {
-        return SignInPageTemplate as string;
+        return SignInPageTemplate;
     }
 }

@@ -1,9 +1,9 @@
 import "./link.scss";
 
-import { BaseWebComponent } from "../baseComponent/web";
+import { BaseWebComponent, type BaseProps } from "../baseComponent/web";
 import LinkTemplate from "./link.hbs?raw";
 
-interface LinkProps {
+interface LinkProps extends BaseProps {
     text: string;
     type?: string;
 }
@@ -14,6 +14,6 @@ export class Link extends BaseWebComponent<LinkProps> {
     }
 
     protected override render(): string {
-        return LinkTemplate as string;
+        return LinkTemplate;
     }
 }

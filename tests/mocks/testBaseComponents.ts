@@ -9,7 +9,6 @@ export class TestBaseComponent extends BaseComponent<string, TestProps> {
     public constructor(tagName: string, props: TestProps) {
         super(tagName, props);
     }
-    protected override applyRender(): void {}
     protected override createRootElement(): string {
         return `root`;
     }

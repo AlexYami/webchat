@@ -17,6 +17,6 @@ export class Contact extends BaseWebComponent<ContactProps> {
     }
 
     protected override render(): string {
-        return ContactTemplate as string;
+        return ContactTemplate;
     }
 }

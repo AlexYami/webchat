@@ -1,7 +1,7 @@
 import { WebComponent } from "../baseComponent/component";
 import type { BaseProps } from "../baseComponent/web";
 import { ImageButton } from "../imageButton";
-import { Popup } from "../popup";
+import { BasePopup } from "../popup/popup";
 import ChatTitleTemplate from "./chatTitle.hbs?raw";
 
 interface ChatTitleProps extends BaseProps {
@@ -9,46 +9,39 @@ interface ChatTitleProps extends BaseProps {
     showAddUserPopup: boolean;
 }
 
-// const popupTemplate = `
-//     <div class="message-box__command-popup">
-//         {{#> ImageButton text="Добавить пользователя" }}
-//         <img src="/images/addUser.svg" alt="Добавить пользователя" />
-//         {{/ImageButton}}
-//         {{#> ImageButton text="Удалить пользователя" }}
-//         <img src="/images/deleteUser.svg" alt="Удалить пользователя" />
-//         {{/ImageButton}}
-//     </div>
-// `;
+const addUserIcon = `<img src="/images/addUser.svg" alt="Добавить пользователя" />`;
+const delteUserIcon = `<img src="/images/deleteUser.svg" alt="Удалить пользователя" />`;
 
-const addUserPartial = `<img src="/images/addUser.svg" alt="Добавить пользователя" />`;
-const deleteUserPartial = `<img src="/images/deleteUser.svg" alt="Удалить пользователя" />`;
+class AddUserPopup extends BasePopup {
+    public constructor() {
+        super({
+            children: {
+                AddUser: new ImageButton({ content: addUserIcon, text: "Добавить пользователя" }),
+                DeleteUser: new ImageButton({ content: delteUserIcon, text: "Удалить пользователя" }),
+            },
+        });
+    }
 
-const popupTemplate = `
-    <div class="message-box__command-popup">
-        {{{ AddUser }}}
-        {{{ DeleteUser }}}
-    </div>
-`;
+    protected override renderContent(): string {
+        return `
+            <div class="message-box__command-popup">
+                {{{ AddUser }}}
+                {{{ DeleteUser }}}
+            </div>`;
+    }
+}
 
 export class ChatTitle extends WebComponent<ChatTitleProps> {
     public constructor(props: ChatTitleProps) {
         super("div", {
             ...props,
             children: {
-                Popup: new Popup({
-                    Partial: {
-                        template: popupTemplate,
-                        children: {
-                            AddUser: new ImageButton({ partial: addUserPartial, text: "Добавить пользователя" }),
-                            DeleteUser: new ImageButton({ partial: deleteUserPartial, text: "Удалить пользователя" }),
-                        },
-                    },
-                }),
+                Popup: new AddUserPopup(),
             },
         });
     }
 
     protected override render(): string {
-        return ChatTitleTemplate as string;
+        return ChatTitleTemplate;
     }
 }

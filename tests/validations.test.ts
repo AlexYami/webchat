@@ -1,4 +1,4 @@
-import { EMAIL_REGEX, LOGIN_REGEX, PASSWORD_REGEX, PHONE_REGEX } from "../src/utils/validations";
+import { EMAIL_REGEX, LOGIN_REGEX, NAME_REGEX, PASSWORD_REGEX, PHONE_REGEX } from "../src/utils/validations";
 
 describe("Validations", () => {
     it("should validate login expr", () => {
@@ -35,5 +35,12 @@ describe("Validations", () => {
         expect(PHONE_REGEX.test("-123456789")).toBe(false);
         expect(PHONE_REGEX.test("111111111111111")).toBe(true);
         expect(PHONE_REGEX.test("1111111111111111")).toBe(false);
+    });
+
+    it("should validate name expr", () => {
+        expect(NAME_REGEX.test("A")).toBe(true);
+        expect(NAME_REGEX.test("a")).toBe(false);
+        expect(NAME_REGEX.test("AaAa-")).toBe(true);
+        expect(NAME_REGEX.test("A#")).toBe(false);
     });
 });

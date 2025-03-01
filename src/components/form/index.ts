@@ -1,3 +1,3 @@
 import "./form.scss";
 
-export { BaseForm as Form } from "./form";
+export { BaseForm } from "./form";

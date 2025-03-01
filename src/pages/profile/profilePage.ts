@@ -1,7 +1,7 @@
 import { Button } from "../../components";
 import { InputProfile } from "../../components/input";
 import { BaseProfile } from "../../components/profile/profile";
-import { EMAIL_REGEX, LOGIN_REGEX, PHONE_REGEX } from "../../utils/validations";
+import { EMAIL_REGEX, LOGIN_REGEX, NAME_REGEX, PHONE_REGEX } from "../../utils/validations";
 
 const InputEmail = new InputProfile({
     label: "Почта",
@@ -28,6 +28,7 @@ const InputName = new InputProfile({
     name: "first_name",
     type: "text",
     placeholder: "Введите имя",
+    validationRegex: NAME_REGEX,
 });
 
 const InputSecondName = new InputProfile({
@@ -36,6 +37,7 @@ const InputSecondName = new InputProfile({
     name: "second_name",
     type: "text",
     placeholder: "Введите фамилию",
+    validationRegex: NAME_REGEX,
 });
 
 const InputDisplayName = new InputProfile({

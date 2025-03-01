@@ -1,20 +1,15 @@
 import { WebComponent } from "../baseComponent/component";
-import { Partial, type ComponentContainerProps } from "../partial/partial";
+import type { BaseProps } from "../baseComponent/web";
 
-import PopupTemplate from "./popup.hbs?raw";
+interface PopupProps extends BaseProps {}
 
-interface PopupProps extends ComponentContainerProps {}
-
-export class Popup extends WebComponent<PopupProps> {
+export abstract class BasePopup extends WebComponent<PopupProps> {
     public constructor(props: PopupProps) {
-        super("div", {
-            ...props,
-            children: {
-                Partial: new Partial(props.Partial),
-            },
-        });
+        super("div", props);
     }
     protected override render(): string {
-        return PopupTemplate as string;
+        return `<template class="popup">${this.renderContent()}</template>`;
     }
+
+    protected abstract renderContent(): string;
 }

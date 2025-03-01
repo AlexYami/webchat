@@ -14,6 +14,6 @@ export class ProfileLayoutItem extends BaseWebComponent<ProfileLayoutItemProps> 
     }
 
     protected override render(): string {
-        return ProfileLayoutItemTemplate as string;
+        return ProfileLayoutItemTemplate;
     }
 }

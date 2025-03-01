@@ -20,7 +20,8 @@ export class ContactList extends WebComponent<ContactListProps> {
             },
         });
     }
+
     protected override render(): string {
-        return ContactListTemplate as string;
+        return ContactListTemplate;
     }
 }

@@ -1,7 +1,6 @@
-import type { ComponentContainerProps } from "../partial/partial";
-import { BaseWebComponent } from "./web";
+import { BaseWebComponent, type BaseProps } from "./web";
 
-export abstract class WebComponent<TProps extends ComponentContainerProps> extends BaseWebComponent<TProps> {
+export abstract class WebComponent<TProps extends BaseProps> extends BaseWebComponent<TProps> {
     public constructor(tagName: string, props: TProps) {
         super(tagName, props);
     }
@@ -45,32 +44,4 @@ export abstract class WebComponent<TProps extends ComponentContainerProps> exten
 
         return el;
     }
-
-    // protected abstract getChildComponents(): Record<string, BaseWebComponent<object>>;
-
-    // getChildrenAndProps(propsWithChilren: TProps) {
-    //     const children = {};
-    //     let props: TProps;
-
-    //     Object.entries(propsAndChildren).forEach(([key, value]) => {
-    //         if (Array.isArray(value)) {
-    //             value.forEach((obj) => {
-    //                 if (obj instanceof Block) {
-    //                     children[key] = value;
-    //                 } else {
-    //                     props[key] = value;
-    //                 }
-    //             });
-
-    //             return;
-    //         }
-    //         if (value instanceof BaseWebComponent) {
-    //             children[key] = value;
-    //         } else {
-    //             props[key] = value;
-    //         }
-    //     });
-
-    //     return { children, props };
-    // }
 }

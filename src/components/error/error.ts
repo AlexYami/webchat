@@ -17,7 +17,8 @@ export class ErrorPageBase extends WebComponent<ErrorPageBaseProps> {
             },
         });
     }
+
     protected override render(): string {
-        return ErrorPageBaseTemplate as string;
+        return ErrorPageBaseTemplate;
     }
 }

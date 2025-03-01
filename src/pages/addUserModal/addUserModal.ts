@@ -11,7 +11,7 @@ export class AddUserModalPage extends BaseLayout {
             searchText: "",
             contacts,
             children: {
-                messageBox: new MessageBox({ messages }),
+                messageBox: new MessageBox({ messages, showAddUserPopup: false }),
                 addUserModalForm,
             },
         });

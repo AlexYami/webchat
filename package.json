@@ -22,7 +22,8 @@
     "start": "npm run build && npx vite preview --port 3000",
     "deploy": "npm run build",
     "test": "npx jest",
-    "build": "npx stylelint src/**/*.scss && npx eslint && npx vite build"
+    "build": "npm run lint && npx vite build",
+    "lint": "tsc --noEmit && npx stylelint src/**/*.scss && npx eslint"
   },
   "dependencies": {
     "handlebars": "^4.7.8"
