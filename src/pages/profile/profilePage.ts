@@ -3,14 +3,6 @@ import { InputProfile } from "../../components/input";
 import { BaseProfile } from "../../components/profile/profile";
 import { EMAIL_REGEX, LOGIN_REGEX, PHONE_REGEX } from "../../utils/validations";
 
-const profileTemplate = `
-    <div class="profile__buttons">
-                {{{ ButtonChangeData }}}
-                {{{ ButtonChangePassword }}}
-                {{{ ButtonLogout }}}
-    </div>    
-`;
-
 const InputEmail = new InputProfile({
     label: "Почта",
     name: "email",
@@ -64,22 +56,23 @@ const InputPhone = new InputProfile({
     errorMessage: "Неправильный телефон",
 });
 
-const inputs = [InputEmail, InputLogin, InputName, InputSecondName, InputDisplayName, InputPhone];
-
 export class ProfilePage extends BaseProfile {
     public constructor() {
-        super(
-            {
-                title: "Вадим",
-                image: "https://placehold.co/130x130/orange/white",
-                children: {
-                    ButtonChangeData: new Button({ text: "Изменить данные" }),
-                    ButtonChangePassword: new Button({ text: "Изменить пароль" }),
-                    ButtonLogout: new Button({ text: "Выйти", role: "danger" }),
-                },
+        super({
+            title: "Вадим",
+            image: "https://placehold.co/130x130/orange/white",
+            children: {
+                ButtonChangeData: new Button({ text: "Изменить данные" }),
+                ButtonChangePassword: new Button({ text: "Изменить пароль" }),
+                ButtonLogout: new Button({ text: "Выйти", role: "danger" }),
+                InputEmail,
+                InputLogin,
+                InputName,
+                InputSecondName,
+                InputDisplayName,
+                InputPhone,
             },
-            inputs
-        );
+        });
     }
 
     protected override renderContent(): string {
@@ -89,6 +82,17 @@ export class ProfilePage extends BaseProfile {
                 {{{ ButtonChangePassword }}}
                 {{{ ButtonLogout }}}
             </div>
+        `;
+    }
+
+    protected override renderInputs(): string {
+        return `
+            {{{ InputEmail }}}
+            {{{ InputLogin }}}
+            {{{ InputName }}}
+            {{{ InputSecondName }}}
+            {{{ InputDisplayName }}}
+            {{{ InputPhone }}}
         `;
     }
 }

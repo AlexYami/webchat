@@ -78,8 +78,6 @@ export class AddUserModalForm extends BaseModal {
         });
     }
     protected override renderContent(): string {
-        debugger;
-
         return `{{{ AddUserForm }}}`;
     }
 }

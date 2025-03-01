@@ -1,5 +1,4 @@
 import { BaseForm, type FormProps } from "../form/form";
-import type { InputProfile } from "../input";
 
 interface ProfileProps extends FormProps {
     title: string;
@@ -7,8 +6,8 @@ interface ProfileProps extends FormProps {
 }
 
 export abstract class BaseProfile extends BaseForm {
-    public constructor(props: ProfileProps, inputs: InputProfile[]) {
-        super({ ...props, children: { ...props.children, Inputs: inputs } } as FormProps, inputs);
+    public constructor(props: ProfileProps) {
+        super({ ...props, children: { ...props.children } } as FormProps);
     }
 
     protected override render(): string {
@@ -18,6 +17,9 @@ export abstract class BaseProfile extends BaseForm {
                 <div class="go-back-layout">
                     ${this.renderAvatar()}
                     ${this.renderName()}
+                    <div class="profile__layout">
+                        ${this.renderInputs()}
+                    </div>
                     ${this.renderInputs()}
                     ${this.renderContent()}
                 </div>
@@ -49,14 +51,6 @@ export abstract class BaseProfile extends BaseForm {
             </h1>`;
     }
 
-    protected renderInputs(): string {
-        return `
-            <div class="profile__layout">
-                {{#each Inputs}}
-                {{{ this }}}
-                {{/each}}
-            </div>`;
-    }
-
+    protected abstract renderInputs(): string;
     protected abstract renderContent(): string;
 }

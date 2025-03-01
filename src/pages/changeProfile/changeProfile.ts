@@ -56,23 +56,35 @@ const InputPhone = new InputProfile({
     errorMessage: "Неправильный телефон",
 });
 
-const inputs = [InputEmail, InputLogin, InputName, InputSecondName, InputDisplayName, InputPhone];
-
 export class ChangeProfilePage extends BaseProfile {
     public constructor() {
-        super(
-            {
-                image: "https://placehold.co/130x130/orange/white",
-                title: "Иван",
-                children: {
-                    ButtonSave: new Button({ text: "Сохранить", role: "primary" }),
-                },
+        super({
+            image: "https://placehold.co/130x130/orange/white",
+            title: "Иван",
+            children: {
+                ButtonSave: new Button({ text: "Сохранить", role: "primary" }),
+                InputEmail,
+                InputLogin,
+                InputName,
+                InputSecondName,
+                InputDisplayName,
+                InputPhone,
             },
-            inputs
-        );
+        });
     }
 
     protected override renderContent(): string {
         return `{{{ ButtonSave }}}`;
+    }
+
+    protected override renderInputs(): string {
+        return `
+            {{{ InputEmail }}}
+            {{{ InputLogin }}}
+            {{{ InputName }}}
+            {{{ InputSecondName }}}
+            {{{ InputDisplayName }}}
+            {{{ InputPhone }}}
+        `;
     }
 }

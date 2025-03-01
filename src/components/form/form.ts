@@ -1,6 +1,6 @@
 import { WebComponent } from "../baseComponent/component";
 import type { BaseProps } from "../baseComponent/web";
-import type { Input } from "../input";
+import { Input } from "../input";
 
 export interface FormProps extends BaseProps {
     title: string;
@@ -18,6 +18,8 @@ export abstract class BaseForm extends WebComponent<FormProps> {
             events: {
                 submit: function (this: BaseForm, evt) {
                     evt.preventDefault();
+
+                    debugger;
 
                     const data = this.getValues();
 
@@ -38,13 +40,19 @@ export abstract class BaseForm extends WebComponent<FormProps> {
             },
         });
 
-        this.inputs = inputs;
+        // this.inputs = inputs;
+    }
+
+    protected getInputs(): Input[] {
+        if (!this.props.children) return [];
+
+        return Object.values(this.props.children).filter((child) => child instanceof Input);
     }
 
     public validate(): boolean {
         let res = true;
 
-        for (const input of this.inputs) {
+        for (const input of this.getInputs()) {
             const isValid = input.validate();
             res &&= isValid;
         }
@@ -55,7 +63,7 @@ export abstract class BaseForm extends WebComponent<FormProps> {
     public getValues(): Record<string, string> {
         const res: Record<string, string> = {};
 
-        for (const input of this.inputs) {
+        for (const input of this.getInputs()) {
             const [key, value] = input.getKeyValue();
 
             res[key] = value;
