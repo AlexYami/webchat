@@ -1,24 +1,24 @@
 @use "../../../scss/utils";
 
 .modal {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-
-  &__bg {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    opacity: 0.5;
-    background-color: utils.$gray;
-  }
+    z-index: 2;
 
-  .form {
-    min-height: auto;
-  }
+    &__bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        opacity: 0.5;
+        background-color: utils.$gray;
+    }
+
+    .form {
+        min-height: auto;
+    }
 }

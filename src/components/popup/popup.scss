@@ -1,15 +1,15 @@
 @use "../../../scss/utils";
 
 .message-box__menu {
-  position: relative;
+    position: relative;
 }
 
 .popup {
-  position: absolute;
-  top: 100%;
-  right: 0;
-  border-radius: utils.$radius-medium;
-  box-shadow: utils.$shadow;
-  background-color: utils.$white;
-  padding: 15px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    border-radius: utils.$radius-medium;
+    box-shadow: utils.$shadow;
+    background-color: utils.$white;
+    padding: 15px;
 }

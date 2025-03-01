@@ -23,87 +23,97 @@ $message-box-send-message-button-ml: 12px;
 $message-box-send-message-button-size: 40px;
 
 .message-box {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-  padding: $message-box-p;
-  padding-right: $message-box-pr;
-  box-sizing: border-box;
-
-  &--empty {
-    align-items: center;
-    justify-content: center;
-  }
-
-  &__menu {
-    &--active {
-      background-color: utils.$gray-lightest;
-      border-radius: utils.$radius-round;
-    }
-  }
-
-  &__title {
-    display: flex;
-    padding-bottom: $message-box-title-pb;
-    border-bottom: 1px solid utils.$gray-lighter;
-    padding-right: 16px;
-  }
-
-  &__title-name {
-    padding: $message-box-title-name-p;
-    padding-left: $message-box-title-name-pl;
-    flex-grow: 1;
-  }
-
-  &__title-avatar {
-    &>img {
-      border-radius: utils.$radius-round;
-      width: $message-box-title-avatar-size;
-      height: $message-box-title-avatar-size;
-    }
-  }
-
-  &__messages {
     display: flex;
     flex-direction: column;
+    width: 100%;
     height: 100%;
-    overflow-y: auto;
-    padding-right: $message-box-messages-pr;
+    padding: $message-box-p;
+    padding-right: $message-box-pr;
+    box-sizing: border-box;
 
-    & img {
-      max-width: 100%;
-    }
-  }
-
-  &__date-separator {
-    text-align: center;
-    padding: $message-box-date-separator-p;
-  }
-
-  &__send-message {
-    border-top: 1px solid utils.$gray-lighter;
-    display: flex;
-    padding-right: $message-box-send-messages-p;
-    padding-top: $message-box-send-messages-p;
-
-    &>input {
-      flex-grow: 1;
-      padding: $message-box-send-message-input-p;
-      font-size: utils.$font-small;
-      line-height: $message-box-send-message-input-h;
-      height: $message-box-send-message-input-h;
-      border: 0;
-      background-color: utils.$gray-lighter;
-      border-radius: utils.$radius-medium;
+    &--empty {
+        align-items: center;
+        justify-content: center;
     }
 
-    &>button {
-      margin-left: $message-box-send-message-button-ml;
-      width: $message-box-send-message-button-size;
-      height: $message-box-send-message-button-size;
-      border-radius: utils.$radius-round;
-      padding: 0;
+    &__menu {
+        &--active {
+            background-color: utils.$gray-lightest;
+            border-radius: utils.$radius-round;
+        }
     }
-  }
+
+    &__title {
+        display: flex;
+        padding-bottom: $message-box-title-pb;
+        border-bottom: 1px solid utils.$gray-lighter;
+        padding-right: 16px;
+    }
+
+    &__title-name {
+        padding: $message-box-title-name-p;
+        padding-left: $message-box-title-name-pl;
+        flex-grow: 1;
+    }
+
+    &__title-avatar {
+        & > img {
+            border-radius: utils.$radius-round;
+            width: $message-box-title-avatar-size;
+            height: $message-box-title-avatar-size;
+        }
+    }
+
+    &__messages {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        overflow-y: auto;
+        padding-right: $message-box-messages-pr;
+
+        & img {
+            max-width: 100%;
+        }
+    }
+
+    &__date-separator {
+        text-align: center;
+        padding: $message-box-date-separator-p;
+    }
+
+    &__send-message-input {
+        flex-grow: 1;
+
+        &--invalid {
+            input {
+                outline: 2px solid utils.$red;
+            }
+        }
+
+        input {
+            width: 100%;
+            padding: $message-box-send-message-input-p;
+            font-size: utils.$font-small;
+            line-height: $message-box-send-message-input-h;
+            height: $message-box-send-message-input-h;
+            border: 0;
+            background-color: utils.$gray-lighter;
+            border-radius: utils.$radius-medium;
+        }
+    }
+
+    &__send-message {
+        border-top: 1px solid utils.$gray-lighter;
+        display: flex;
+        padding-right: $message-box-send-messages-p;
+        padding-top: $message-box-send-messages-p;
+
+        & > button {
+            margin-left: $message-box-send-message-button-ml;
+            width: $message-box-send-message-button-size;
+            height: $message-box-send-message-button-size;
+            border-radius: utils.$radius-round;
+            padding: 0;
+        }
+    }
 }

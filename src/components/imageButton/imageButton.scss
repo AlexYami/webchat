@@ -3,25 +3,25 @@
 $button-p: 12px 20px;
 
 .image-button {
-  border: 0;
-  background-color: utils.$white;
-  cursor: pointer;
-  font-size: utils.$font-medium;
-  color: utils.$blue;
-  display: flex;
-  align-items: center;
-  padding: 0;
+    border: 0;
+    background-color: utils.$white;
+    cursor: pointer;
+    font-size: utils.$font-medium;
+    color: utils.$blue;
+    display: flex;
+    align-items: center;
+    padding: 0;
 
-  &:hover {
-    color: utils.$blue-dark;
-  }
+    &:hover {
+        color: utils.$blue-dark;
+    }
 
-  &:active {
-    color: utils.$blue-darker;
-  }
+    &:active {
+        color: utils.$blue-darker;
+    }
 
-  &__text {
-    padding: $button-p;
-    padding-left: 10px;
-  }
+    &__text {
+        padding: $button-p;
+        padding-left: 10px;
+    }
 }

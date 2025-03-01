@@ -1,13 +1,14 @@
-<div class="message-box">
-    {{> ChatTitle title="Вадим" }}
+<template class="message-box">
+    {{{ ChatTitle }}}
     <div class="message-box__messages">
         <div class="message-box__date-separator">19 июля</div>
-        {{#each messages}}
-            {{> Message }}
+        {{#each Messages}}
+        {{{ this }}}
         {{/each}}
     </div>
-    <form class="message-box__send-message">
-        <input type="text" name="message" placeholder="Сообщение..."/>
+    {{!-- <form class="message-box__send-message">
+        <input type="text" name="message" placeholder="Сообщение..." />
         <button class="button button--primary">→</button>
-    </form>
-</div>
+    </form> --}}
+    {{{ FormSend }}}
+</template>
