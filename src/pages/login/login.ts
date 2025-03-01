@@ -40,12 +40,12 @@ export abstract class BaseAuthForm extends BaseForm {
             ${this.renderContent()}
         </template>`;
     }
-
-    protected override renderTitle(): string {
-        return `<h2 class="form__title">{{ title }}</h2>`;
-    }
-    protected override getClassName(): string {
+    protected getClassName(): string {
         return `form`;
+    }
+
+    protected renderTitle(): string {
+        return `<h2 class="form__title">{{ title }}</h2>`;
     }
 
     protected abstract renderContent(): string;
