@@ -11,6 +11,6 @@ export { Layout } from "./layout";
 export { Link } from "./link";
 export { Message } from "./message";
 export { MessageBox } from "./messageBox";
-export { Modal } from "./modal";
+export { BaseModal } from "./modal";
 export { Popup } from "./popup";
 export { Profile } from "./profile";

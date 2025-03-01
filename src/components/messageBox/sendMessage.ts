@@ -61,7 +61,7 @@ export class SearchBox extends Form {
 
     protected override render(): string {
         return `
-            <template>
+            <template class="searchbox">
                 {{{ inputSearch }}}
                 <img src="/images/search.svg" alt="Поиск" />
             </template>
