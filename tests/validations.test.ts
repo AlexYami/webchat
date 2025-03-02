@@ -42,5 +42,7 @@ describe("Validations", () => {
         expect(NAME_REGEX.test("a")).toBe(false);
         expect(NAME_REGEX.test("AaAa-")).toBe(true);
         expect(NAME_REGEX.test("A#")).toBe(false);
+        expect(NAME_REGEX.test("Ёё")).toBe(true);
+        expect(NAME_REGEX.test("ёё")).toBe(false);
     });
 });

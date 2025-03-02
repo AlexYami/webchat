@@ -29,8 +29,6 @@ export class Input extends WebComponent<InputProps> {
                     ...props,
                     events: {
                         blur: (e: Event): void => {
-                            debugger;
-
                             const inputEl = e.target as HTMLInputElement;
 
                             const value = inputEl.value || "";

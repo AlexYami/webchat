@@ -3,7 +3,7 @@ import { HttpError } from "./errors";
 const HTTP_ERROR_THRESHOLD = 400;
 const HTTP_READY_STATE = 4;
 
-enum RequestMethod {
+export enum RequestMethod {
     POST = "POST",
     GET = "GET",
     PUT = "PUT",
@@ -11,8 +11,9 @@ enum RequestMethod {
 }
 
 type HttpHeaders = Record<string, string> | null;
-type HttpData = Record<string, unknown> | null;
-interface HttpRequestOptions {
+type HttpData = Record<string, string | number> | null;
+
+export interface HttpRequestOptions {
     method: RequestMethod;
     url: string;
     data?: HttpData;
@@ -21,60 +22,89 @@ interface HttpRequestOptions {
 
 const DEFAULT_HEADERS = { "Content-Type": "application/json" };
 
-export async function httpRequest({ method, url, data, headers }: HttpRequestOptions): Promise<string> {
-    return new Promise((resolve, reject) => {
-        const request = new XMLHttpRequest();
+export class HttpRequest {
+    public static async request(requestOptions: HttpRequestOptions): Promise<string> {
+        return new Promise((resolve, reject) => {
+            const { method, url, data, headers } = HttpRequest.prepareRequestOptions(requestOptions);
 
-        request.open(method, url, true);
+            const request = new XMLHttpRequest();
 
-        if (headers) {
-            for (const headerName of Object.keys(headers)) {
-                if (headers[headerName]) request.setRequestHeader(headerName, headers[headerName]);
+            request.open(method, url, true);
+
+            if (headers) {
+                for (const headerName of Object.keys(headers)) {
+                    if (headers[headerName]) request.setRequestHeader(headerName, headers[headerName]);
+                }
             }
+
+            request.onreadystatechange = (): void => {
+                if (request.readyState === HTTP_READY_STATE) {
+                    if (request.status < HTTP_ERROR_THRESHOLD) resolve(request.responseText);
+                    else reject(new HttpError(request.status, request.statusText));
+                }
+            };
+
+            request.send(data ? JSON.stringify(data) : null);
+        });
+    }
+
+    public static prepareRequestOptions(options: HttpRequestOptions): HttpRequestOptions {
+        let { url, data } = options;
+
+        if (options.method === RequestMethod.GET && data) {
+            url += HttpRequest.prepareQueryParams(data);
+            data = null;
         }
 
-        request.onreadystatechange = (): void => {
-            if (request.readyState === HTTP_READY_STATE) {
-                if (request.status < HTTP_ERROR_THRESHOLD) resolve(request.responseText);
-                else reject(new HttpError(request.status, request.statusText));
-            }
-        };
+        return { url, data, method: options.method, headers: options.headers };
+    }
 
-        request.send(data ? JSON.stringify(data) : null);
-    });
-}
+    public static async get(url: string, headers?: HttpHeaders): Promise<string> {
+        return HttpRequest.request({
+            method: RequestMethod.GET,
+            url,
+            data: null,
+            headers,
+        });
+    }
 
-export async function httpGet(url: string, headers?: HttpHeaders): Promise<string> {
-    return httpRequest({
-        method: RequestMethod.GET,
-        url,
-        data: null,
-        headers,
-    });
-}
+    public static async post(url: string, data: HttpData, headers: HttpHeaders = DEFAULT_HEADERS): Promise<string> {
+        return HttpRequest.request({
+            method: RequestMethod.POST,
+            url,
+            data,
+            headers,
+        });
+    }
 
-export async function httpPost(url: string, data: HttpData, headers: HttpHeaders = DEFAULT_HEADERS): Promise<string> {
-    return httpRequest({
-        method: RequestMethod.POST,
-        url,
-        data,
-        headers,
-    });
-}
+    public static async put(url: string, data: HttpData, headers: HttpHeaders = DEFAULT_HEADERS): Promise<string> {
+        return HttpRequest.request({
+            method: RequestMethod.PUT,
+            url,
+            data,
+            headers,
+        });
+    }
 
-export async function httpPut(url: string, data: HttpData, headers: HttpHeaders = DEFAULT_HEADERS): Promise<string> {
-    return httpRequest({
-        method: RequestMethod.PUT,
-        url,
-        data,
-        headers,
-    });
-}
+    public static async delete(url: string, headers: HttpHeaders): Promise<string> {
+        return HttpRequest.request({
+            method: RequestMethod.DELETE,
+            url,
+            headers,
+        });
+    }
 
-export async function httpDelete(url: string, headers: HttpHeaders): Promise<string> {
-    return httpRequest({
-        method: RequestMethod.DELETE,
-        url,
-        headers,
-    });
+    public static prepareQueryParams(data: HttpData): string {
+        if (!data) return "";
+
+        const params = new URLSearchParams();
+
+        for (const key of Object.keys(data)) {
+            const value = data[key];
+
+            params.append(key, String(value));
+        }
+
+        return `?${params.toString()}`;
+    }
 }

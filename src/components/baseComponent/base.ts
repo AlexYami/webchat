@@ -6,7 +6,7 @@ const EVENTS = {
     COMPONENT_DID_UPDATE: "component-did-update",
     COMPONENT_DID_MOUNT: "component-did-mount",
     RENDER: "render",
-};
+} as const;
 
 export abstract class BaseComponent<TRootElement, TProps extends object> {
     public readonly tagName: string;
