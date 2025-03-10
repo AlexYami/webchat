@@ -1,3 +1,3 @@
 import "./imageButton.scss";
 
-export { default as ImageButton } from "./imageButton.hbs?raw";
+export { ImageButton } from "./imageButton";

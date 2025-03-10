@@ -1,1 +1,1 @@
-export { default as SearchPage } from "./search.hbs?raw";
+export { SearchPage } from "./search";

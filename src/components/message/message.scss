@@ -11,54 +11,53 @@ $message-status-icon-width: 10px;
 $message-status-icon-height: 5px;
 
 .message {
-  padding: $message-p;
-  align-self: start;
-  font-size: utils.$font-medium;
-  max-width: 50%;
-  min-width: $message-minw;
-  box-sizing: border-box;
-  border-radius: utils.$radius-medium;
-  border-top-left-radius: 0;
-  margin-bottom: $message-mb;
-  background-color: utils.$gray-lightest;
+    padding: $message-p;
+    align-self: start;
+    font-size: utils.$font-medium;
+    max-width: 50%;
+    min-width: $message-minw;
+    box-sizing: border-box;
+    border-radius: utils.$radius-medium;
+    border-top-left-radius: 0;
+    margin-bottom: $message-mb;
+    background-color: utils.$gray-lightest;
 
-  &--my {
-    background-color: utils.$blue-lightest;
-    align-self: end;
-    border-top-left-radius: utils.$radius-medium;
-    border-bottom-right-radius: 0;
-  }
-
-  &--read {
-    .message__date {
-      color: utils.$blue;
+    &--my {
+        background-color: utils.$blue-lightest;
+        align-self: end;
+        border-top-left-radius: utils.$radius-medium;
+        border-bottom-right-radius: 0;
     }
-  }
 
-  &__info {
-    display: flex;
-    justify-content: end;
-    margin-top: $message-info-mt;
-    text-align: right;
-    font-size: utils.$font-small;
-    color: utils.$gray;
-  }
-
-  &__status {
-    display: flex;
-    align-items: center;
-    margin-right: $message-status-mr;
-
-    &>img {
-      width: $message-status-icon-width;
-      height: $message-status-icon-height;
-
+    &--read {
+        .message__date {
+            color: utils.$blue;
+        }
     }
-  }
+
+    &__info {
+        display: flex;
+        justify-content: end;
+        margin-top: $message-info-mt;
+        text-align: right;
+        font-size: utils.$font-small;
+        color: utils.$gray;
+    }
+
+    &__status {
+        display: flex;
+        align-items: center;
+        margin-right: $message-status-mr;
+
+        & > img {
+            width: $message-status-icon-width;
+            height: $message-status-icon-height;
+        }
+    }
 }
 
 @media (max-width: 1024px) {
-  .message {
-    max-width: 100%;
-  }
+    .message {
+        max-width: 100%;
+    }
 }

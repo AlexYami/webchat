@@ -1,9 +1,7 @@
-<div class="input {{#if errorMessage}}input--invalid{{/if}}">
+<template class="input {{#unless isValid}}input--invalid{{/unless}}">
     <label>{{label}}</label>
-    <input  name="{{name}}"
-            type="{{#if type}}{{type}}{{else}}text{{/if}}"
-            placeholder="{{placeholder}}"/>
-    {{#if errorMessage}}
-        <span class="input__error-message">{{errorMessage}}</span>
-    {{/if}}
-</div>
+    {{{ Input }}}
+    {{#unless isValid}}
+    <span class="input__error-message">{{errorMessage}}</span>
+    {{/unless}}
+</template>

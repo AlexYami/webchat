@@ -17,104 +17,103 @@ $contact-notifies-size: 20px;
 $contact-notifies-animation: pulse 1.5s infinite;
 
 .contacts {
-  flex-grow: 1;
-  height: 100%;
-  overflow-y: auto;
+    flex-grow: 1;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .contact {
-  cursor: pointer;
-  display: flex;
-  position: relative;
-  padding: $contact-p;
-  padding-left: $contact-pl;
-  border-bottom: 1px solid utils.$gray-lighter;
-
-  &:hover {
-    background-color: utils.$blue-lightest;
-
-    .contact__preview::after {
-      background-image: linear-gradient(transparent, utils.$blue-lightest);
-    }
-  }
-
-  &__avatar {
-    >img {
-      border-radius: utils.$radius-round;
-      width: $contact-avatar-size;
-      height: $contact-avatar-size;
-    }
-  }
-
-  &__info {
+    cursor: pointer;
+    display: flex;
     position: relative;
-    font-size: utils.$font-medium;
-    padding: $contact-info-p;
-  }
+    padding: $contact-p;
+    padding-left: $contact-pl;
+    border-bottom: 1px solid utils.$gray-lighter;
 
-  &__title {
-    display: block;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-weight: $contact-title-fw;
-    margin-bottom: $contact-title-mb;
-  }
-
-  &__preview {
-    display: block;
-    height: $contact-preview-h;
-    overflow: hidden;
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      top: 0;
-      background-image: linear-gradient(transparent, utils.$gray-lightest);
-      pointer-events: none;
+    &__avatar {
+        > img {
+            border-radius: utils.$radius-round;
+            width: $contact-avatar-size;
+            height: $contact-avatar-size;
+        }
     }
-  }
 
-  &__date {
-    font-size: utils.$font-small;
-    display: flex;
-    flex-direction: column;
-
-    &>span {
-      text-align: center;
-      flex-grow: 1;
+    &__info {
+        position: relative;
+        font-size: utils.$font-medium;
+        padding: $contact-info-p;
     }
-  }
 
-  &__notifies {
-    border-radius: utils.$radius-round;
-    background-color: utils.$blue;
-    color: utils.$white;
+    &__title {
+        display: block;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        font-weight: $contact-title-fw;
+        margin-bottom: $contact-title-mb;
+    }
 
-    width: $contact-notifies-size;
-    height: $contact-notifies-size;
-    font-size: utils.$font-small;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    z-index: 1;
-    animation: $contact-notifies-animation;
-  }
+    &__preview {
+        display: block;
+        height: $contact-preview-h;
+        overflow: hidden;
+
+        &::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            top: 0;
+            background-image: linear-gradient(transparent, utils.$gray-lightest);
+            pointer-events: none;
+        }
+    }
+
+    &:hover {
+        background-color: utils.$blue-lightest;
+
+        .contact__preview::after {
+            background-image: linear-gradient(transparent, utils.$blue-lightest);
+        }
+    }
+
+    &__date {
+        font-size: utils.$font-small;
+        display: flex;
+        flex-direction: column;
+
+        & > span {
+            text-align: center;
+            flex-grow: 1;
+        }
+    }
+
+    &__notifies {
+        border-radius: utils.$radius-round;
+        background-color: utils.$blue;
+        color: utils.$white;
+        width: $contact-notifies-size;
+        height: $contact-notifies-size;
+        font-size: utils.$font-small;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        z-index: 1;
+        animation: $contact-notifies-animation;
+    }
 }
 
 @keyframes pulse {
-  0% {
-    box-shadow: 0 0 0 0 utils.$blue;
-  }
+    0% {
+        box-shadow: 0 0 0 0 utils.$blue;
+    }
 
-  50% {
-    box-shadow: 0 0 0 6px rgba(255, 0, 0, 0);
-  }
+    50% {
+        box-shadow: 0 0 0 6px rgba(255 0 0 / 0%);
+    }
 
-  100% {
-    box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
-  }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255 0 0 / 0%);
+    }
 }
