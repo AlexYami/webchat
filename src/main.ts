@@ -1,9 +1,7 @@
 import "../scss/styles.scss";
 
-import Handlebars from "handlebars";
-import type { WebComponent } from "./components/baseComponent/web";
 import * as Pages from "./pages";
-import { renderDOM } from "./utils/dom";
+import { Router } from "./router/router";
 
 const pages: Record<string, unknown> = {
     login: Pages.LoginPage,
@@ -21,35 +19,55 @@ const pages: Record<string, unknown> = {
     nav: Pages.NavigatePage,
 };
 
-function navigate(page: string): void {
-    const pageInfo = pages[page];
+const APP_ROOT = "#app";
 
-    const ctor = pageInfo as ObjectConstructor;
+const router = Router.create(APP_ROOT);
 
-    if (typeof pageInfo === "function") {
-        renderDOM(new ctor({}) as WebComponent<object>);
-    } else {
-        const container = document.getElementById("app")!;
-        const temlpatingFunction = Handlebars.compile(pageInfo);
+router
+    .use("/login", pages.login as ObjectConstructor)
+    .use("/signin", pages.signin as ObjectConstructor)
+    .use("/chooseChat", pages.chooseChat as ObjectConstructor)
+    .use("/chat", pages.chat as ObjectConstructor)
+    .use("/search", pages.search as ObjectConstructor)
+    .use("/addUser", pages.addUser as ObjectConstructor)
+    .use("/addUserModal", pages.addUserModal as ObjectConstructor)
+    .use("/profile", pages.profile as ObjectConstructor)
+    .use("/changeProfile", pages.changeProfile as ObjectConstructor)
+    .use("/changePassword", pages.changePassword as ObjectConstructor)
+    .use("/page404", pages.page404 as ObjectConstructor)
+    .use("/page500", pages.page500 as ObjectConstructor)
+    .use("*", pages.nav as ObjectConstructor)
+    .start();
 
-        container.innerHTML = temlpatingFunction({});
-    }
-}
+// function navigate(page: string): void {
+//     const pageInfo = pages[page];
 
-document.addEventListener("DOMContentLoaded", () => {
-    navigate("nav");
-});
+//     const ctor = pageInfo as ObjectConstructor;
 
-document.addEventListener("click", (e: MouseEvent) => {
-    const { target } = e;
+//     if (typeof pageInfo === "function") {
+//         renderDOM(new ctor({}) as WebComponent<object>);
+//     } else {
+//         const container = document.getElementById("app")!;
+//         const temlpatingFunction = Handlebars.compile(pageInfo);
 
-    if (target instanceof HTMLElement) {
-        const page = target.getAttribute("page");
-        if (page) {
-            navigate(page);
+//         container.innerHTML = temlpatingFunction({});
+//     }
+// }
 
-            e.preventDefault();
-            e.stopImmediatePropagation();
-        }
-    }
-});
+// document.addEventListener("DOMContentLoaded", () => {
+//     navigate("nav");
+// });
+
+// document.addEventListener("click", (e: MouseEvent) => {
+//     const { target } = e;
+
+//     if (target instanceof HTMLElement) {
+//         const page = target.getAttribute("page");
+//         if (page) {
+//             navigate(page);
+
+//             e.preventDefault();
+//             e.stopImmediatePropagation();
+//         }
+//     }
+// });
