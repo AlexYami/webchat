@@ -29,6 +29,8 @@ export class HttpRequest {
 
             const request = new XMLHttpRequest();
 
+            request.withCredentials = true;
+
             request.open(method, url, true);
 
             if (headers) {
@@ -59,7 +61,7 @@ export class HttpRequest {
         return { url, data, method: options.method, headers: options.headers };
     }
 
-    public static async get(url: string, headers?: HttpHeaders): Promise<string> {
+    public static async get(url: string, headers?: HttpHeader): Promise<string> {
         return HttpRequest.request({
             method: RequestMethod.GET,
             url,

@@ -71,6 +71,14 @@ export class Input extends WebComponent<InputProps> {
     public getKeyValue(): [string, string] {
         return [this.props.name, this.props.value];
     }
+
+    public getName(): string {
+        return this.props.name;
+    }
+
+    public getValue(): string {
+        return this.props.value;
+    }
 }
 
 export class InputProfile extends Input {

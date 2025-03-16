@@ -37,8 +37,6 @@ export class Router {
     }
 
     private onRoute(path: string): void {
-        debugger;
-
         const route = this.getRoute(path);
 
         if (!route) return;

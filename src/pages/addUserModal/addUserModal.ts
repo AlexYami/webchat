@@ -1,5 +1,5 @@
 import { MessageBox } from "../../components";
-import { BaseLayout } from "../../components/layout/layout";
+import BaseLayout from "../../components/layout/layout";
 import { AddUserModalForm } from "../../components/modal/modal";
 import { contacts, messages } from "../../mockData";
 

@@ -1,4 +1,4 @@
-import { BaseLayout } from "../../components/layout/layout";
+import BaseLayout from "../../components/layout/layout";
 import { contacts } from "../../mockData";
 
 export class ChooseChatPage extends BaseLayout {

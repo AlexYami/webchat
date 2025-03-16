@@ -2,6 +2,7 @@ import "../scss/styles.scss";
 
 import * as Pages from "./pages";
 import { Router } from "./router/router";
+import { Store } from "./store";
 
 const pages: Record<string, unknown> = {
     login: Pages.LoginPage,
@@ -18,6 +19,12 @@ const pages: Record<string, unknown> = {
     page500: Pages.Page500,
     nav: Pages.NavigatePage,
 };
+
+window.store = new Store({
+    isLoading: false,
+    user: null,
+    loginError: null,
+});
 
 const APP_ROOT = "#app";
 
