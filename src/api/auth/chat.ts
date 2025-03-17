@@ -22,8 +22,8 @@ export default class ChatApi {
         return JSON.parse(res) as Chat[];
     }
 
-    public async getToken(): Promise<string> {
-        return HttpRequest.post(getEndpointUrl("/token/53428"), {});
+    public async getToken(chatId: number): Promise<string> {
+        return HttpRequest.post(getEndpointUrl(`/token/${chatId}`), {});
     }
 
     public async createChat(): Promise<unknown> {
@@ -37,3 +37,5 @@ export default class ChatApi {
         });
     }
 }
+
+export const __ChatAPI = new ChatApi();

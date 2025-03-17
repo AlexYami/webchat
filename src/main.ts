@@ -1,7 +1,10 @@
 import "../scss/styles.scss";
+import { __AuthAPI } from "./api/auth/auth";
+import { __ChatAPI } from "./api/auth/chat";
 
 import * as Pages from "./pages";
 import { Router } from "./router/router";
+import { ROUTES } from "./router/routes";
 import { Store } from "./store";
 
 const pages: Record<string, unknown> = {
@@ -24,6 +27,7 @@ window.store = new Store({
     isLoading: false,
     user: null,
     loginError: null,
+    contacts: [],
     messages: [],
 });
 
@@ -46,6 +50,43 @@ router
     .use("/page500", pages.page500 as ObjectConstructor)
     .use("*", pages.nav as ObjectConstructor)
     .start();
+
+async function main() {
+    try {
+        const userInfo = await __AuthAPI.me();
+
+        window.store.set({
+            user: JSON.parse(userInfo),
+        });
+
+        const chats = await __ChatAPI.getChats();
+
+        window.store.set({
+            contacts: chats.map((item) => {
+                return {
+                    id: item.id,
+                    name: item.title,
+                    image: item.avatar,
+                    notifiesNumber: item.unread_count,
+                    lastMessageDate: item.last_message,
+                    preview: item.last_message,
+                };
+            }),
+        });
+
+        router.go(ROUTES.chat);
+    } catch (err: Error) {
+        debugger;
+
+        if (err.code === 401) {
+            router.go(ROUTES.login);
+        } else
+
+        router.go(ROUTES.page500);
+    }
+}
+
+void main();
 
 // function navigate(page: string): void {
 //     const pageInfo = pages[page];

@@ -33,3 +33,5 @@ export default class AuthApi {
         return HttpRequest.post(logoutUrl, {});
     }
 }
+
+export const __AuthAPI = new AuthApi();

@@ -1,5 +1,6 @@
 import ChatApi from "../../api/auth/chat";
 import TokenApi from "../../api/auth/token";
+import { getMessages } from "../../api/messageTransport";
 import { connect } from "../../utils/connect";
 import type { BaseProps } from "../baseComponent/web";
 import { WebComponent } from "../baseComponent/web";
@@ -69,74 +70,38 @@ abstract class BaseLayout extends WebComponent<LayoutProps> {
             },
         });
 
-        chatApi.getToken().then((res) => {
-            res = JSON.parse(res);
+        // chatApi.getChats().then((res) => {
+        // debugger;
 
-            const socket = new WebSocket("wss://ya-praktikum.tech/ws/chats/3643/53428/" + res.token);
+        console.log(this.props);
 
-            socket.addEventListener("open", () => {
-                console.log("Соединение установлено");
+        // this.setProps({
+        //     contacts: res.map((item) => {
+        //         return {
+        //             name: item.title,
+        //             image: item.avatar,
+        //             notifiesNumber: item.unread_count,
+        //             lastMessageDate: item.last_message,
+        //             preview: item.last_message,
+        //         };
+        //     }),
+        // });
 
-                // socket.send(
-                //     JSON.stringify({
-                //         content: "Моё первое сообщение миру!",
-                //         type: "message",
-                //     })
-                // );
+        // window.store.set({
+        //     contacts: res.map((item) => {
+        //         return {
+        //             id: item.id,
+        //             name: item.title,
+        //             image: item.avatar,
+        //             notifiesNumber: item.unread_count,
+        //             lastMessageDate: item.last_message,
+        //             preview: item.last_message,
+        //         };
+        //     }),
+        // });
 
-                socket.send(
-                    JSON.stringify({
-                        content: "0",
-                        type: "get old",
-                    })
-                );
-
-                socket.addEventListener("message", (event) => {
-                    const messages = JSON.parse(event.data);
-
-                    debugger;
-
-                    window.store.set({
-                        messages: messages,
-                    });
-
-                    console.log("Получены данные", event.data);
-                });
-            });
-        });
-
-        chatApi.getChats().then((res) => {
-            // debugger;
-
-            console.log(this.props);
-
-            // this.setProps({
-            //     contacts: res.map((item) => {
-            //         return {
-            //             name: item.title,
-            //             image: item.avatar,
-            //             notifiesNumber: item.unread_count,
-            //             lastMessageDate: item.last_message,
-            //             preview: item.last_message,
-            //         };
-            //     }),
-            // });
-
-            window.store.set({
-                contacts: res.map((item) => {
-                    return {
-                        id: item.id,
-                        name: item.title,
-                        image: item.avatar,
-                        notifiesNumber: item.unread_count,
-                        lastMessageDate: item.last_message,
-                        preview: item.last_message,
-                    };
-                }),
-            });
-
-            // chatApi.createChat();
-        });
+        // chatApi.createChat();
+        // });
     }
 
     protected override render(): string {
@@ -147,7 +112,11 @@ abstract class BaseLayout extends WebComponent<LayoutProps> {
         this.props.children!.ContactList = new ContactList({
             contacts: this.props.contacts,
             contactClick: (chatId: number) => {
-                alert("test: " + chatId);
+                // chatApi.getToken(chatId).then((res) => {
+                //     const { token } = JSON.parse(res);
+
+                    getMessages(window.store.getState().user.id, chatId);
+                // });
 
                 this.props.children!.messageBox.setProps({
                     chatId,
