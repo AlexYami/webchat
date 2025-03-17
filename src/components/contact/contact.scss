@@ -31,7 +31,7 @@ $contact-notifies-animation: pulse 1.5s infinite;
     border-bottom: 1px solid utils.$gray-lighter;
 
     &__avatar {
-        > img {
+        >img {
             border-radius: utils.$radius-round;
             width: $contact-avatar-size;
             height: $contact-avatar-size;
@@ -69,7 +69,8 @@ $contact-notifies-animation: pulse 1.5s infinite;
         }
     }
 
-    &:hover {
+    &:hover,
+    &--active {
         background-color: utils.$blue-lightest;
 
         .contact__preview::after {
@@ -82,7 +83,7 @@ $contact-notifies-animation: pulse 1.5s infinite;
         display: flex;
         flex-direction: column;
 
-        & > span {
+        &>span {
             text-align: center;
             flex-grow: 1;
         }

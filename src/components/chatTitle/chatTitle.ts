@@ -11,37 +11,57 @@ interface ChatTitleProps extends BaseProps {
 
 const addUserIcon = `<img src="/images/addUser.svg" alt="Добавить пользователя" />`;
 const delteUserIcon = `<img src="/images/deleteUser.svg" alt="Удалить пользователя" />`;
+const showAddUserPopupIcon = `<img src="/images/burgerMenu.svg" alt="Меню" />`;
 
-class AddUserPopup extends BasePopup {
-    public constructor() {
-        super({
-            children: {
-                AddUser: new ImageButton({ content: addUserIcon, text: "Добавить пользователя" }),
-                DeleteUser: new ImageButton({ content: delteUserIcon, text: "Удалить пользователя" }),
-            },
-        });
-    }
+// class AddUserPopup extends BasePopup {
+//     public constructor() {
+//         super({
+//             children: {
+//                 AddUser: new ImageButton({
+//                     content: addUserIcon,
+//                     text: "Добавить пользователя",
+//                     events: {
+//                         click: () => {
+//                             alert("add user");
+//                         },
+//                     },
+//                 }),
+//                 DeleteUser: new ImageButton({ content: delteUserIcon, text: "Удалить пользователя" }),
+//             },
+//         });
+//     }
 
-    protected override renderContent(): string {
-        return `
-            <div class="message-box__command-popup">
-                {{{ AddUser }}}
-                {{{ DeleteUser }}}
-            </div>`;
-    }
-}
+//     protected override renderContent(): string {
+//         return `
+//             <div class="message-box__command-popup">
+//                 {{{ AddUser }}}
+//                 {{{ DeleteUser }}}
+//             </div>`;
+//     }
+// }
 
-export class ChatTitle extends WebComponent<ChatTitleProps> {
-    public constructor(props: ChatTitleProps) {
-        super("div", {
-            ...props,
-            children: {
-                Popup: new AddUserPopup(),
-            },
-        });
-    }
+// export class ChatTitle extends WebComponent<ChatTitleProps> {
+//     public constructor(props: ChatTitleProps) {
+//         super("div", {
+//             ...props,
+//             children: {
+//                 Popup: new AddUserPopup(),
+//                 ShowAddUserPopupButton: new ImageButton({
+//                     content: showAddUserPopupIcon,
+//                     text: "",
+//                     events: {
+//                         click: () => {
+//                             this.setProps({
+//                                 showAddUserPopup: true,
+//                             });
+//                         },
+//                     },
+//                 }),
+//             },
+//         });
+//     }
 
-    protected override render(): string {
-        return ChatTitleTemplate;
-    }
-}
+//     protected override render(): string {
+//         return ChatTitleTemplate;
+//     }
+// }

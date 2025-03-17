@@ -1,7 +1,6 @@
 import ChatApi from "../../api/auth/chat";
-import { MessageBox } from "../../components";
 import BaseLayout from "../../components/layout/layout";
-import { contacts, messages } from "../../mockData";
+import { contacts } from "../../mockData";
 
 const chatApi = new ChatApi();
 
@@ -10,13 +9,11 @@ export class ChatPage extends BaseLayout {
         super({
             searchText: "",
             contacts,
-            children: {
-                messageBox: new MessageBox({ messages }),
-            },
+            children: {},
         });
     }
 
-    protected override renderLayoutContent(): string {
-        return "{{{ messageBox }}}";
-    }
+    // protected override renderLayoutContent(): string {
+    //     return "{{{ messageBox }}}";
+    // }
 }

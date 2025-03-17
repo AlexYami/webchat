@@ -10,6 +10,12 @@ const authApi = new AuthApi();
 
 const test_login = "Al1742038344302";
 const test_password = "aabcAAVC@!1742038344302";
+const id = 3643;
+
+const chatId = 53428;
+
+// const test_login = "Al1742065066352";
+// const test_password = "aabcAAVC@!1742065066352";
 
 // {
 //     "first_name": "Alexisss1742065066352",
@@ -18,6 +24,7 @@ const test_password = "aabcAAVC@!1742038344302";
 //     "email": "Al1742065066352@gmail.com",
 //     "password": "aabcAAVC@!1742065066352",
 //     "phone": "123456789"
+// id: 3647
 // }
 
 const InputLogin = new Input({

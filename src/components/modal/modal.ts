@@ -5,27 +5,40 @@ import { WebComponent } from "../baseComponent/web";
 import { Button } from "../button";
 import { Input } from "../input";
 
-const InputLogin = new Input({
-    label: "Логин",
-    name: "login",
-    placeholder: "Введите логин",
-    errorMessage: "Неверный логин",
-    validationRegex: LOGIN_REGEX,
-    value: "",
-});
+// const InputLogin = new Input({
+//     label: "Логин",
+//     name: "login",
+//     placeholder: "Введите логин",
+//     errorMessage: "Неверный логин",
+//     validationRegex: LOGIN_REGEX,
+//     value: "",
+// });
 
-const ButtonAddUser = new Button({
-    text: "Добавить",
-    role: "primary",
-});
+// const ButtonAddUser = new Button({
+//     text: "Добавить",
+//     role: "primary",
+// });
 
 export class AddUserForm extends BaseAuthForm {
-    public constructor() {
+    public constructor(props) {
         super({
             title: "Добавить пользователя",
             children: {
-                InputLogin,
-                ButtonAddUser,
+                InputLogin: new Input({
+                    label: "Логин",
+                    name: "login",
+                    placeholder: "Введите логин",
+                    errorMessage: "Неверный логин",
+                    validationRegex: LOGIN_REGEX,
+                    value: "",
+                }),
+                ButtonAddUser: new Button({
+                    text: "Добавить",
+                    role: "primary",
+                    events: {
+                        click: props.onUserAdd,
+                    },
+                }),
             },
         });
     }
@@ -65,15 +78,17 @@ export abstract class BaseModal extends WebComponent<ModalProps> {
 }
 
 export class AddUserModalForm extends BaseModal {
-    public constructor() {
+    public constructor(props) {
         super({
             children: {
-                AddUserForm: new AddUserForm(),
+                AddUserForm: new AddUserForm(props),
             },
         });
     }
 
     protected override renderContent(): string {
+        // debugger;
+
         return `{{{ AddUserForm }}}`;
     }
 }

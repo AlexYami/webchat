@@ -9,6 +9,7 @@ export interface ContactProps extends BaseProps {
     preview: string;
     lastMessageDate: string;
     notifiesNumber: number;
+    isActive: boolean;
 }
 
 export class Contact extends WebComponent<ContactProps> {
@@ -18,5 +19,11 @@ export class Contact extends WebComponent<ContactProps> {
 
     protected override render(): string {
         return ContactTemplate;
+    }
+
+    public toggleActive(): void {
+        this.setProps({
+            isActive: !this.props.isActive,
+        });
     }
 }

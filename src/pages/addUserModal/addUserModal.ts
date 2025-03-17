@@ -1,9 +1,8 @@
 import { MessageBox } from "../../components";
 import BaseLayout from "../../components/layout/layout";
-import { AddUserModalForm } from "../../components/modal/modal";
 import { contacts, messages } from "../../mockData";
 
-const addUserModalForm = new AddUserModalForm();
+// const addUserModalForm = new AddUserModalForm();
 
 export class AddUserModalPage extends BaseLayout {
     public constructor() {
@@ -12,7 +11,7 @@ export class AddUserModalPage extends BaseLayout {
             contacts,
             children: {
                 messageBox: new MessageBox({ messages, showAddUserPopup: false }),
-                addUserModalForm,
+                // addUserModalForm: new AddUserModalForm(pr),
             },
         });
     }

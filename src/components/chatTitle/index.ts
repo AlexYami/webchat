@@ -1,3 +1,3 @@
 import "./chatTitle.scss";
 
-export { ChatTitle } from "./chatTitle";
+// export { ChatTitle } from "./chatTitle";

@@ -18,8 +18,6 @@ export function connect(mapStateToProps: Function) {
                 super({ ...props, ...state });
 
                 this.onChangeStoreCallback = (): void => {
-                    debugger;
-
                     // при обновлении получаем новое состояние
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
                     const newState = mapStateToProps(store.getState());

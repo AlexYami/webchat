@@ -24,6 +24,7 @@ window.store = new Store({
     isLoading: false,
     user: null,
     loginError: null,
+    messages: [],
 });
 
 const APP_ROOT = "#app";

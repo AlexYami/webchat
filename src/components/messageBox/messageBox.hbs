@@ -1,5 +1,26 @@
-<template class="message-box">
-    {{{ ChatTitle }}}
+<template class="message-box {{#unless chatId }}message-box--empty{{/unless}}">
+
+
+    {{#if chatId }}
+
+
+    <div class="message-box__title">
+        <div class="message-box__title-avatar">
+            <img src="https://placehold.co/36x36/orange/white" alt="Аватар" />
+        </div>
+        <h1 class="message-box__title-name">
+            {{title}}
+        </h1>
+        <div class="message-box__menu {{# if showAddUserPopup}}message-box__menu--active{{/if}}">
+            {{{ShowAddUserPopupButton}}}
+            {{# if showAddUserPopup}}
+            {{{ Popup }}}
+            {{/if}}
+        </div>
+    </div>
+
+
+
     <div class="message-box__messages">
         <div class="message-box__date-separator">19 июля</div>
         {{#each Messages}}
@@ -11,4 +32,17 @@
         <button class="button button--primary">→</button>
     </form> --}}
     {{{ FormSend }}}
+
+    {{# if showAddUserModalForm}}
+    {{{ addUserModalForm }}}
+    {{/if}}
+
+    {{else}}
+    <div class="message-box message-box--empty">
+        <span>Выберите чат чтобы отправить сообщение</span>
+    </div>
+    {{/if}};
+
+
+
 </template>

@@ -1,5 +1,5 @@
 export { Button } from "./button";
-export { ChatTitle } from "./chatTitle";
+// export { ChatTitle } from "./chatTitle";
 export { Contact } from "./contact";
 export { ContactList } from "./contactList";
 export { ErrorPageBase } from "./error";

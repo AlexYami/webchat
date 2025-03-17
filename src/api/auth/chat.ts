@@ -22,7 +22,18 @@ export default class ChatApi {
         return JSON.parse(res) as Chat[];
     }
 
+    public async getToken(): Promise<string> {
+        return HttpRequest.post(getEndpointUrl("/token/53428"), {});
+    }
+
     public async createChat(): Promise<unknown> {
         return HttpRequest.post(getEndpointUrl(""), { title: `Чат ${Date.now()}` });
+    }
+
+    public async addUsersToChat(chatId: number, users): Promise<void> {
+        return HttpRequest.put(getEndpointUrl("/users"), {
+            chatId,
+            users,
+        });
     }
 }
