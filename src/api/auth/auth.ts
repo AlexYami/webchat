@@ -26,7 +26,9 @@ export default class AuthApi {
     }
 
     public async me(): Promise<string> {
-        return HttpRequest.get(userUrl);
+        const userInfo = await HttpRequest.get(userUrl);
+
+        return JSON.parse(userInfo);
     }
 
     public async logout(): Promise<string> {

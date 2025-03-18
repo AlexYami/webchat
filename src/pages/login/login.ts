@@ -1,8 +1,7 @@
 import AuthApi from "../../api/auth/auth";
 import { BaseForm, Button, Input } from "../../components";
 import type { BaseProps } from "../../components/baseComponent/web";
-import { Router } from "../../router/router";
-import { ROUTES } from "../../router/routes";
+import * as AuthService from "../../services/auth";
 import { LOGIN_REGEX, PASSWORD_REGEX } from "../../utils/validations";
 import LoginFormTemplate from "./form.hbs?raw";
 
@@ -54,31 +53,9 @@ const ButtonAuth = new Button({
         click: (e: Event): void => {
             e.preventDefault();
 
-            const data = {
-                login: InputLogin.getValue(),
-                password: InputPassword.getValue(),
-            };
+            debugger;
 
-            // window.store.set({ isLoading: true });
-
-            authApi
-                .login(data)
-                .then(async (res) => {
-                    return authApi.me();
-                })
-                .then((res) => {
-                    debugger;
-
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-                    window.store.set({
-                        user: JSON.parse(res),
-                    });
-
-                    Router.get().go(ROUTES.chat);
-                })
-                .catch((err) => {
-                    void authApi.logout();
-                });
+            return AuthService.login(InputLogin.getValue(), InputPassword.getValue());
         },
     },
 });

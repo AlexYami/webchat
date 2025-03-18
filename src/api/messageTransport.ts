@@ -40,6 +40,14 @@ async function ensureConnection(userId: number, chatId: number) {
     });
 }
 
+export function sendMessage(userId: number, charId: number) {
+    void ensureConnection(userId, chatId).then((connection) => {
+        connection.send({
+            
+        })
+    });
+}
+
 export function getMessages(userId: number, chatId: number, token: string) {
     console.log(activeConnections);
 

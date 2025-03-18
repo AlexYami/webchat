@@ -1,10 +1,9 @@
 import "../scss/styles.scss";
 import { __AuthAPI } from "./api/auth/auth";
-import { __ChatAPI } from "./api/auth/chat";
 
 import * as Pages from "./pages";
 import { Router } from "./router/router";
-import { ROUTES } from "./router/routes";
+import * as AuthService from "./services/auth";
 import { Store } from "./store";
 
 const pages: Record<string, unknown> = {
@@ -31,11 +30,14 @@ window.store = new Store({
     messages: [],
 });
 
+window.__AuthAPI = __AuthAPI;
+
 const APP_ROOT = "#app";
 
 const router = Router.create(APP_ROOT);
 
 router
+    .use("/", pages.chat as ObjectConstructor)
     .use("/login", pages.login as ObjectConstructor)
     .use("/signin", pages.signin as ObjectConstructor)
     .use("/chooseChat", pages.chooseChat as ObjectConstructor)
@@ -48,42 +50,14 @@ router
     .use("/changePassword", pages.changePassword as ObjectConstructor)
     .use("/page404", pages.page404 as ObjectConstructor)
     .use("/page500", pages.page500 as ObjectConstructor)
-    .use("*", pages.nav as ObjectConstructor)
-    .start();
+    .use("*", pages.page404 as ObjectConstructor);
+// .start();
 
 async function main() {
-    try {
-        const userInfo = await __AuthAPI.me();
+    await AuthService.ensureStore();
 
-        window.store.set({
-            user: JSON.parse(userInfo),
-        });
-
-        const chats = await __ChatAPI.getChats();
-
-        window.store.set({
-            contacts: chats.map((item) => {
-                return {
-                    id: item.id,
-                    name: item.title,
-                    image: item.avatar,
-                    notifiesNumber: item.unread_count,
-                    lastMessageDate: item.last_message,
-                    preview: item.last_message,
-                };
-            }),
-        });
-
-        router.go(ROUTES.chat);
-    } catch (err: Error) {
-        debugger;
-
-        if (err.code === 401) {
-            router.go(ROUTES.login);
-        } else
-
-        router.go(ROUTES.page500);
-    }
+    router.start();
+    // router.go(window.location.pathname as ROUTES);
 }
 
 void main();
