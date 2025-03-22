@@ -1,1 +1,3 @@
-export { ChangeProfilePage } from "./changeProfile";
+import ChangeProfilePage from "./changeProfile";
+
+export { ChangeProfilePage };

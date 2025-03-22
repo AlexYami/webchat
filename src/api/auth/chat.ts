@@ -10,7 +10,7 @@ export interface Chat {
     avatar: string;
     created_by: number;
     id: number;
-    last_message: string;
+    last_message?: Record<string, unknown>;
     title: string;
     unread_count: number;
 }
@@ -19,15 +19,17 @@ export default class ChatApi {
     public async getChats(): Promise<Chat[]> {
         const res = await HttpRequest.get(getEndpointUrl(""));
 
-        return JSON.parse(res) as Chat[];
+        const chats = JSON.parse(res) as Chat[];
+
+        return chats;
     }
 
     public async getToken(chatId: number): Promise<string> {
         return HttpRequest.post(getEndpointUrl(`/token/${chatId}`), {});
     }
 
-    public async createChat(): Promise<unknown> {
-        return HttpRequest.post(getEndpointUrl(""), { title: `Чат ${Date.now()}` });
+    public async createChat(title: string): Promise<unknown> {
+        return HttpRequest.post(getEndpointUrl(""), { title });
     }
 
     public async addUsersToChat(chatId: number, users): Promise<void> {

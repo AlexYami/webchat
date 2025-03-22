@@ -1,6 +1,7 @@
+import { __UserAPI } from "../../api/auth/user";
 import { Button } from "../../components";
 import { InputProfile } from "../../components/input";
-import { BaseProfile } from "../../components/profile/profile";
+import BaseProfile from "../../components/profile/profile";
 import { PASSWORD_REGEX } from "../../utils/validations";
 
 const InputOldPassword = new InputProfile({
@@ -39,10 +40,20 @@ export class ChangePasswordPage extends BaseProfile {
             image: "https://placehold.co/130x130/orange/white",
             title: "Иван",
             children: {
-                ButtonSave: new Button({ text: "Сохранить", role: "primary" }),
+                ButtonSave: new Button({
+                    text: "Сохранить",
+                    role: "primary",
+                }),
                 InputOldPassword,
                 InputNewPassword,
                 InputNewPassword2,
+            },
+            onFormSubmit: () => {
+                debugger;
+
+                const data = this.getValues();
+
+                __UserAPI.changePassword(data);
             },
         });
     }

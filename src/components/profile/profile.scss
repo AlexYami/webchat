@@ -28,7 +28,7 @@ $go-back-layout-mw-small: 320px;
 .profile__layout-item-value {
     color: utils.$gray;
 
-    > input {
+    >input {
         border: 0;
         outline: 0;
         color: utils.$gray;
@@ -38,6 +38,12 @@ $go-back-layout-mw-small: 320px;
 .profile__buttons {
     display: flex;
     flex-direction: column;
+}
+
+.profile__readonly {
+    input {
+        pointer-events: none;
+    }
 }
 
 .profile__avatar {

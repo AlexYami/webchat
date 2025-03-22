@@ -41,6 +41,8 @@ export class ContactList extends WebComponent<ContactListProps> {
     }
 
     protected override render(): string {
+        // debugger;
+
         this.props.children!.Contacts = this.props.contacts.map((item, index) => {
             return new Contact({
                 ...item,
@@ -49,9 +51,9 @@ export class ContactList extends WebComponent<ContactListProps> {
                         // alert("asfsdf");
                         console.log(item);
 
-                        this.props.contactClick(item.id);
+                        this.props.contactClick(item);
 
-                        debugger;
+                        // debugger;
 
                         // if (typeof this.activeIndex === "number") {
                         //     this.props.children!.Contacts[this.activeIndex].setProps({ isActive: false });

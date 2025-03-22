@@ -1,3 +1,4 @@
+import Profile from "./profile";
 import "./profile.scss";
 
-export { BaseProfile as Profile } from "./profile";
+export { Profile };

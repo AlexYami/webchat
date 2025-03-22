@@ -22,6 +22,13 @@ export class SearchBox extends BaseForm<SearchBoxProps> {
                 ...props.children,
                 inputSearch,
             },
+            onFormSubmit: () => {
+                debugger;
+
+                const { search } = this.getValues();
+
+                this.props.onSearch(search);
+            },
         });
     }
 

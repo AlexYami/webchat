@@ -14,6 +14,7 @@ interface MessageBoxProps extends BaseProps {
     messages: MessageProps[];
     showAddUserPopup?: boolean;
     chatId: number;
+    name: string;
 }
 
 const addUserIcon = `<img src="/images/addUser.svg" alt="Добавить пользователя" />`;
@@ -62,25 +63,7 @@ class MessageBox extends WebComponent<MessageBoxProps> {
                     },
                 }),
                 addUserModalForm: new AddUserModalForm({
-                    onUserAdd: () => {
-                        alert("kekekeke");
-                        console.log(this);
-
-                        chatApi
-                            .addUsersToChat(this.props.chatId, [3643, 3647])
-                            .then((res) => {
-                                this.setProps({
-                                    showAddUserModalForm: false,
-                                    showAddUserPopup: false,
-                                });
-                            })
-                            .catch((res) => {
-                                this.setProps({
-                                    showAddUserModalForm: false,
-                                    showAddUserPopup: false,
-                                });
-                            });
-                    },
+                    chatId: props.chatId,
                 }),
                 ShowAddUserPopupButton: new ImageButton({
                     content: showAddUserPopupIcon,
@@ -96,12 +79,20 @@ class MessageBox extends WebComponent<MessageBoxProps> {
 
                 Messages: props.messages.map((m) => new Message(m)),
                 // ChatTitle: new ChatTitle({ showAddUserPopup: !!props.showAddUserPopup, title: "Вадим" }),
-                FormSend: new SendMessage(),
+                FormSend: new SendMessage({ chatId: props.chatId }),
             },
         });
     }
+
+    override setProps(props: Partial<MessageBoxProps | null>): void {
+        super.setProps(props);
+
+        // debugger;
+
+        this.props.children?.addUserModalForm.setProps({ chatId: this.props.chatId });
+    }
     protected override render(): string {
-        debugger;
+        // debugger;
 
         // chat_id: 53428;
         // content: "Моё первое сообщение миру!";
@@ -112,18 +103,46 @@ class MessageBox extends WebComponent<MessageBoxProps> {
         // type: "message";
         // user_id: 3643;
 
-        this.props.children!.Messages = this.props.messages.map(
-            (m) =>
-                new Message({
-                    // my?: ;
-                    read: m.is_read,
-                    text: m.content,
-                    // attachment?: string;
-                    date: m.time,
-                })
-        );
+        this.props.children.FormSend = new SendMessage({ chatId: this.props.chatId });
+
+        const now = new Date();
+
+        // Настройки для локализации на русском языке
+        const options = {
+            weekday: "short", // день недели
+            month: "short", // месяц
+            day: "numeric", // день месяца
+            hour: "2-digit", // часы
+            minute: "2-digit", // минуты
+        };
+
+        this.props.children!.Messages = this.props.messages
+            .sort((a, b) => {
+                // debugger;
+                return new Date(a.time) - new Date(b.time);
+            })
+            .map(
+                (m) =>
+                    new Message({
+                        my: m.user_id === window.store.getState().user.id,
+                        read: m.is_read,
+                        text: m.content,
+                        // attachment?: string;
+                        date: new Date(m.time).toLocaleString("ru-RU", options),
+                    })
+            );
 
         return MessageBoxTemplate;
+    }
+
+    protected override handleRender(): void {
+        super.handleRender();
+
+        setTimeout(() => {
+            const messageList = document.querySelector(".message-box__messages");
+
+            if (messageList) messageList.scrollTop = 99999;
+        }, 0);
     }
 }
 

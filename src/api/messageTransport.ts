@@ -28,23 +28,40 @@ async function ensureConnection(userId: number, chatId: number) {
                     resolve(socket);
                 });
 
+                socket.addEventListener("close", (event) => {
+                    activeConnections.delete(getKey(userId, chatId));
+                });
+
                 socket.addEventListener("message", (event) => {
+                    // debugger;
                     const messages = JSON.parse(event.data);
 
-                    window.store.set({
-                        messages: messages,
-                    });
+                    if (Array.isArray(messages)) {
+                        window.store.set({
+                            messages,
+                        });
+                    } else if (messages.type === "user connected") {
+                    } else if (messages.type === "message") {
+                        const existingMessages = window.store.getState().messages;
+
+                        window.store.set({
+                            messages: [...existingMessages, messages],
+                        });
+                    }
                 });
             });
         }
     });
 }
 
-export function sendMessage(userId: number, charId: number) {
+export function sendMessage(userId: number, chatId: number, message: string) {
     void ensureConnection(userId, chatId).then((connection) => {
-        connection.send({
-            
-        })
+        connection.send(
+            JSON.stringify({
+                content: message,
+                type: "message",
+            })
+        );
     });
 }
 

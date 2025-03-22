@@ -30,6 +30,8 @@ export abstract class WebComponent<TProps extends BaseProps> extends BaseCompone
 
         for (const attr of attributes) {
             this.root.setAttribute(attr.name, attr.value);
+
+            if (attr.name === "value") this.root.value = attr.value;
         }
 
         this.root.replaceChildren(...compiledTemplate.content.childNodes);

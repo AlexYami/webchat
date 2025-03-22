@@ -32,7 +32,7 @@ const AddNewChatButton = new Button({
 
             if (title) {
                 chatApi
-                    .createChat()
+                    .createChat(title)
                     .then(async () => {
                         return chatApi.getChats();
                     })
@@ -61,7 +61,14 @@ abstract class BaseLayout extends WebComponent<LayoutProps> {
             children: {
                 ...props.children,
                 messageBox: new MessageBox({ messages: [] }),
-                SearchBox: new SearchBox({ searchText: props.searchText }),
+                SearchBox: new SearchBox({
+                    searchText: props.searchText,
+                    onSearch: (search) => {
+                        this.setProps({
+                            searchText: search,
+                        });
+                    },
+                }),
                 AddNewChatButton,
                 // addUserModalForm: new AddUserModalForm({
                 //     onUserAdd: () => {},
@@ -107,19 +114,26 @@ abstract class BaseLayout extends WebComponent<LayoutProps> {
     protected override render(): string {
         // debugger;
         console.log("rerendered");
-        this.props.contacts = this.props.contacts || [];
+        const contacts = (this.props.contacts || []).filter((contact) => {
+            return contact.name.includes(this.props.searchText);
+        });
 
         this.props.children!.ContactList = new ContactList({
-            contacts: this.props.contacts,
-            contactClick: (chatId: number) => {
+            contacts,
+            contactClick: (contact: Contact) => {
                 // chatApi.getToken(chatId).then((res) => {
                 //     const { token } = JSON.parse(res);
 
-                    getMessages(window.store.getState().user.id, chatId);
+                const chatId = contact.id;
+
+                // debugger;
+
+                getMessages(window.store.getState().user.id, chatId);
                 // });
 
                 this.props.children!.messageBox.setProps({
                     chatId,
+                    name: contact.name,
                 });
                 // debugger;
                 // this.props.activeChat = index;
@@ -132,7 +146,7 @@ abstract class BaseLayout extends WebComponent<LayoutProps> {
         return `
             <template class="layout">
                 <aside class="layout__sidebar">
-                    <a class="profile-link" href="#">Профиль</a>
+                    <a class="profile-link" href="/profile">Профиль</a>
                     {{{ AddNewChatButton }}}
                     {{{ SearchBox }}}
                     {{{ ContactList }}}

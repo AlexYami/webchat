@@ -5,6 +5,7 @@ import InputFieldTemplate from "./inputField.hbs?raw";
 interface InputFieldProps extends BaseProps {
     name: string;
     type?: string;
+    id?: string;
     value: string;
     placeholder: string;
     isValid?: boolean;

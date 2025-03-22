@@ -1,6 +1,8 @@
 import AuthApi from "../../api/auth/auth";
 import { BaseForm, Button, Input } from "../../components";
 import type { BaseProps } from "../../components/baseComponent/web";
+import { Router } from "../../router/router";
+import { ROUTES } from "../../router/routes";
 import * as AuthService from "../../services/auth";
 import { LOGIN_REGEX, PASSWORD_REGEX } from "../../utils/validations";
 import LoginFormTemplate from "./form.hbs?raw";
@@ -53,7 +55,7 @@ const ButtonAuth = new Button({
         click: (e: Event): void => {
             e.preventDefault();
 
-            debugger;
+            // debugger;
 
             return AuthService.login(InputLogin.getValue(), InputPassword.getValue());
         },
@@ -66,10 +68,7 @@ const ButtonNoAccount = new Button({
     type: "button",
     events: {
         click: (e: Event) => {
-            alert("me");
-            authApi.me().then((res) => {
-                debugger;
-            });
+            Router.get().go(ROUTES.signin);
         },
     },
 });

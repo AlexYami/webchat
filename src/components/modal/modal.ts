@@ -1,3 +1,5 @@
+import { __ChatAPI } from "../../api/auth/chat";
+import { __UserAPI } from "../../api/auth/user";
 import { BaseAuthForm } from "../../pages/login/login";
 import { LOGIN_REGEX } from "../../utils/validations";
 import type { BaseProps } from "../baseComponent/web";
@@ -21,7 +23,10 @@ import { Input } from "../input";
 
 export class AddUserForm extends BaseAuthForm {
     public constructor(props) {
+        debugger;
+
         super({
+            ...props,
             title: "Добавить пользователя",
             children: {
                 InputLogin: new Input({
@@ -39,6 +44,32 @@ export class AddUserForm extends BaseAuthForm {
                         click: props.onUserAdd,
                     },
                 }),
+            },
+            onFormSubmit: async () => {
+                // alert("kekekeke");
+                console.log(this);
+
+                debugger;
+
+                const user = await __UserAPI.searchUser(this.getValues().login);
+
+                __ChatAPI
+                    .addUsersToChat(this.props.chatId, [JSON.parse(user)[0].id])
+                    .then((res) => {
+                        debugger;
+                        this.setProps({
+                            showAddUserModalForm: false,
+                            showAddUserPopup: false,
+                        });
+                    })
+                    .catch((res) => {
+                        debugger;
+
+                        this.setProps({
+                            showAddUserModalForm: false,
+                            showAddUserPopup: false,
+                        });
+                    });
             },
         });
     }
@@ -84,6 +115,12 @@ export class AddUserModalForm extends BaseModal {
                 AddUserForm: new AddUserForm(props),
             },
         });
+    }
+
+    override setProps(props: Partial<ModalProps | null>): void {
+        super.setProps(props);
+
+        this.props.children?.AddUserForm.setProps({ chatId: props?.chatId });
     }
 
     protected override renderContent(): string {

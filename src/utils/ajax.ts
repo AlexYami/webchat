@@ -46,6 +46,8 @@ export class HttpRequest {
                 }
             };
 
+            debugger;
+
             request.send(data ? JSON.stringify(data) : null);
         });
     }

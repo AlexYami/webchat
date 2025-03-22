@@ -42,6 +42,7 @@ $contact-notifies-animation: pulse 1.5s infinite;
         position: relative;
         font-size: utils.$font-medium;
         padding: $contact-info-p;
+        width: 100%;
     }
 
     &__title {

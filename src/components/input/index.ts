@@ -28,7 +28,22 @@ export class Input extends WebComponent<InputProps> {
                 Input: new InputField({
                     ...props,
                     events: {
+                        keydown: (e: Event): void => {
+                            if (event.key === "Enter") {
+                                const inputEl = e.target as HTMLInputElement;
+
+                                const value = inputEl.value || "";
+
+                                this.setProps({
+                                    value,
+                                    isValid: this.validate(value, true),
+                                });
+
+                                e.target.form.requestSubmit();
+                            }
+                        },
                         blur: (e: Event): void => {
+                            // alert("blur");
                             const inputEl = e.target as HTMLInputElement;
 
                             const value = inputEl.value || "";

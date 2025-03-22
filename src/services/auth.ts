@@ -6,6 +6,18 @@ import { __ChatAPI } from "../api/auth/chat";
 import { Router } from "../router/router";
 import { ROUTES } from "../router/routes";
 
+function formatDate(dateStr: string | undefined) {
+    if (!dateStr) return "";
+
+    const options = {
+        // weekday: "short", // день недели
+        month: "short", // месяц
+        day: "numeric", // день месяца
+    };
+
+    return new Date(dateStr).toLocaleString("ru-RU", options);
+}
+
 // const authApi = new AuthApi();
 
 // export const login = async (model) => {
@@ -49,6 +61,8 @@ export async function ensureStore() {
         .then((chatsInfo) => {
             chats = chatsInfo;
 
+            debugger;
+
             window.store.set({
                 user,
                 contacts: chats.map((item) => {
@@ -57,15 +71,17 @@ export async function ensureStore() {
                         name: item.title,
                         image: item.avatar,
                         notifiesNumber: item.unread_count,
-                        lastMessageDate: item.last_message,
-                        preview: item.last_message,
+                        lastMessageDate: formatDate(item.last_message?.time),
+                        preview: item.last_message?.content,
                     };
                 }),
             });
         })
         .catch((err) => {
             if (err.code === 401) {
-                Router.get().go(ROUTES.login);
+                if (window.location.pathname != "/signin") {
+                    Router.get().go(ROUTES.login);
+                }
             } else {
                 Router.get().go(ROUTES.page500);
             }

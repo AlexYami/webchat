@@ -11,14 +11,26 @@ export abstract class BaseForm<TProps extends BaseProps> extends WebComponent<TP
             },
             events: {
                 submit: (evt) => {
-                    this.onFormSubmit(evt);
+                    // debugger;
+
+                    evt.preventDefault();
+                    // alert("form submit");
+                    console.log("form submit");
+
+                    if (this.onFormSubmit(evt)) {
+                        if (this.props.onFormSubmit) {
+                            this.props.onFormSubmit();
+                        }
+                    }
                 },
             },
         });
     }
 
-    protected onFormSubmit(evt: Event): void {
+    protected onFormSubmit(evt: Event): boolean {
         evt.preventDefault();
+
+        // debugger;
 
         const data = this.getValues();
 
@@ -35,6 +47,8 @@ export abstract class BaseForm<TProps extends BaseProps> extends WebComponent<TP
         }
 
         console.table(data);
+
+        return this.validate();
     }
 
     protected getInputs(): Input[] {
@@ -48,6 +62,7 @@ export abstract class BaseForm<TProps extends BaseProps> extends WebComponent<TP
 
         for (const input of this.getInputs()) {
             const isValid = input.validate();
+
             res &&= isValid;
         }
 
