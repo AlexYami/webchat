@@ -1,32 +1,10 @@
-import AuthApi from "../../api/auth/auth";
 import { BaseForm, Button, Input } from "../../components";
-import type { BaseProps } from "../../components/baseComponent/web";
+import type { BaseFormProps } from "../../components/form/form";
 import { Router } from "../../router/router";
 import { ROUTES } from "../../router/routes";
-import * as AuthService from "../../services/auth";
+import { AuthService, ToastService } from "../../services";
 import { LOGIN_REGEX, PASSWORD_REGEX } from "../../utils/validations";
 import LoginFormTemplate from "./form.hbs?raw";
-
-const authApi = new AuthApi();
-
-const test_login = "Al1742038344302";
-const test_password = "aabcAAVC@!1742038344302";
-const id = 3643;
-
-const chatId = 53428;
-
-// const test_login = "Al1742065066352";
-// const test_password = "aabcAAVC@!1742065066352";
-
-// {
-//     "first_name": "Alexisss1742065066352",
-//     "second_name": "Bareolids1742065066352",
-//     "login": "Al1742065066352",
-//     "email": "Al1742065066352@gmail.com",
-//     "password": "aabcAAVC@!1742065066352",
-//     "phone": "123456789"
-// id: 3647
-// }
 
 const InputLogin = new Input({
     label: "Логин",
@@ -34,7 +12,7 @@ const InputLogin = new Input({
     placeholder: "Введите логин",
     errorMessage: "Неверный логин",
     validationRegex: LOGIN_REGEX,
-    value: test_login,
+    value: "",
 });
 
 const InputPassword = new Input({
@@ -44,22 +22,13 @@ const InputPassword = new Input({
     errorMessage: "Введите более сложный пароль",
     type: "password",
     validationRegex: PASSWORD_REGEX,
-    value: test_password,
+    value: "",
 });
 
 const ButtonAuth = new Button({
     text: "Авторизоваться",
     role: "primary",
     type: "submit",
-    events: {
-        click: (e: Event): void => {
-            e.preventDefault();
-
-            // debugger;
-
-            return AuthService.login(InputLogin.getValue(), InputPassword.getValue());
-        },
-    },
 });
 
 const ButtonNoAccount = new Button({
@@ -67,13 +36,13 @@ const ButtonNoAccount = new Button({
     role: "link",
     type: "button",
     events: {
-        click: (e: Event) => {
+        click: (): void => {
             Router.get().go(ROUTES.signin);
         },
     },
 });
 
-interface BaseAuthFormProps extends BaseProps {
+interface BaseAuthFormProps extends BaseFormProps {
     title: string;
 }
 
@@ -99,6 +68,11 @@ export abstract class BaseAuthForm extends BaseForm<BaseAuthFormProps> {
     protected abstract renderContent(): string;
 }
 
+interface LoginFormData {
+    login: string;
+    password: string;
+}
+
 export class LoginPage extends BaseAuthForm {
     public constructor() {
         super({
@@ -108,6 +82,9 @@ export class LoginPage extends BaseAuthForm {
                 InputPassword,
                 ButtonAuth,
                 ButtonNoAccount,
+            },
+            onFormSubmit: ({ login, password }: LoginFormData) => {
+                void AuthService.login(login, password);
             },
         });
     }

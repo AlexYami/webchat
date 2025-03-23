@@ -2,24 +2,24 @@ import type { BaseProps } from "../baseComponent/web";
 import { WebComponent } from "../baseComponent/web";
 import { Input } from "../input";
 
-export abstract class BaseForm<TProps extends BaseProps> extends WebComponent<TProps> {
-    protected constructor(props: TProps) {
+export interface BaseFormProps extends BaseProps {
+    onFormSubmit?: Function;
+}
+
+export abstract class BaseForm<TProps extends BaseFormProps> extends WebComponent<TProps> {
+    protected constructor(props: BaseFormProps) {
         super("form", {
             ...props,
             children: {
                 ...props.children,
             },
             events: {
-                submit: (evt) => {
-                    // debugger;
-
+                submit: (evt: SubmitEvent) => {
                     evt.preventDefault();
-                    // alert("form submit");
-                    console.log("form submit");
 
                     if (this.onFormSubmit(evt)) {
                         if (this.props.onFormSubmit) {
-                            this.props.onFormSubmit();
+                            this.props.onFormSubmit(this.getValues());
                         }
                     }
                 },

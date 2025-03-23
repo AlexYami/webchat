@@ -1,10 +1,13 @@
 // import AuthApi from "../api/auth";
 // import { ROUTER } from "../constants";
 
+import { ToastService } from ".";
 import { __AuthAPI } from "../api/auth/auth";
 import { __ChatAPI } from "../api/auth/chat";
 import { Router } from "../router/router";
 import { ROUTES } from "../router/routes";
+import { HTTP_UNAUTHORIZED_ERROR } from "../utils/ajax";
+import type { HttpError } from "../utils/errors";
 
 function formatDate(dateStr: string | undefined) {
     if (!dateStr) return "";
@@ -89,9 +92,18 @@ export async function ensureStore() {
         });
 }
 
-export async function login(login: string, password: string) {
+export async function login(userLogin: string, userPassword: string): Promise<void> {
     return __AuthAPI
-        .login({ login, password })
+        .login(userLogin, userPassword)
+        .catch((err: unknown) => {
+            const httpError = err as HttpError;
+
+            if (httpError.code === HTTP_UNAUTHORIZED_ERROR) {
+                ToastService.error("Неверные логин или пароль");
+            }
+
+            throw err;
+        })
         .then(async () => ensureStore())
         .then(() => {
             Router.get().go(ROUTES.chat);

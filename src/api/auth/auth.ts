@@ -1,5 +1,5 @@
 import { HttpRequest } from "../../utils/ajax";
-import type { CreateUser, LoginRequestData } from "./types";
+import type { CreateUser } from "./types";
 
 const baseUrl = "https://ya-praktikum.tech/api/v2/auth";
 
@@ -20,9 +20,8 @@ export default class AuthApi {
         return HttpRequest.post(signUpUrl, { ...data });
     }
 
-    public async login(data: LoginRequestData): Promise<string> {
-        // return authApi.post("/signin", { data });
-        return HttpRequest.post(signInUrl, { ...data });
+    public async login(login: string, password: string): Promise<string> {
+        return HttpRequest.post(signInUrl, { login, password });
     }
 
     public async me(): Promise<string> {

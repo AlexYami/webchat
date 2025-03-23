@@ -30,6 +30,8 @@ const AddNewChatButton = new Button({
         click: () => {
             let title = prompt("Введите название чата");
 
+            debugger;
+
             if (title) {
                 chatApi
                     .createChat(title)

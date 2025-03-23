@@ -119,7 +119,8 @@ const mapStateToProps = (state) => {
 
     return {
         title: state.user.first_name,
-        image: state.user.avatar || "https://placehold.co/130x130/orange/white",
+        image:
+            state.user.avatar || "/6a716089-32e6-40e9-a03f-3153e7ffbcf7/94524df9-0d8d-4a87-9613-8979c512bebe_vimeo.jpg",
     };
 };
 

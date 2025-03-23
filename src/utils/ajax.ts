@@ -3,6 +3,8 @@ import { HttpError } from "./errors";
 const HTTP_ERROR_THRESHOLD = 400;
 const HTTP_READY_STATE = 4;
 
+export const HTTP_UNAUTHORIZED_ERROR = 401;
+
 export enum RequestMethod {
     POST = "POST",
     GET = "GET",
@@ -42,11 +44,9 @@ export class HttpRequest {
             request.onreadystatechange = (): void => {
                 if (request.readyState === HTTP_READY_STATE) {
                     if (request.status < HTTP_ERROR_THRESHOLD) resolve(request.responseText);
-                    else reject(new HttpError(request.status, request.statusText));
+                    else reject(new HttpError(request.status, request.statusText, request.responseText));
                 }
             };
-
-            debugger;
 
             request.send(data ? JSON.stringify(data) : null);
         });

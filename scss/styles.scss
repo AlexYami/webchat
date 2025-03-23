@@ -17,3 +17,28 @@ a {
         color: utils.$blue-darker;
     }
 }
+
+$toast-margin: 20px;
+
+#toast {
+    position: fixed;
+    bottom: $toast-margin;
+    right: $toast-margin;
+    padding: 10px 20px;
+    color: utils.$white;
+    border-radius: utils.$radius-medium;
+    font-size: utils.$font-xl;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    visibility: hidden;
+}
+
+.toast {
+    &--error {
+        background-color: utils.$red-darker;
+    }
+
+    &--info {
+        background-color: utils.$blue-light;
+    }
+}
