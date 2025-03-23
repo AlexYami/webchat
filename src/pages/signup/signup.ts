@@ -1,13 +1,11 @@
-import AuthApi, { __AuthAPI } from "../../api/auth/auth";
 import { Input } from "../../components";
 import { Button } from "../../components/button/button";
 import { Router } from "../../router/router";
 import { ROUTES } from "../../router/routes";
+import { AuthService } from "../../services";
 import { EMAIL_REGEX, LOGIN_REGEX, NAME_REGEX, PASSWORD_REGEX, PHONE_REGEX } from "../../utils/validations";
 import { BaseAuthForm } from "../login/login";
-import { default as SignInPageTemplate } from "./form.hbs?raw";
-
-const authApi = new AuthApi();
+import { default as SignupPageTemplate } from "./form.hbs?raw";
 
 const InputEmail = new Input({
     label: "Почта",
@@ -77,46 +75,6 @@ const InputPassword2 = new Input({
 const ButtonSignup = new Button({
     text: "Зарегестрироваться",
     role: "primary",
-    events: {
-        click: (e: Event): void => {
-            // debugger;
-            // const data = {
-            //     first_name: InputFirstName.getValue(),
-            //     second_name: InputSecondName.getValue(),
-            //     login: InputLogin.getValue(),
-            //     email: InputEmail.getValue(),
-            //     password: InputPassword.getValue(),
-            //     phone: InputPhone.getValue(),
-            // };
-            // debugger;
-            // const data = {
-            //     first_name: "Alexisss" + Date.now(),
-            //     second_name: "Bareolids" + Date.now(),
-            //     login: "Al" + Date.now(),
-            //     email: `Al${Date.now()}@gmail.com`,
-            //     password: "aabcAAVC@!" + Date.now(),
-            //     phone: "123456789",
-            // };
-            // email: "Al1742038344302@gmail.com";
-            // first_name: "Alexisss1742038344302";
-            // login: "Al1742038344302";
-            // password: "aabcAAVC@!1742038344302";
-            // phone: "123456789";
-            // second_name: "Bareolids1742038344302";
-            // e.preventDefault();
-            // authApi
-            //     .create(data)
-            //     .then(async (res) => {
-            //         return authApi.login(data);
-            //     })
-            //     .then(() => {
-            //         Router.get().go(ROUTES.chat);
-            //     })
-            //     .catch((err) => {
-            //         // debugger;
-            //     });
-        },
-    },
 });
 
 const ButtonLogin = new Button({
@@ -124,7 +82,7 @@ const ButtonLogin = new Button({
     role: "link",
     type: "submit",
     events: {
-        click: () => {
+        click: (): void => {
             Router.get().go(ROUTES.login);
         },
     },
@@ -132,7 +90,9 @@ const ButtonLogin = new Button({
 
 const inputs = { InputEmail, InputLogin, InputFirstName, InputSecondName, InputPhone, InputPassword, InputPassword2 };
 
-export class SigninPage extends BaseAuthForm {
+export interface SignupFormData {}
+
+export class SignupPage extends BaseAuthForm {
     public constructor() {
         super({
             title: "Вход",
@@ -141,22 +101,13 @@ export class SigninPage extends BaseAuthForm {
                 ButtonSignup,
                 ButtonLogin,
             },
-            onFormSubmit: () => {
-                const formData = this.getValues();
-
-                __AuthAPI
-                    .create(formData)
-                    .then((res) => {
-                        Router.get().go(ROUTES.chat);
-                    })
-                    .catch((err) => {
-                        alert(err.message);
-                    });
+            onFormSubmit: (formData: SignupFormData) => {
+                void AuthService.signup(formData);
             },
         });
     }
 
     protected override renderContent(): string {
-        return SignInPageTemplate;
+        return SignupPageTemplate;
     }
 }

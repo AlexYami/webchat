@@ -8,7 +8,7 @@ import { Store } from "./store";
 
 const pages: Record<string, unknown> = {
     login: Pages.LoginPage,
-    signin: Pages.SigninPage,
+    signup: Pages.SignupPage,
     chooseChat: Pages.ChooseChatPage,
     chat: Pages.ChatPage,
     search: Pages.SearchPage,
@@ -39,7 +39,7 @@ const router = Router.create(APP_ROOT);
 router
     .use("/", pages.chat as ObjectConstructor)
     .use("/login", pages.login as ObjectConstructor)
-    .use("/signin", pages.signin as ObjectConstructor)
+    .use("/signup", pages.signup as ObjectConstructor)
     .use("/chooseChat", pages.chooseChat as ObjectConstructor)
     .use("/chat", pages.chat as ObjectConstructor)
     .use("/search", pages.search as ObjectConstructor)

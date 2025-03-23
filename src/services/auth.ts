@@ -4,6 +4,7 @@
 import { ToastService } from ".";
 import { __AuthAPI } from "../api/auth/auth";
 import { __ChatAPI } from "../api/auth/chat";
+import type { SignupFormData } from "../pages/signup/signup";
 import { Router } from "../router/router";
 import { ROUTES } from "../router/routes";
 import { HTTP_UNAUTHORIZED_ERROR } from "../utils/ajax";
@@ -82,7 +83,7 @@ export async function ensureStore() {
         })
         .catch((err) => {
             if (err.code === 401) {
-                if (window.location.pathname != "/signin") {
+                if (window.location.pathname != "/signup") {
                     Router.get().go(ROUTES.login);
                 }
             } else {
@@ -105,6 +106,19 @@ export async function login(userLogin: string, userPassword: string): Promise<vo
             throw err;
         })
         .then(async () => ensureStore())
+        .then(() => {
+            Router.get().go(ROUTES.chat);
+        });
+}
+
+export async function signup(formData: SignupFormData): Promise<void> {
+    return __AuthAPI
+        .create(formData)
+        .catch((err: unknown) => {
+            ToastService.error("Во время регистрации произошла ошибка");
+
+            throw err;
+        })
         .then(() => {
             Router.get().go(ROUTES.chat);
         });

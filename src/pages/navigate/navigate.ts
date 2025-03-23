@@ -17,11 +17,11 @@ export class NavigatePage extends WebComponent<BaseProps> {
                     },
                 }),
 
-                SigninButton: new Button({
+                signupButton: new Button({
                     text: "Sign In",
                     events: {
                         click: (): void => {
-                            Router.get().go(ROUTES.signin);
+                            Router.get().go(ROUTES.signup);
                         },
                     },
                 }),

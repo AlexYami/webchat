@@ -1,8 +1,8 @@
-// export type ROUTES = "login" | "signin";
+// export type ROUTES = "login" | "signup";
 
 export enum ROUTES {
     login = "/login",
-    signin = "/signin",
+    signup = "/signup",
     chooseChat = "/chooseChat",
     chat = "/chat",
     search = "/search",

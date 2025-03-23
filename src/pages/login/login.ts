@@ -2,7 +2,7 @@ import { BaseForm, Button, Input } from "../../components";
 import type { BaseFormProps } from "../../components/form/form";
 import { Router } from "../../router/router";
 import { ROUTES } from "../../router/routes";
-import { AuthService, ToastService } from "../../services";
+import { AuthService } from "../../services";
 import { LOGIN_REGEX, PASSWORD_REGEX } from "../../utils/validations";
 import LoginFormTemplate from "./form.hbs?raw";
 
@@ -37,7 +37,7 @@ const ButtonNoAccount = new Button({
     type: "button",
     events: {
         click: (): void => {
-            Router.get().go(ROUTES.signin);
+            Router.get().go(ROUTES.signup);
         },
     },
 });
