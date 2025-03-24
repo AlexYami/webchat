@@ -1,7 +1,7 @@
-import { __UserAPI } from "../../api/auth/user";
 import { Button } from "../../components";
 import { InputProfile } from "../../components/input";
 import BaseProfile from "../../components/profile/profile";
+import { ProfileService } from "../../services";
 import { connect } from "../../utils/connect";
 import { EMAIL_REGEX, LOGIN_REGEX, NAME_REGEX, PHONE_REGEX } from "../../utils/validations";
 
@@ -122,14 +122,8 @@ class ChangeProfilePage extends BaseProfile {
                     errorMessage: "Неправильный телефон",
                 }),
             },
-            onFormSubmit: () => {
-                const profile = this.getValues();
-
-                __UserAPI.updateUser(profile).then((user) => {
-                    window.store.set({
-                        user,
-                    });
-                });
+            onFormSubmit: (formData) => {
+                void ProfileService.update(formData);
             },
         });
     }

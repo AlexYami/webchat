@@ -32,8 +32,21 @@ export default class ChatApi {
         return HttpRequest.post(getEndpointUrl(""), { title });
     }
 
+    public async uploadAvatar(chatId: number, data: FormData): Promise<string> {
+        data.append("chatId", chatId);
+
+        return HttpRequest.put(getEndpointUrl("/avatar"), data, {}).then((res) => JSON.parse(res));
+    }
+
     public async addUsersToChat(chatId: number, users): Promise<void> {
         return HttpRequest.put(getEndpointUrl("/users"), {
+            chatId,
+            users,
+        });
+    }
+
+    public async deleteUsersFromChat(chatId: number, users): Promise<void> {
+        return HttpRequest.delete(getEndpointUrl("/users"), {
             chatId,
             users,
         });

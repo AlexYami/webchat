@@ -1,5 +1,5 @@
-import { __UserAPI } from "../../api/auth/user";
 import { Router } from "../../router/router";
+import { ProfileService } from "../../services";
 import { connect } from "../../utils/connect";
 import type { BaseProps } from "../baseComponent/web";
 import { Button } from "../button";
@@ -24,21 +24,13 @@ abstract class BaseProfile extends BaseForm<ProfileProps> {
                     id: "upload-avatar",
                     events: {
                         change: (e) => {
-                            debugger;
-
                             const input = e.target as HTMLInputElement;
 
                             if (input.files) {
                                 const file = input.files[0];
 
                                 if (file) {
-                                    const formData = new FormData();
-                                    formData.append("avatar", file);
-
-                                    debugger;
-                                    // __UserAPI.uploadAvatar({ avatar: formData });
-
-                                    __UserAPI.uploadAvatar(formData);
+                                    ProfileService.updateAvatar(file);
                                 }
                             }
                         },
@@ -46,6 +38,7 @@ abstract class BaseProfile extends BaseForm<ProfileProps> {
                 }),
                 GoBackButton: new Button({
                     text: "←",
+                    type: "button",
                     role: "primary",
                     events: {
                         click: () => {
@@ -115,8 +108,6 @@ abstract class BaseProfile extends BaseForm<ProfileProps> {
 // second_name;
 
 const mapStateToProps = (state) => {
-    debugger;
-
     return {
         title: state.user.first_name,
         image:

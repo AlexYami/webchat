@@ -41,11 +41,13 @@ export class ContactList extends WebComponent<ContactListProps> {
     }
 
     protected override render(): string {
-        // debugger;
+        debugger;
 
         this.props.children!.Contacts = this.props.contacts.map((item, index) => {
             return new Contact({
                 ...item,
+                image:
+                    item.image || "e5fdefa5-ecc6-4894-bf37-3ecc64127707/dfd81303-407e-48f5-8d89-65319e6c30ad_vimeo.jpg",
                 events: {
                     click: () => {
                         // alert("asfsdf");

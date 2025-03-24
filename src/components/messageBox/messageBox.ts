@@ -1,11 +1,12 @@
-import ChatApi from "../../api/auth/chat";
+import { ChatService } from "../../services";
 import { connect } from "../../utils/connect";
 import type { BaseProps } from "../baseComponent/web";
 import { WebComponent } from "../baseComponent/web";
 // import { ChatTitle } from "../chatTitle";
 import { ImageButton } from "../imageButton";
+import { InputField } from "../inputField";
 import { Message, type MessageProps } from "../message/message";
-import { AddUserModalForm } from "../modal/modal";
+import { AddUserModalForm, DeleteUserModalForm } from "../modal/modal";
 import { BasePopup } from "../popup";
 import { SendMessage } from "../sendMessage";
 import MessageBoxTemplate from "./messageBox.hbs?raw";
@@ -15,6 +16,7 @@ interface MessageBoxProps extends BaseProps {
     showAddUserPopup?: boolean;
     chatId: number;
     name: string;
+    image: string;
 }
 
 const addUserIcon = `<img src="/images/addUser.svg" alt="Добавить пользователя" />`;
@@ -22,8 +24,6 @@ const delteUserIcon = `<img src="/images/deleteUser.svg" alt="Удалить п�
 const showAddUserPopupIcon = `<img src="/images/burgerMenu.svg" alt="Меню" />`;
 
 // const addUserModalForm = new AddUserModalForm();
-
-const chatApi = new ChatApi();
 
 class AddUserPopup extends BasePopup {
     public constructor(props) {
@@ -36,7 +36,13 @@ class AddUserPopup extends BasePopup {
                         click: props.onAddUser,
                     },
                 }),
-                DeleteUser: new ImageButton({ content: delteUserIcon, text: "Удалить пользователя" }),
+                DeleteUser: new ImageButton({
+                    content: delteUserIcon,
+                    text: "Удалить пользователя",
+                    events: {
+                        click: props.onDeleteUser,
+                    },
+                }),
             },
         });
     }
@@ -51,19 +57,65 @@ class AddUserPopup extends BasePopup {
 }
 
 class MessageBox extends WebComponent<MessageBoxProps> {
+    // private handleDocumentClickFn: (() => void) | undefined;
+
     public constructor(props: MessageBoxProps) {
+        debugger;
+
         super("div", {
             ...props,
             children: {
+                AvatarUpload: new InputField({
+                    name: "avatar",
+                    type: "file",
+                    placeholder: "",
+                    value: "",
+                    id: "upload-avatar",
+                    events: {
+                        change: (e) => {
+                            const input = e.target as HTMLInputElement;
+
+                            if (input.files) {
+                                const file = input.files[0];
+
+                                if (file) {
+                                    ChatService.updateAvatar(this.props.chatId, file);
+                                }
+                            }
+                        },
+                    },
+                }),
                 Popup: new AddUserPopup({
                     onAddUser: () => {
                         this.setProps({
                             showAddUserModalForm: true,
                         });
                     },
+                    onDeleteUser: () => {
+                        this.setProps({
+                            showDeleteUserModalForm: true,
+                        });
+                    },
                 }),
                 addUserModalForm: new AddUserModalForm({
                     chatId: props.chatId,
+                    onUserAdd: () => {
+                        this.setProps({
+                            showAddUserModalForm: false,
+                            showDeleteUserModalForm: false,
+                            showAddUserPopup: false,
+                        });
+                    },
+                }),
+                deleteUserModalForm: new DeleteUserModalForm({
+                    chatId: props.chatId,
+                    onUserDelete: () => {
+                        this.setProps({
+                            showAddUserModalForm: false,
+                            showDeleteUserModalForm: false,
+                            showAddUserPopup: false,
+                        });
+                    },
                 }),
                 ShowAddUserPopupButton: new ImageButton({
                     content: showAddUserPopupIcon,
@@ -82,17 +134,19 @@ class MessageBox extends WebComponent<MessageBoxProps> {
                 FormSend: new SendMessage({ chatId: props.chatId }),
             },
         });
+
+        document.addEventListener("click", this.handlePopupWindows.bind(this));
     }
 
-    override setProps(props: Partial<MessageBoxProps | null>): void {
+    public override setProps(props: Partial<MessageBoxProps | null>): void {
         super.setProps(props);
 
-        // debugger;
 
         this.props.children?.addUserModalForm.setProps({ chatId: this.props.chatId });
+        this.props.children?.deleteUserModalForm.setProps({ chatId: this.props.chatId });
     }
     protected override render(): string {
-        // debugger;
+        debugger;
 
         // chat_id: 53428;
         // content: "Моё первое сообщение миру!";
@@ -135,6 +189,30 @@ class MessageBox extends WebComponent<MessageBoxProps> {
         return MessageBoxTemplate;
     }
 
+    protected handlePopupWindows(e: Event): void {
+        let el: HTMLElement | null = e.target as HTMLElement;
+
+        while (el) {
+            if (
+                el.className === "popup" ||
+                el.className === "modal__content" ||
+                el.classList.contains("message-box__menu")
+            ) {
+                return;
+            }
+
+            el = el.parentElement;
+        }
+
+        if (this.props.showAddUserPopup || this.props.showAddUserModalForm || this.props.showDeleteUserModalForm) {
+            this.setProps({
+                showAddUserPopup: false,
+                showAddUserModalForm: false,
+                showDeleteUserModalForm: false,
+            });
+        }
+    }
+
     protected override handleRender(): void {
         super.handleRender();
 
@@ -144,9 +222,15 @@ class MessageBox extends WebComponent<MessageBoxProps> {
             if (messageList) messageList.scrollTop = 99999;
         }, 0);
     }
+
+    // private handleDocumentClick(): void {
+    //     alert("keks");
+    // }
 }
 
 const mapStateToProps = (state) => {
+    debugger;
+
     return {
         messages: state.messages,
     };

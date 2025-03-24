@@ -1,6 +1,5 @@
-import { __ChatAPI } from "../../api/auth/chat";
-import { __UserAPI } from "../../api/auth/user";
 import { BaseAuthForm } from "../../pages/login/login";
+import { ChatService } from "../../services";
 import { LOGIN_REGEX } from "../../utils/validations";
 import type { BaseProps } from "../baseComponent/web";
 import { WebComponent } from "../baseComponent/web";
@@ -21,10 +20,12 @@ import { Input } from "../input";
 //     role: "primary",
 // });
 
+interface SearchUserFormData {
+    login: string;
+}
+
 export class AddUserForm extends BaseAuthForm {
     public constructor(props) {
-        debugger;
-
         super({
             ...props,
             title: "Добавить пользователя",
@@ -40,36 +41,12 @@ export class AddUserForm extends BaseAuthForm {
                 ButtonAddUser: new Button({
                     text: "Добавить",
                     role: "primary",
-                    events: {
-                        click: props.onUserAdd,
-                    },
                 }),
             },
-            onFormSubmit: async () => {
-                // alert("kekekeke");
-                console.log(this);
-
-                debugger;
-
-                const user = await __UserAPI.searchUser(this.getValues().login);
-
-                __ChatAPI
-                    .addUsersToChat(this.props.chatId, [JSON.parse(user)[0].id])
-                    .then((res) => {
-                        debugger;
-                        this.setProps({
-                            showAddUserModalForm: false,
-                            showAddUserPopup: false,
-                        });
-                    })
-                    .catch((res) => {
-                        debugger;
-
-                        this.setProps({
-                            showAddUserModalForm: false,
-                            showAddUserPopup: false,
-                        });
-                    });
+            onFormSubmit: async ({ login }: SearchUserFormData) => {
+                ChatService.addUserToChat(login, this.props.chatId).then(() => {
+                    this.props.onUserAdd();
+                });
             },
         });
     }
@@ -83,6 +60,48 @@ export class AddUserForm extends BaseAuthForm {
         </div>
         <div class="form__buttons">
             {{{ ButtonAddUser }}}
+        </div>`;
+    }
+}
+
+export class DeleteUserForm extends BaseAuthForm {
+    public constructor(props) {
+        debugger;
+
+        super({
+            ...props,
+            title: "Удалить пользователя",
+            children: {
+                InputLogin: new Input({
+                    label: "Логин",
+                    name: "login",
+                    placeholder: "Введите логин",
+                    errorMessage: "Неверный логин",
+                    validationRegex: LOGIN_REGEX,
+                    value: "",
+                }),
+                ButtonDeleteUser: new Button({
+                    text: "Удалить",
+                    role: "primary",
+                }),
+            },
+            onFormSubmit: async ({ login }: SearchUserFormData) => {
+                ChatService.deleteUserFromChat(login, this.props.chatId).then(() => {
+                    this.props.onUserDelete();
+                });
+            },
+        });
+    }
+
+    protected override renderContent(): string {
+        return `
+        <div class="form__inputs">
+            <div class="form__input-container">
+                {{{ InputLogin }}}
+            </div>
+        </div>
+        <div class="form__buttons">
+            {{{ ButtonDeleteUser }}}
         </div>`;
     }
 }
@@ -101,7 +120,9 @@ export abstract class BaseModal extends WebComponent<ModalProps> {
     protected override render(): string {
         return `<template class="modal">
                     <div class="modal__bg"></div>
-                    ${this.renderContent()}
+                    <div class="modal__content">
+                        ${this.renderContent()}
+                    </div>
                 </template>`;
     }
 
@@ -124,8 +145,28 @@ export class AddUserModalForm extends BaseModal {
     }
 
     protected override renderContent(): string {
+        return `{{{ AddUserForm }}}`;
+    }
+}
+
+export class DeleteUserModalForm extends BaseModal {
+    public constructor(props) {
+        super({
+            children: {
+                DeleteUserForm: new DeleteUserForm(props),
+            },
+        });
+    }
+
+    override setProps(props: Partial<ModalProps | null>): void {
+        super.setProps(props);
+
+        this.props.children?.DeleteUserForm.setProps({ chatId: props?.chatId });
+    }
+
+    protected override renderContent(): string {
         // debugger;
 
-        return `{{{ AddUserForm }}}`;
+        return `{{{ DeleteUserForm }}}`;
     }
 }

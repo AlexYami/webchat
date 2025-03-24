@@ -1,24 +1,26 @@
 import { __ChatAPI } from "./auth/chat";
 
-const activeConnections = new Map();
+const activeConnections = new Map<string, WebSocket>();
 
-function getKey(userId: number, chatId: number) {
+function getKey(userId: number, chatId: number): string {
     return `${userId}-${chatId}`;
 }
 
-function getConnection(userId: number, chatId: number) {
-    return activeConnections.get(getKey(userId, chatId));
+function getConnection(userId: number, chatId: number): WebSocket | null {
+    const connection = activeConnections.get(getKey(userId, chatId));
+
+    return connection ?? null;
 }
 
-async function ensureConnection(userId: number, chatId: number) {
+async function ensureConnection(userId: number, chatId: number): Promise<WebSocket> {
     return new Promise((resolve) => {
         const connection = getConnection(userId, chatId);
 
         if (connection) {
             resolve(connection);
         } else {
-            __ChatAPI.getToken(chatId).then((res) => {
-                const { token } = JSON.parse(res);
+            void __ChatAPI.getToken(chatId).then((res) => {
+                const { token } = JSON.parse(res) as unknown;
 
                 const socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
 
@@ -33,7 +35,7 @@ async function ensureConnection(userId: number, chatId: number) {
                 });
 
                 socket.addEventListener("message", (event) => {
-                    // debugger;
+                    debugger;
                     const messages = JSON.parse(event.data);
 
                     if (Array.isArray(messages)) {

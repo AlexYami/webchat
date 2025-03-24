@@ -63,10 +63,14 @@ $command-popup-button-icon-size: 20px;
     }
 
     &__title-avatar {
-        &>img {
+        img {
             border-radius: utils.$radius-round;
             width: $message-box-title-avatar-size;
             height: $message-box-title-avatar-size;
+        }
+
+        input {
+            display: none;
         }
     }
 

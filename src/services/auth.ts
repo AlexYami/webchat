@@ -114,6 +114,7 @@ export async function login(userLogin: string, userPassword: string): Promise<vo
 export async function signup(formData: SignupFormData): Promise<void> {
     return __AuthAPI
         .create(formData)
+        .then(async () => ensureStore())
         .catch((err: unknown) => {
             ToastService.error("Во время регистрации произошла ошибка");
 

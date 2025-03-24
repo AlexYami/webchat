@@ -48,7 +48,15 @@ export class HttpRequest {
                 }
             };
 
-            request.send(data ? JSON.stringify(data) : null);
+            const isFormData = data instanceof FormData;
+
+            let body = data;
+
+            if (data && !isFormData) {
+                body = JSON.stringify(data);
+            }
+
+            request.send(body ? body : null);
         });
     }
 
@@ -90,10 +98,11 @@ export class HttpRequest {
         });
     }
 
-    public static async delete(url: string, headers: HttpHeaders): Promise<string> {
+    public static async delete(url: string, data: HttpData, headers: HttpHeaders = DEFAULT_HEADERS): Promise<string> {
         return HttpRequest.request({
             method: RequestMethod.DELETE,
             url,
+            data,
             headers,
         });
     }

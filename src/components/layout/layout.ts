@@ -1,6 +1,7 @@
 import ChatApi from "../../api/auth/chat";
 import TokenApi from "../../api/auth/token";
 import { getMessages } from "../../api/messageTransport";
+import { ChatService } from "../../services";
 import { connect } from "../../utils/connect";
 import type { BaseProps } from "../baseComponent/web";
 import { WebComponent } from "../baseComponent/web";
@@ -30,27 +31,8 @@ const AddNewChatButton = new Button({
         click: () => {
             let title = prompt("Введите название чата");
 
-            debugger;
-
             if (title) {
-                chatApi
-                    .createChat(title)
-                    .then(async () => {
-                        return chatApi.getChats();
-                    })
-                    .then((res) => {
-                        window.store.set({
-                            contacts: res.map((item) => {
-                                return {
-                                    name: item.title,
-                                    image: item.avatar,
-                                    notifiesNumber: item.unread_count,
-                                    lastMessageDate: item.last_message,
-                                    preview: item.last_message,
-                                };
-                            }),
-                        });
-                    });
+                void ChatService.createChat(title);
             }
         },
     },
@@ -133,9 +115,14 @@ abstract class BaseLayout extends WebComponent<LayoutProps> {
                 getMessages(window.store.getState().user.id, chatId);
                 // });
 
+                debugger;
+
                 this.props.children!.messageBox.setProps({
                     chatId,
                     name: contact.name,
+                    image:
+                        contact.image ||
+                        "e5fdefa5-ecc6-4894-bf37-3ecc64127707/dfd81303-407e-48f5-8d89-65319e6c30ad_vimeo.jpg",
                 });
                 // debugger;
                 // this.props.activeChat = index;

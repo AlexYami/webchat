@@ -6,7 +6,10 @@
 
     <div class="message-box__title">
         <div class="message-box__title-avatar">
-            <img src="https://placehold.co/36x36/orange/white" alt="Аватар" />
+            <label for="upload-avatar">
+                <img src="https://ya-praktikum.tech/api/v2/resources/{{image}}" alt="Аватар" />
+            </label>
+            {{{ AvatarUpload }}}
         </div>
         <h1 class="message-box__title-name">
             {{name}}
@@ -35,6 +38,10 @@
 
     {{# if showAddUserModalForm}}
     {{{ addUserModalForm }}}
+    {{/if}}
+
+    {{# if showDeleteUserModalForm}}
+    {{{ deleteUserModalForm }}}
     {{/if}}
 
     {{else}}

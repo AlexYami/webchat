@@ -1,7 +1,7 @@
-import { __UserAPI } from "../../api/auth/user";
 import { Button } from "../../components";
 import { InputProfile } from "../../components/input";
 import BaseProfile from "../../components/profile/profile";
+import { ProfileService } from "../../services";
 import { PASSWORD_REGEX } from "../../utils/validations";
 
 const InputOldPassword = new InputProfile({
@@ -48,12 +48,9 @@ export class ChangePasswordPage extends BaseProfile {
                 InputNewPassword,
                 InputNewPassword2,
             },
-            onFormSubmit: () => {
+            onFormSubmit: (formData) => {
                 debugger;
-
-                const data = this.getValues();
-
-                __UserAPI.changePassword(data);
+                void ProfileService.changePassword(formData);
             },
         });
     }
