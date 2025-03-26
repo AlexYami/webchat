@@ -16,7 +16,8 @@
     "ts-jest": "^29.2.5",
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.24.0",
-    "vite": "^6.0.11"
+    "vite": "^6.0.11",
+    "vite-plugin-mkcert": "^1.17.8"
   },
   "scripts": {
     "dev": "npx vite --port 3000",
@@ -24,6 +25,7 @@
     "deploy": "npm run build",
     "test": "npx jest",
     "build": "npm run lint && npx vite build",
+    "build2": "npm run lint && npx vite build",
     "lint": "tsc --noEmit && npx stylelint src/**/*.scss && npx eslint"
   },
   "dependencies": {
