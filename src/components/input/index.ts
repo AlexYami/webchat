@@ -28,6 +28,22 @@ export class Input extends WebComponent<InputProps> {
                 Input: new InputField({
                     ...props,
                     events: {
+                        keydown: (evt: Event): void => {
+                            const e = evt as KeyboardEvent;
+
+                            if (e.key === "Enter") {
+                                const inputEl = e.target as HTMLInputElement;
+
+                                const value = inputEl.value || "";
+
+                                this.setProps({
+                                    value,
+                                    isValid: this.validate(value, true),
+                                });
+
+                                inputEl.form!.requestSubmit();
+                            }
+                        },
                         blur: (e: Event): void => {
                             const inputEl = e.target as HTMLInputElement;
 
@@ -42,6 +58,12 @@ export class Input extends WebComponent<InputProps> {
                 }),
             },
         });
+    }
+
+    public override setProps(props: Partial<InputProps | null>): void {
+        super.setProps(props);
+
+        (this.props.children!.Input as InputField).setProps(props);
     }
 
     protected override render(): string {
@@ -71,9 +93,17 @@ export class Input extends WebComponent<InputProps> {
     public getKeyValue(): [string, string] {
         return [this.props.name, this.props.value];
     }
+
+    public getName(): string {
+        return this.props.name;
+    }
+
+    public getValue(): string {
+        return this.props.value;
+    }
 }
 
-export class InputProfile extends Input {
+export class InputSettings extends Input {
     protected override render(): string {
         return `
         <template class="profile__layout-item">

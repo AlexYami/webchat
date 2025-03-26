@@ -22,6 +22,8 @@ $message-box-send-message-input-h: 32px;
 $message-box-send-message-button-ml: 12px;
 $message-box-send-message-button-size: 40px;
 
+$command-popup-button-icon-size: 20px;
+
 .message-box {
     display: flex;
     flex-direction: column;
@@ -37,9 +39,13 @@ $message-box-send-message-button-size: 40px;
     }
 
     &__menu {
+        cursor: pointer;
+
         &--active {
-            background-color: utils.$gray-lightest;
-            border-radius: utils.$radius-round;
+            &>button {
+                background-color: utils.$gray-lightest;
+                border-radius: utils.$radius-round;
+            }
         }
     }
 
@@ -57,10 +63,14 @@ $message-box-send-message-button-size: 40px;
     }
 
     &__title-avatar {
-        & > img {
+        img {
             border-radius: utils.$radius-round;
             width: $message-box-title-avatar-size;
             height: $message-box-title-avatar-size;
+        }
+
+        input {
+            display: none;
         }
     }
 
@@ -108,12 +118,25 @@ $message-box-send-message-button-size: 40px;
         padding-right: $message-box-send-messages-p;
         padding-top: $message-box-send-messages-p;
 
-        & > button {
+        &>button {
             margin-left: $message-box-send-message-button-ml;
             width: $message-box-send-message-button-size;
             height: $message-box-send-message-button-size;
             border-radius: utils.$radius-round;
             padding: 0;
+        }
+    }
+
+    &__command-popup {
+        display: flex;
+        flex-direction: column;
+        white-space: nowrap;
+
+        .image-button {
+            img {
+                width: $command-popup-button-icon-size;
+                height: $command-popup-button-icon-size;
+            }
         }
     }
 }

@@ -1,5 +1,8 @@
 import { BaseForm, Button, Input } from "../../components";
-import type { BaseProps } from "../../components/baseComponent/web";
+import type { BaseFormProps } from "../../components/form/form";
+import { Router } from "../../router/router";
+import { ROUTES } from "../../router/routes";
+import { AuthService } from "../../services";
 import { LOGIN_REGEX, PASSWORD_REGEX } from "../../utils/validations";
 import LoginFormTemplate from "./form.hbs?raw";
 
@@ -32,14 +35,19 @@ const ButtonNoAccount = new Button({
     text: "Нет Аккаунта?",
     role: "link",
     type: "button",
+    events: {
+        click: (): void => {
+            Router.get().go(ROUTES.signup);
+        },
+    },
 });
 
-interface BaseAuthFormProps extends BaseProps {
+export interface BaseAuthFormProps extends BaseFormProps {
     title: string;
 }
 
-export abstract class BaseAuthForm extends BaseForm<BaseAuthFormProps> {
-    protected constructor(props: BaseAuthFormProps) {
+export abstract class BaseAuthForm<TProps extends BaseAuthFormProps> extends BaseForm<TProps> {
+    protected constructor(props: TProps) {
         super(props);
     }
 
@@ -60,7 +68,12 @@ export abstract class BaseAuthForm extends BaseForm<BaseAuthFormProps> {
     protected abstract renderContent(): string;
 }
 
-export class LoginPage extends BaseAuthForm {
+interface LoginFormData {
+    login: string;
+    password: string;
+}
+
+export class LoginPage extends BaseAuthForm<BaseAuthFormProps> {
     public constructor() {
         super({
             title: "Вход",
@@ -69,6 +82,10 @@ export class LoginPage extends BaseAuthForm {
                 InputPassword,
                 ButtonAuth,
                 ButtonNoAccount,
+            },
+            onFormSubmit: (formData: Record<string, string>) => {
+                const { login, password } = formData as unknown as LoginFormData;
+                void AuthService.login(login, password);
             },
         });
     }

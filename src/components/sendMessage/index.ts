@@ -1,1 +1,3 @@
-export { SendMessage } from "./sendMessage";
+import SendMessage from "./sendMessage";
+
+export { SendMessage };

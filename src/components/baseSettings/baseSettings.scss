@@ -1,0 +1,118 @@
+@use "../../../scss/utils.scss";
+
+$profile-name-mt: 30px;
+$profile-name-mb: 40px;
+
+$profile-avatar-image-size: 130px;
+
+$go-back-layout-mb: 30px;
+$go-back-layout-item-p: 18px 0;
+
+$go-back-layout-item-key-fw: 500;
+
+$go-back-width: 64px;
+$go-back-btn-size: 40px;
+$go-back-btn-ml: 12px;
+
+$go-back-layout-mw-default: 512px;
+$go-back-layout-mw-small: 320px;
+
+.profile__layout-item {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    border-bottom: 1px solid utils.$gray-lighter;
+    padding: $go-back-layout-item-p;
+}
+
+.profile__layout-item-value {
+    color: utils.$gray;
+
+    >input {
+        border: 0;
+        outline: 0;
+        color: utils.$gray;
+    }
+}
+
+.profile__buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile__readonly {
+    input {
+        pointer-events: none;
+    }
+}
+
+.profile__avatar {
+    display: flex;
+    justify-content: center;
+
+    label {
+        cursor: pointer;
+    }
+
+    input {
+        display: none;
+    }
+
+    img {
+        border-radius: utils.$radius-round;
+        width: $profile-avatar-image-size;
+        height: $profile-avatar-image-size;
+    }
+}
+
+.profile__name {
+    display: flex;
+    font-weight: bold;
+    justify-content: center;
+    font-size: utils.$font-xxl;
+    margin-top: $profile-name-mt;
+    margin-bottom: $profile-name-mb;
+}
+
+.profile__layout {
+    margin-bottom: $go-back-layout-mb;
+}
+
+.profile__layout-item-key {
+    font-weight: $go-back-layout-item-key-fw;
+
+    &--invalid {
+        color: utils.$red;
+        border-bottom: 2px dotted utils.$red;
+    }
+}
+
+.go-back {
+    display: flex;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: $go-back-width;
+    background-color: utils.$gray-lightest;
+    border-right: 1px solid utils.$gray-lighter;
+
+    button {
+        margin-left: $go-back-btn-ml;
+        width: $go-back-btn-size;
+        height: $go-back-btn-size;
+        border-radius: utils.$radius-round;
+        padding: 0;
+    }
+}
+
+.go-back-layout {
+    max-width: $go-back-layout-mw-default;
+    margin: 0 auto;
+}
+
+@media (max-width: 1024px) {
+    .go-back-layout {
+        max-width: $go-back-layout-mw-small;
+    }
+}
