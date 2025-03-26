@@ -33,6 +33,9 @@ export async function ensureStore(): Promise<void> {
                     return { ...mapToContact(chat) };
                 }),
             });
+
+            if (window.location.pathname === String(ROUTES.login) || window.location.pathname === String(ROUTES.signup))
+                Router.get().go(ROUTES.chat);
         })
         .catch((err: unknown) => {
             if ((err as HttpError).code === 401) {

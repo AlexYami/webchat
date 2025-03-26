@@ -6,10 +6,10 @@ function getEndpointUrl(targetUrl: string): string {
     return `${BASE_API_URL}/auth/${targetUrl}`;
 }
 
-const signinUrl = getEndpointUrl("/signin");
-const signupUrl = getEndpointUrl("/signup");
-const userUrl = getEndpointUrl("/user");
-const logoutUrl = getEndpointUrl("/logout");
+const signinUrl = getEndpointUrl("signin");
+const signupUrl = getEndpointUrl("signup");
+const userUrl = getEndpointUrl("user");
+const logoutUrl = getEndpointUrl("logout");
 
 export interface AuthMeResult {
     avatar?: string;
