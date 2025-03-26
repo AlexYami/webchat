@@ -1,55 +1,54 @@
 import "../scss/styles.scss";
 
-import Handlebars from "handlebars";
-import type { WebComponent } from "./components/baseComponent/web";
 import * as Pages from "./pages";
-import { renderDOM } from "./utils/dom";
+import { Router } from "./router/router";
+import * as AuthService from "./services/auth";
+import { Store } from "./store";
 
-const pages: Record<string, unknown> = {
-    login: Pages.LoginPage,
-    signin: Pages.SigninPage,
-    chooseChat: Pages.ChooseChatPage,
-    chat: Pages.ChatPage,
-    search: Pages.SearchPage,
-    addUser: Pages.AddUserPage,
-    addUserModal: Pages.AddUserModalPage,
-    profile: Pages.ProfilePage,
-    changeProfile: Pages.ChangeProfilePage,
-    changePassword: Pages.ChangePasswordPage,
-    page404: Pages.Page404,
-    page500: Pages.Page500,
-    nav: Pages.NavigatePage,
-};
-
-function navigate(page: string): void {
-    const pageInfo = pages[page];
-
-    const ctor = pageInfo as ObjectConstructor;
-
-    if (typeof pageInfo === "function") {
-        renderDOM(new ctor({}) as WebComponent<object>);
-    } else {
-        const container = document.getElementById("app")!;
-        const temlpatingFunction = Handlebars.compile(pageInfo);
-
-        container.innerHTML = temlpatingFunction({});
+declare global {
+    interface Window {
+        store: Store;
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    navigate("nav");
+const pages: Record<string, unknown> = {
+    login: Pages.LoginPage,
+    signup: Pages.SignupPage,
+    chat: Pages.Chat,
+    settings: Pages.Settings,
+    settingsEdit: Pages.SettingsEdit,
+    settingsPassword: Pages.SettingsPassword,
+    page404: Pages.Page404,
+    page500: Pages.Page500,
+};
+
+Store.create({
+    user: null,
+    contacts: [],
+    messages: [],
+    activeChat: null,
 });
 
-document.addEventListener("click", (e: MouseEvent) => {
-    const { target } = e;
+const APP_ROOT = "#app";
 
-    if (target instanceof HTMLElement) {
-        const page = target.getAttribute("page");
-        if (page) {
-            navigate(page);
+const router = Router.create(APP_ROOT);
 
-            e.preventDefault();
-            e.stopImmediatePropagation();
-        }
-    }
-});
+router
+    .use("/", pages.chat as ObjectConstructor)
+    .use("/login", pages.login as ObjectConstructor)
+    .use("/signup", pages.signup as ObjectConstructor)
+    .use("/chat", pages.chat as ObjectConstructor)
+    .use("/settings", pages.settings as ObjectConstructor)
+    .use("/settings/edit", pages.settingsEdit as ObjectConstructor)
+    .use("/settings/password", pages.settingsPassword as ObjectConstructor)
+    .use("/page404", pages.page404 as ObjectConstructor)
+    .use("/page500", pages.page500 as ObjectConstructor)
+    .use("*", pages.page404 as ObjectConstructor);
+
+async function main(): Promise<void> {
+    await AuthService.ensureStore();
+
+    router.start();
+}
+
+void main();
