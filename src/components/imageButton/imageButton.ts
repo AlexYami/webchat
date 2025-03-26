@@ -14,9 +14,11 @@ export class ImageButton extends WebComponent<ImageButtonProps> {
         return `
         <template class="image-button">
             ${this.props.content}
-            <div class="image-button__text">
-                {{text}}
-            </div>
+            {{#if text}}
+                <div class="image-button__text">
+                    {{text}}
+                </div>
+            {{/if}}
         </template>
         `;
     }

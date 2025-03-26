@@ -7,6 +7,13 @@ $blue-lightest: color.adjust($blue, $lightness: 35%);
 $blue-lighter: color.adjust($blue, $lightness: 20%);
 $blue-light: color.adjust($blue, $lightness: 10%);
 
+$green: green;
+$green-dark: color.adjust($green, $lightness: -10%);
+$green-darker: color.adjust($green, $lightness: -20%);
+$green-lightest: color.adjust($green, $lightness: 35%);
+$green-lighter: color.adjust($green, $lightness: 20%);
+$green-light: color.adjust($green, $lightness: 10%);
+
 $red: #ff2f2f;
 $red-dark: color.adjust($red, $lightness: -10%);
 $red-darker: color.adjust($red, $lightness: -20%);

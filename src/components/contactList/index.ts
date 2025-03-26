@@ -1,1 +1,3 @@
-export { ContactList } from "./contactList";
+import ContactList from "./contactList";
+
+export { ContactList };

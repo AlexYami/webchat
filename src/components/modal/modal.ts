@@ -1,46 +1,10 @@
-import { BaseAuthForm } from "../../pages/login/login";
-import { LOGIN_REGEX } from "../../utils/validations";
 import type { BaseProps } from "../baseComponent/web";
 import { WebComponent } from "../baseComponent/web";
-import { Button } from "../button";
-import { Input } from "../input";
+import { AddUserForm, type AddUserFormProps } from "./addUserForm";
+import { DeleteUserForm, type DeleteUserFormProps } from "./deleteUserForm";
 
-const InputLogin = new Input({
-    label: "Логин",
-    name: "login",
-    placeholder: "Введите логин",
-    errorMessage: "Неверный логин",
-    validationRegex: LOGIN_REGEX,
-    value: "",
-});
-
-const ButtonAddUser = new Button({
-    text: "Добавить",
-    role: "primary",
-});
-
-export class AddUserForm extends BaseAuthForm {
-    public constructor() {
-        super({
-            title: "Добавить пользователя",
-            children: {
-                InputLogin,
-                ButtonAddUser,
-            },
-        });
-    }
-
-    protected override renderContent(): string {
-        return `
-        <div class="form__inputs">
-            <div class="form__input-container">
-                {{{ InputLogin }}}
-            </div>
-        </div>
-        <div class="form__buttons">
-            {{{ ButtonAddUser }}}
-        </div>`;
-    }
+export interface SearchUserFormData {
+    login: string;
 }
 
 interface ModalProps extends BaseProps {}
@@ -57,7 +21,9 @@ export abstract class BaseModal extends WebComponent<ModalProps> {
     protected override render(): string {
         return `<template class="modal">
                     <div class="modal__bg"></div>
-                    ${this.renderContent()}
+                    <div class="modal__content">
+                        ${this.renderContent()}
+                    </div>
                 </template>`;
     }
 
@@ -65,15 +31,29 @@ export abstract class BaseModal extends WebComponent<ModalProps> {
 }
 
 export class AddUserModalForm extends BaseModal {
-    public constructor() {
+    public constructor(props: AddUserFormProps) {
         super({
             children: {
-                AddUserForm: new AddUserForm(),
+                AddUserForm: new AddUserForm(props),
             },
         });
     }
 
     protected override renderContent(): string {
         return `{{{ AddUserForm }}}`;
+    }
+}
+
+export class DeleteUserModalForm extends BaseModal {
+    public constructor(props: DeleteUserFormProps) {
+        super({
+            children: {
+                DeleteUserForm: new DeleteUserForm(props),
+            },
+        });
+    }
+
+    protected override renderContent(): string {
+        return `{{{ DeleteUserForm }}}`;
     }
 }

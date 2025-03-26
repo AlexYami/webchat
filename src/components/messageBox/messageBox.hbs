@@ -1,7 +1,31 @@
-<template class="message-box">
-    {{{ ChatTitle }}}
+<template class="message-box {{#unless chatId }}message-box--empty{{/unless}}">
+
+
+    {{#if chatId }}
+
+
+    <div class="message-box__title">
+        <div class="message-box__title-avatar">
+            <label for="upload-avatar">
+                <img src="https://ya-praktikum.tech/api/v2/resources/{{image}}" alt="Аватар" />
+            </label>
+            {{{ AvatarUpload }}}
+        </div>
+        <h1 class="message-box__title-name">
+            {{name}}
+        </h1>
+        <div class="message-box__menu {{# if showAddUserPopup}}message-box__menu--active{{/if}}">
+            {{{ShowAddUserPopupButton}}}
+            {{# if showAddUserPopup}}
+            {{{ Popup }}}
+            {{/if}}
+        </div>
+    </div>
+
+
+
     <div class="message-box__messages">
-        <div class="message-box__date-separator">19 июля</div>
+        {{!-- <div class="message-box__date-separator">19 июля</div> --}}
         {{#each Messages}}
         {{{ this }}}
         {{/each}}
@@ -11,4 +35,21 @@
         <button class="button button--primary">→</button>
     </form> --}}
     {{{ FormSend }}}
+
+    {{# if showAddUserModalForm}}
+    {{{ addUserModalForm }}}
+    {{/if}}
+
+    {{# if showDeleteUserModalForm}}
+    {{{ deleteUserModalForm }}}
+    {{/if}}
+
+    {{else}}
+    <div class="message-box message-box--empty">
+        <span>Выберите чат чтобы отправить сообщение</span>
+    </div>
+    {{/if}}
+
+
+
 </template>

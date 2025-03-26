@@ -1,3 +1,5 @@
 import "./contact.scss";
 
-export { Contact } from "./contact";
+import Contact from "./contact";
+
+export { Contact };

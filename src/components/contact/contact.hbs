@@ -1,6 +1,6 @@
-<template class="contact">
+<template class="contact {{#if isActive}}contact--active{{/if}}">
     <div class="contact__avatar">
-        <img src="https://placehold.co/47x47/orange/white" alt="Аватар" />
+        <img src="https://ya-praktikum.tech/api/v2/resources/{{image}}" alt="Аватар" />
     </div>
     <div class="contact__info">
         <span class="contact__title">{{name}}</span>
