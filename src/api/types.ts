@@ -25,11 +25,6 @@ export interface CreateChat {
     title: string;
 }
 
-// export interface LoginRequestData {
-//     login: string;
-//     password: string;
-// }
-
 interface LastMessage {
     user: UserDTO;
     time: string;
