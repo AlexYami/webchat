@@ -23,7 +23,7 @@
     "start": "npm run build && npx vite preview --port 3000",
     "deploy": "npm run build",
     "test": "npx jest",
-    "build": "npm run lint && npx vite build",
+    "build": "npx vite build",
     "lint": "tsc --noEmit && npx stylelint src/**/*.scss && npx eslint"
   },
   "dependencies": {

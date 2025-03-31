@@ -1,5 +1,4 @@
-import type { BaseProps } from "../baseComponent/web";
-import { BaseForm } from "../form/form";
+import { BaseForm, type BaseFormProps } from "../form/form";
 import { InputSearch } from "../input";
 
 const inputSearch = new InputSearch({
@@ -10,8 +9,9 @@ const inputSearch = new InputSearch({
     type: "search",
 });
 
-interface SearchBoxProps extends BaseProps {
+interface SearchBoxProps extends BaseFormProps {
     searchText: string;
+    onSearch: (search: string | undefined) => void;
 }
 
 export class SearchBox extends BaseForm<SearchBoxProps> {
@@ -21,6 +21,11 @@ export class SearchBox extends BaseForm<SearchBoxProps> {
             children: {
                 ...props.children,
                 inputSearch,
+            },
+            onFormSubmit: (): void => {
+                const { search } = this.getValues();
+
+                this.props.onSearch(search);
             },
         });
     }

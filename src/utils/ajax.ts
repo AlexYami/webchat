@@ -3,6 +3,8 @@ import { HttpError } from "./errors";
 const HTTP_ERROR_THRESHOLD = 400;
 const HTTP_READY_STATE = 4;
 
+export const HTTP_UNAUTHORIZED_ERROR = 401;
+
 export enum RequestMethod {
     POST = "POST",
     GET = "GET",
@@ -11,7 +13,7 @@ export enum RequestMethod {
 }
 
 type HttpHeaders = Record<string, string> | null;
-type HttpData = Record<string, string | number> | null;
+type HttpData = Record<string, string | number | unknown[]> | FormData | null;
 
 export interface HttpRequestOptions {
     method: RequestMethod;
@@ -29,6 +31,8 @@ export class HttpRequest {
 
             const request = new XMLHttpRequest();
 
+            request.withCredentials = true;
+
             request.open(method, url, true);
 
             if (headers) {
@@ -40,11 +44,21 @@ export class HttpRequest {
             request.onreadystatechange = (): void => {
                 if (request.readyState === HTTP_READY_STATE) {
                     if (request.status < HTTP_ERROR_THRESHOLD) resolve(request.responseText);
-                    else reject(new HttpError(request.status, request.statusText));
+                    else reject(new HttpError(request.status, request.statusText, request.responseText));
                 }
             };
 
-            request.send(data ? JSON.stringify(data) : null);
+            let body: FormData | string | null = null;
+
+            const isFormData = data instanceof FormData;
+
+            if (isFormData) {
+                body = data;
+            } else if (data) {
+                body = JSON.stringify(data);
+            }
+
+            request.send(body);
         });
     }
 
@@ -86,10 +100,11 @@ export class HttpRequest {
         });
     }
 
-    public static async delete(url: string, headers: HttpHeaders): Promise<string> {
+    public static async delete(url: string, data: HttpData, headers: HttpHeaders = DEFAULT_HEADERS): Promise<string> {
         return HttpRequest.request({
             method: RequestMethod.DELETE,
             url,
+            data,
             headers,
         });
     }
@@ -97,12 +112,14 @@ export class HttpRequest {
     public static prepareQueryParams(data: HttpData): string {
         if (!data) return "";
 
+        const getData = data as Record<string, unknown>;
+
         const params = new URLSearchParams();
 
-        for (const key of Object.keys(data)) {
-            const value = data[key];
+        for (const key of Object.keys(getData)) {
+            const value = String(getData[key]);
 
-            params.append(key, String(value));
+            params.append(key, encodeURIComponent(String(value)));
         }
 
         return `?${params.toString()}`;

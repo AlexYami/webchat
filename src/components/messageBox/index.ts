@@ -1,3 +1,5 @@
 import "./messageBox.scss";
 
-export { MessageBox } from "./messageBox";
+import MessageBox from "./messageBox";
+
+export { MessageBox };

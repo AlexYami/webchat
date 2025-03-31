@@ -31,7 +31,7 @@ $contact-notifies-animation: pulse 1.5s infinite;
     border-bottom: 1px solid utils.$gray-lighter;
 
     &__avatar {
-        > img {
+        >img {
             border-radius: utils.$radius-round;
             width: $contact-avatar-size;
             height: $contact-avatar-size;
@@ -42,6 +42,7 @@ $contact-notifies-animation: pulse 1.5s infinite;
         position: relative;
         font-size: utils.$font-medium;
         padding: $contact-info-p;
+        width: 100%;
     }
 
     &__title {
@@ -69,6 +70,7 @@ $contact-notifies-animation: pulse 1.5s infinite;
         }
     }
 
+    &--active,
     &:hover {
         background-color: utils.$blue-lightest;
 
@@ -82,7 +84,7 @@ $contact-notifies-animation: pulse 1.5s infinite;
         display: flex;
         flex-direction: column;
 
-        & > span {
+        &>span {
             text-align: center;
             flex-grow: 1;
         }

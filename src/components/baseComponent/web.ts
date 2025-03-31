@@ -29,12 +29,16 @@ export abstract class WebComponent<TProps extends BaseProps> extends BaseCompone
         const attributes = [...compiledTemplate.attributes];
 
         for (const attr of attributes) {
-            this.root.setAttribute(attr.name, attr.value);
+            this.setRootElementAttribute(attr.name, attr.value);
         }
 
         this.root.replaceChildren(...compiledTemplate.content.childNodes);
 
         this.addListeners();
+    }
+
+    protected setRootElementAttribute(name: string, value: string): void {
+        this.root.setAttribute(name, value);
     }
 
     protected replaceChildren(el: HTMLTemplateElement): void {

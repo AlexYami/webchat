@@ -10,3 +10,19 @@ export function renderDOM(webComponent: WebComponent<object>): void {
     root!.innerHTML = "";
     root!.appendChild(webComponent.getContent());
 }
+
+export function isClickInsidePopup(el: HTMLElement | null): boolean {
+    while (el) {
+        if (
+            el.className === "popup" ||
+            el.className === "modal__content" ||
+            el.classList.contains("message-box__menu")
+        ) {
+            return true;
+        }
+
+        el = el.parentElement;
+    }
+
+    return false;
+}
