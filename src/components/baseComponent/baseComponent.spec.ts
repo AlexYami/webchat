@@ -2,7 +2,6 @@ import sinon from "sinon";
 import BaseComponent from "./base";
 import { expect } from "chai";
 
-
 interface TestProps {
     login: string;
     email: string;
@@ -30,19 +29,18 @@ const props: TestProps = {
 };
 
 describe("Base component", () => {
-    beforeEach(() => { });
+    beforeEach(() => {});
 
     it("should call to lifecycle methods", () => {
-
         const handleInitSpy = sinon.spy(TestBaseComponentPrototype, "handleInit");
         const handleComponentDidMountSpy = sinon.spy(TestBaseComponentPrototype, "handleComponentDidMount");
         const handleRenderSpy = sinon.spy(TestBaseComponentPrototype, "handleRender");
 
         new TestBaseComponent("test", props);
 
-        expect(handleInitSpy.calledOnce).is.true;
-        expect(handleComponentDidMountSpy.calledOnce).is.true;
-        expect(handleRenderSpy.calledOnce).is.true;
+        expect(handleInitSpy.calledOnce).eql(true);
+        expect(handleComponentDidMountSpy.calledOnce).eql(true);
+        expect(handleRenderSpy.calledOnce).eql(true);
 
         handleInitSpy.restore();
         handleComponentDidMountSpy.restore();
@@ -61,9 +59,9 @@ describe("Base component", () => {
             email: "ivan@email.com",
         });
 
-        expect(handleComponentDidUpdateSpy.calledTwice).is.true;
-        expect(handleComponentDidMountSpy.calledOnce).is.true;
-        expect(handleRenderSpy.calledOnce).is.true;
+        expect(handleComponentDidUpdateSpy.calledTwice).eql(true);
+        expect(handleComponentDidMountSpy.calledOnce).eql(true);
+        expect(handleRenderSpy.calledOnce).eql(true);
 
         handleComponentDidUpdateSpy.restore();
         handleComponentDidMountSpy.restore();

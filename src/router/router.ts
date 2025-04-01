@@ -60,9 +60,7 @@ export class Router {
     private getRoute(path: string): Route | undefined {
         let route = this.routes.find((r) => r.match(path));
 
-        if (!route) {
-            route = this.routes.find((r) => r.match("*"));
-        }
+        route ??= this.routes.find((r) => r.match("*"));
 
         return route;
     }
