@@ -19,6 +19,8 @@ export abstract class WebComponent<TProps extends BaseProps> extends BaseCompone
     protected override handleRender(): void {
         this.removeListeners();
 
+        debugger;
+
         const compiledTemplate = this.compile();
 
         this.replaceChildren(compiledTemplate);
