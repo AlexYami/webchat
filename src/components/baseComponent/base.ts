@@ -1,5 +1,6 @@
 import { BaseComponentRootIsEmptyError } from "../../utils/errors";
 import { EventBus } from "../../utils/eventBus";
+import { CRYPTO } from "../../utils/crypto";
 
 const EVENTS = {
     INIT: "init",
@@ -10,7 +11,7 @@ const EVENTS = {
 
 export abstract class BaseComponent<TRootElement, TProps extends object> {
     public readonly tagName: string;
-    public readonly id = crypto.randomUUID();
+    public readonly id = CRYPTO.randomUUID();
 
     protected readonly props: TProps;
 
