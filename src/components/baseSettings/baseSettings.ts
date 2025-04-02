@@ -76,9 +76,7 @@ export abstract class BaseSettings extends BaseForm<BaseSettingsProps> {
     }
 
     protected renderAvatar(): string {
-        if (!this.props.image) {
-            this.props.image = DEFAULT_AVATAR_URL;
-        }
+        this.props.image ??= DEFAULT_AVATAR_URL;
 
         return `
             <div class="profile__avatar">

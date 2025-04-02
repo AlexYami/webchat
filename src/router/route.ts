@@ -37,9 +37,7 @@ class Route {
     }
 
     public render(): void {
-        if (!this.page) {
-            this.page = new this.ctor({}) as WebComponent<BaseProps>;
-        }
+        this.page ??= new this.ctor({}) as WebComponent<BaseProps>;
 
         this.renderDom(this.selector, this.page);
     }
