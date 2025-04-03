@@ -1,4 +1,5 @@
-import { HttpRequest, RequestMethod, type HttpRequestOptions } from "../src/utils/ajax";
+import { expect } from "chai";
+import { HttpRequest, RequestMethod, type HttpRequestOptions } from "./ajax";
 
 describe("HttpRequest", () => {
     it("should prepare request options", () => {
@@ -13,7 +14,7 @@ describe("HttpRequest", () => {
 
         options = HttpRequest.prepareRequestOptions(options);
 
-        expect(options).toEqual({
+        expect(options).eql({
             data: null,
             headers: undefined,
             method: RequestMethod.GET,

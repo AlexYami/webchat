@@ -1,4 +1,5 @@
-import { EventBus } from "../src/utils/eventBus";
+import { expect } from "chai";
+import { EventBus } from "./eventBus";
 
 describe("Event Bus", () => {
     let eventBus: EventBus = new EventBus();
@@ -19,9 +20,9 @@ describe("Event Bus", () => {
 
         eventBus.emit("click", 1, 2);
 
-        expect(a).toBe(1);
-        expect(b).toBe(2);
-        expect(c).toBe(2);
+        expect(a).eql(1);
+        expect(b).eql(2);
+        expect(c).eql(2);
     });
 
     it("should clear listeners", () => {
@@ -34,16 +35,16 @@ describe("Event Bus", () => {
         eventBus.off("click");
         eventBus.emit("click");
 
-        expect(handled).toBe(false);
+        expect(handled).eql(false);
     });
 
     it("should throw an error if event does not exist", () => {
         expect(() => {
             eventBus.emit("click", 1, 2);
-        }).toThrow("EventBus. No handler for the 'click' event");
+        }).to.throw("EventBus. No handler for the 'click' event");
 
         expect(() => {
             eventBus.off("click");
-        }).toThrow("EventBus. No handler for the 'click' event");
+        }).to.throw("EventBus. No handler for the 'click' event");
     });
 });

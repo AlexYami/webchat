@@ -1,24 +1,13 @@
 # Адрес сайта
 https://phenomenal-lokum-bddded.netlify.app/
 
-# Страницы
-
-- Login
-- Sign in
-- Choose Chat
-- Chat
-- Search
-- Add user
-- Add user modal
-- Profile
-- Change Profile
-- Change Password
-- 404
-- 500
-
 # Запуск
 
 npm run dev
+
+# Запуск тестов
+
+npm run test
 
 # Прототип
 

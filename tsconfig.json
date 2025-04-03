@@ -20,6 +20,10 @@
         "noEmit": true,
         "lib": ["es2022", "dom", "dom.iterable"]
     },
+    "ts-node": {
+        "experimentalSpecifierResolution": "node",
+        "transpileOnly": false
+    },
     "include": ["**/*.ts", "declarations.d.ts"],
     "exclude": ["node_modules"]
 }
